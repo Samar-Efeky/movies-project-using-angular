@@ -1,0 +1,16 @@
+.navigation-bar{
+     transform: translateY(-50px);
+     opacity: 0;
+     animation-delay: 0.4s;
+}
+.search-box {
+    border-radius: 20px;
+    background-color:var(--input-color);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+}
+input:focus {
+  border: none;
+  outline: none;
+}

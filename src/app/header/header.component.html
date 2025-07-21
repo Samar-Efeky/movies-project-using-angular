@@ -1,0 +1,23 @@
+
+<div class="px-3">
+  <div class="position-relative header-content w-100">
+    
+    <!-- banner should NOT be absolute -->
+    <div class="banner mb-4 w-100 overflow-hidden">
+    
+      <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
+      
+      <div class="banner-content position-relative">
+        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="header-title">Discover The Latest From Tube</h2>
+        <p [appAnimateOnVisible]="'animate-slide-up'" class="py-2 fw-medium">ScreenPal's intuitive tools help you capture, create, and share videos and images for effective communication.</p>
+        <div class="d-flex gap-3 py-2">
+          <button [appAnimateOnVisible]="'animate-zoom-in'" class="btn btn-light rounded-4 p-2">Watch Now</button>
+          <button [appAnimateOnVisible]="'animate-zoom-in'" class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white"><i class="fa-solid fa-play"></i>
+             Play Trailer</button>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+</div>

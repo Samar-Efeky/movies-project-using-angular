@@ -1,0 +1,43 @@
+.sidebar{
+  transform: translateX(-150px);
+    opacity: 0;
+    animation-delay: 0.4s;
+    background-color: var(--bg-section);
+}
+.sidebar-link{
+    background:var(--black-color);
+    font-weight: 400;
+    border-radius: 7px;
+    border: 0.1px solid var(--border-color);
+    transition:2s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    margin-top: 6%;
+}
+.sidebar-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--mix-color); 
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.sidebar-link:hover::before ,
+.sidebar-link.active::before{
+  opacity: 1;
+}
+.navbar-select{
+  border: 0.1px solid var(--border-color);
+  background-color: var(--black-color);
+}
+.navbar-select li{
+  padding: 2%;
+  transition: 0.5s ease;
+  cursor: pointer;
+}
+.navbar-select li:hover{
+  color: var(--main-color);
+}

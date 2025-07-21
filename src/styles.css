@@ -1,1 +1,126 @@
 /* You can add global styles to this file, and also import other style files */
+:root{
+    --main-color:#CB50FC;
+    --blue-color:#2B49FE;
+    --black-color:black;
+    --white-volor:white;
+    --bg-section:#1B1B1B;
+    --mix-color:linear-gradient(to right, var(--blue-color), var(--main-color));
+    --border-color:rgb(55, 55, 55);
+    --input-color: #2c2c2c;
+}
+/* ============================= animations start =======================================*/
+/* نزول من فوق */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-slide-down {
+  animation: slideDown 0.8s ease-out forwards;
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(50px); /* من تحت */
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); /* في مكانه */
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+/* دخول من اليسار */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.animate-slide-left {
+  animation: slideLeft 0.8s ease-out forwards;
+}
+
+/* تكبير تدريجي */
+@keyframes zoomIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-zoom-in {
+  animation: zoomIn 0.8s ease-out forwards;
+}
+
+/* تدرج ظهور */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+/* ============================= animations end =======================================*/
+body{
+    background:var(--black-color);
+    color: var(--white-volor);
+}
+i{
+    cursor: pointer;
+}
+button{
+    background:var(--black-color);
+    font-weight: 400;
+    border-radius: 7px;
+    border: 0.1px solid var(--border-color);
+    transition:2s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--mix-color); 
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+button:hover::before {
+  opacity: 1;
+}
+.logo{
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+.logo i{
+    background:var(--mix-color);
+   background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.button-mix-color::before{
+    opacity: 1;
+}
