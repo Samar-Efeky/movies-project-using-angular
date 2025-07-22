@@ -1,15 +1,20 @@
-.header-content{
-    background-image: url(../../assets/images/header-img.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 12px;
+/* Header section with background image */
+.header-content {
+  background-image: url(../../assets/images/header-img.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 12px; /* Rounded corners for a softer look */
 }
-.header-content button{
-    transform: scale(0.4);
-    opacity: 0;
-    animation-delay: 1s;
+
+/* Buttons inside the header: initially scaled down and hidden */
+.header-content button {
+  transform: scale(0.4);  /* Make the button smaller at first */
+  opacity: 0;             /* Hide the button before animation */
+  animation-delay: 1s;    /* Delay the animation to appear later */
 }
-.header-title{
-    font-weight: 700;
-    font-size: 2.7rem;
+
+/* Main header title style */
+.header-title {
+  font-weight: 700;       /* Bold font */
+  font-size: 2.7rem;      /* Large font size for emphasis */
 }

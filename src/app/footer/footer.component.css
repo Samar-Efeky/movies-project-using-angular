@@ -1,77 +1,52 @@
-/* footer {
-  background: linear-gradient(135deg, #7b2ff7, #f107a3);
+/* Footer section with background image */
+.footer {
+  background-image: url(../../assets/images/footer-bg-img.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px;
+  margin-top: 100px;
 }
 
-.wave-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  transform: translateY(-100%); 
-  z-index: 1;
-}
-
-.footer-content {
-  position: relative;
-  z-index: 2;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.social-icons a {
-  font-size: 1.2rem;
-  border: 1px solid white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s ease;
-}
-
-.social-icons a:hover {
-  background-color: white;
-  color: #000;
-} */
-.footer{
-     background-image: url(../../assets/images/footer-bg-img.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 300px;
-    margin-top: 100px;
-} 
-.banner-bg{
+/* Semi-transparent overlay for banner background */
+.banner-bg {
   opacity: 0.6;
 }
+
+/* Angled shape effect using clip-path */
 .angled-div {
   -webkit-clip-path: polygon(0 0, 35% 0, 50% 60px, 65% 0, 100% 0, 100% 100%, 0 100%);
           clip-path: polygon(0 0, 35% 0, 50% 60px, 65% 0, 100% 0, 100% 100%, 0 100%);
 }
-.logo{
+
+/* Logo text size */
+.logo {
   font-size: 2.5rem;
 }
-.logo i{
-  background: var(--white-volor);
-    background-clip: text;
+
+/* Gradient or solid color fill inside the icon text */
+.logo i {
+  background: var(--white-volor);       /* Check spelling: should be --white-color */
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.footer-links{
-  border-bottom: 0.1px solid rgba(255, 255, 255,0.3);
+
+/* Footer links container with bottom border */
+.footer-links {
+  border-bottom: 0.1px solid rgba(255, 255, 255, 0.3);
 }
-.footer-links li{
+
+/* Individual footer links styling */
+.footer-links li {
   cursor: pointer;
   transition: 0.3s ease;
+}
 
+/* Hover effect for footer links */
+.footer-links li:hover {
+  color: var(--black-color);
 }
-.footer-links li:hover{
-  color:var(--black-color)
-}
+
+/* Social media icons style */
 .social-icons a {
   font-size: 1.2rem;
   border: 1px solid white;
@@ -84,11 +59,12 @@
   transition: 0.3s ease;
   text-decoration: none;
 }
-.footer-copyright{
+
+/* Copyright footer bar at the bottom */
+.footer-copyright {
   height: 50px;
-  /* transform: translateY(-70%); */
   background-color: var(--black-color);
   position: absolute;
   left: 0;
-  bottom:0;
+  bottom: 0;
 }

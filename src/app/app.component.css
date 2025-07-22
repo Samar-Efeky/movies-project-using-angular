@@ -1,29 +1,28 @@
-
-/* الحاوية العامة */
+/* General container for the whole layout */
 .app-layout {
   position: relative;
 }
 
-/* ===== SIDEBAR ثابت على الشمال ===== */
+/* ===== Fixed sidebar on the left ===== */
 .side-content {
   position: fixed;
   top: 0;
   left: 0;
-  width:20%;
-  height: 100vh;
-  z-index: 1000;
+  width: 20%;         /* Takes 20% of the screen width */
+  height: 100vh;      /* Full viewport height */
+  z-index: 1000;      /* Ensures it's above other elements */
 }
 
-/* ===== NAVBAR ثابت فوق المحتوى ===== */
+/* ===== Fixed navbar at the top of the main content ===== */
 .content-page app-navbar {
   position: fixed;
   top: 0;
   right: 0;
-  width: 80%;
-  z-index: 999;
+  width: 80%;         /* Remaining width of the screen */
+  z-index: 999;       /* Slightly below sidebar to avoid overlapping */
 }
 
-/* ===== محتوى الصفحة الرئيسي ===== */
+/* ===== Main page content area ===== */
 .page-body {
-  margin-left: 20%;
+  margin-left: 20%;   /* Push content to the right to avoid sidebar */
 }

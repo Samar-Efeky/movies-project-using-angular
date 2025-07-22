@@ -1,30 +1,19 @@
-
-<!-- <div class="row g-0">
-    <div class="col-xl-2 ">
-        <div class="position-relative w-100">
-            <app-side-bar></app-side-bar>
-        </div>
-    </div>
-    <div class="col-xl-10">
-        <div class="w-100 position-relative">
-            <app-navbar></app-navbar>
-        </div>
-        <div>
-            <router-outlet></router-outlet>
-            <app-footer></app-footer>
-        </div>
-    </div>
-</div> -->
 <div class="app-layout">
+  <!-- General container for the layout -->
   <div class="side-content">
+    <!-- Fixed sidebar component on the left -->
     <app-side-bar></app-side-bar>
   </div>
 
   <div class="content-page">
+    <!-- Fixed navbar component at the top of the main content area -->
     <app-navbar #navigation></app-navbar>
 
     <div class="page-body pt-5 mt-5">
+      <!-- Dynamic content loaded by Angular Router -->
       <router-outlet></router-outlet>
+      
+      <!-- Footer component below the page content -->
       <app-footer></app-footer>
     </div>
   </div>

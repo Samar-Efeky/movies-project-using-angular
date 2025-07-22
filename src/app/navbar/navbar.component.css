@@ -1,19 +1,26 @@
+/* Main navigation bar styling */
 .navigation-bar {
-  transition: background-color 0.3s ease;
-  background-color: black;
+  transition: background-color 0.3s ease; /* Smooth background transition on scroll */
+  background-color: black; /* Default background color */
 }
+
+/* Styling for the search input box */
 .search-box {
-    border-radius: 20px;
-    background-color:var(--input-color);
-    border: none;
-    padding: 10px 20px;
-    color: white;
+  border-radius: 20px; /* Rounded corners */
+  background-color: var(--input-color); /* Custom variable for input background */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Inner spacing */
+  color: white; /* Text color */
 }
+
+/* Remove default border and outline on focus */
 input:focus {
   border: none;
   outline: none;
 }
+
+/* Style applied when the navbar is scrolled */
 .scrolled {
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px); 
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Blur effect behind the navbar */
 }

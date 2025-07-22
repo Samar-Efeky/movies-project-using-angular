@@ -1,16 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-:root{
-    --main-color:#CB50FC;
-    --blue-color:#2B49FE;
-    --black-color:black;
-    --white-volor:white;
-    --bg-section:#1B1B1B;
-    --mix-color:linear-gradient(to right, var(--blue-color), var(--main-color));
-    --border-color:rgb(55, 55, 55);
-    --input-color: #2c2c2c;
+/* =================== Global Variables =================== */
+:root {
+  --main-color: #CB50FC;
+  --blue-color: #2B49FE;
+  --black-color: black;
+  --white-volor: white;
+  --bg-section: #1B1B1B;
+  --mix-color: linear-gradient(to right, var(--blue-color), var(--main-color));
+  --border-color: rgb(55, 55, 55);
+  --input-color: #2c2c2c;
 }
-/* ============================= animations start =======================================*/
-/* نزول من فوق */
+
+/* =================== Animations =================== */
+
+/* Slide down from top */
 @keyframes slideDown {
   0% {
     transform: translateY(-50px);
@@ -24,22 +26,23 @@
 .animate-slide-down {
   animation: slideDown 0.8s ease-out forwards;
 }
+
+/* Slide up from bottom */
 @keyframes slideUp {
   0% {
-    transform: translateY(50px); /* من تحت */
+    transform: translateY(50px);
     opacity: 0;
   }
   100% {
-    transform: translateY(0); /* في مكانه */
+    transform: translateY(0);
     opacity: 1;
   }
 }
-
 .animate-slide-up {
   animation: slideUp 0.8s ease-out forwards;
 }
 
-/* دخول من اليسار */
+/* Slide in from left */
 @keyframes slideLeft {
   0% {
     transform: translateX(-150px);
@@ -54,7 +57,7 @@
   animation: slideLeft 0.8s ease-out forwards;
 }
 
-/* تكبير تدريجي */
+/* Zoom in effect */
 @keyframes zoomIn {
   0% {
     transform: scale(0.2);
@@ -69,7 +72,7 @@
   animation: zoomIn 0.8s ease-out forwards;
 }
 
-/* تدرج ظهور */
+/* Simple fade-in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -81,50 +84,71 @@
 .animate-fade-in {
   animation: fadeIn 1s ease-in forwards;
 }
-/* ============================= animations end =======================================*/
-body{
-    background:var(--black-color);
-    color: var(--white-volor);
-    height: 1111px;
+
+/* =================== Base Styles =================== */
+
+/* Global body style */
+body {
+  background: var(--black-color);
+  color: var(--white-volor);
+  height: 1111px;
 }
-i{
-    cursor: pointer;
+
+/* Icons cursor pointer */
+i {
+  cursor: pointer;
 }
-button{
-    background:var(--black-color);
-    font-weight: 400;
-    border-radius: 7px;
-    border: 0.1px solid var(--border-color);
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
+
+/* Button style with gradient hover effect */
+button {
+  background: var(--black-color);
+  font-weight: 400;
+  border-radius: 7px;
+  border: 0.1px solid var(--border-color);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
+
+/* Button gradient layer (initially hidden) */
 button::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--mix-color); 
+  background: var(--mix-color);
   z-index: -1;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
+
+/* Show gradient on hover */
 button:hover::before {
   opacity: 1;
 }
-.logo{
-    font-size: 1.7rem;
-    font-weight: 700;
-    cursor: pointer;
+
+/* Button that always shows mix gradient */
+.button-mix-color::before {
+  opacity: 1;
 }
-.logo i{
-    background:var(--mix-color);
-   background-clip: text;
+
+/* Logo style */
+.logo {
+  font-size: 1.7rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Logo icon with gradient text effect */
+.logo i {
+  background: var(--mix-color);
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.button-mix-color::before{
-    opacity: 1;
-}
+
+/* =================== Banner Section =================== */
+
+/* Banner container */
 .banner {
   border-radius: 12px;
   padding: 2rem;
@@ -133,14 +157,15 @@ button:hover::before {
   z-index: 1;
 }
 
+/* Banner background layer */
 .banner-bg {
-background: linear-gradient(134deg,var(--blue-color) 50%, var(--main-color)  90%);
-  opacity: 0.8; 
+  background: linear-gradient(134deg, var(--blue-color) 50%, var(--main-color) 90%);
+  opacity: 0.8;
   z-index: 0;
 }
 
+/* Banner content (above background) */
 .banner-content {
   position: relative;
   z-index: 1;
 }
-

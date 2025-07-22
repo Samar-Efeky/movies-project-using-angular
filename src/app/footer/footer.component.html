@@ -1,83 +1,56 @@
-<!-- <footer class="text-white mt-5 pt-5 position-relative ">
-  <div class="wave-top">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#CB50FC" fill-opacity="1" d="M0,128L30,154.7C60,181,120,235,180,250.7C240,267,300,245,360,229.3C420,213,480,203,540,202.7C600,203,660,213,720,197.3C780,181,840,139,900,133.3C960,128,1020,160,1080,176C1140,192,1200,192,1260,165.3C1320,139,1380,85,1410,58.7L1440,32L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z">
-
-    </path></svg>
-  </div>
-
- 
-  <div class="footer-content text-center pb-5 px-3 px-md-0">
-    <div class="logo mb-3">
-      <i class="fa-solid fa-clapperboard fs-2"></i>
-      <span class="h4 fw-bold ps-2">TicsTube</span>
-    </div>
-
-    <ul class="nav justify-content-center mb-3 flex-wrap gap-3">
-      <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#">About</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#">Blogs</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#">Pricing Plan</a></li>
-      <li class="nav-item"><a class="nav-link text-white" href="#">Contact Us</a></li>
-    </ul>
-
-    <hr class="bg-white opacity-50 w-75 mx-auto" />
-
-    <div class="social-icons my-4 d-flex justify-content-center gap-4">
-      <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
-      <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-      <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-    </div>
-
-    <div class="row justify-content-between small px-3 text-center text-md-start">
-      <div class="col-md-6 mb-2">
-        <p>Copyright ©2025 by Ticstube</p>
-      </div>
-      <div class="col-md-6 d-flex justify-content-center justify-content-md-end gap-3">
-        <a href="#" class="text-white text-decoration-none">Terms of Use</a>
-        <a href="#" class="text-white text-decoration-none">Privacy Policy</a>
-        <a href="#" class="text-white text-decoration-none">License</a>
-      </div>
-    </div>
-  </div>
-</footer>
- -->
 <footer class="position-relative">
-    <div class="footer w-100 angled-div">
-         <div class="banner rounded-0 mb-4 w-100 h-100 ">
-            <div class="banner-bg  position-absolute top-0 start-0 w-100 h-100"></div>
-            <div class="banner-content position-relative text-center pt-5">
-                <div routerLink="home-page" class="logo">
-                  <i class="fa-solid fa-clapperboard "></i>
-                  <span class="px-1">Tube</span>
-                </div>
-                <ul class="footer-links pb-4 nav justify-content-center my-3 flex-wrap gap-4">
-                  <li>Home</li>
-                  <li>About</li>
-                  <li>People</li>
-                  <li>Trending</li>
-                  <li>Contact Us</li>
-                </ul>
-                <div class="social-icons my-4 d-flex justify-content-center gap-4">
-                  <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white "><i class="fab fa-facebook-f"></i></a>
-                  <a [appAnimateOnVisible]="'animate-zoom-in'"  class="text-white "><i class="fab fa-twitter"></i></a>
-                  <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white "><i class="fab fa-instagram"></i></a>
-                  <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white "><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-         </div>
-         
-    </div>
-    <div class="footer-copyright w-100  angled-div overflow-hidden">
-       <div class="d-flex justify-content-between  px-5 pt-2 text-center text-md-start">
-      <div class=" mb-2">
-        <p>Copyright &copy;2025 by  tube</p>
+  <!-- Main footer section with angled background -->
+  <div class="footer w-100 angled-div">
+    
+    <!-- Banner area with background and content -->
+    <div class="banner rounded-0 mb-4 w-100 h-100">
+      <!-- Banner background -->
+      <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
+      
+      <!-- Banner content centered vertically and horizontally -->
+      <div class="banner-content position-relative text-center pt-5">
+        
+        <!-- Logo with router link to homepage -->
+        <div routerLink="home-page" class="logo">
+          <i class="fa-solid fa-clapperboard"></i>
+          <span class="px-1">Tube</span>
+        </div>
+
+        <!-- Navigation links in the footer -->
+        <ul class="footer-links pb-4 nav justify-content-center my-3 flex-wrap gap-4">
+          <li>Home</li>
+          <li>About</li>
+          <li>People</li>
+          <li>Trending</li>
+          <li>Contact Us</li>
+        </ul>
+
+        <!-- Social media icons with zoom animation on visible -->
+        <div class="social-icons my-4 d-flex justify-content-center gap-4">
+          <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-facebook-f"></i></a>
+          <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-twitter"></i></a>
+          <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-instagram"></i></a>
+          <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-youtube"></i></a>
+        </div>
       </div>
-      <div class=" d-flex justify-content-center  gap-3">
+    </div>
+  </div>
+
+  <!-- Footer bottom section with copyright and links -->
+  <div class="footer-copyright w-100 angled-div overflow-hidden">
+    <div class="d-flex justify-content-between px-5 pt-2 text-center text-md-start">
+      
+      <!-- Copyright text -->
+      <div class="mb-2">
+        <p>Copyright &copy;2025 by tube</p>
+      </div>
+      
+      <!-- Footer policy links -->
+      <div class="d-flex justify-content-center gap-3">
         <a href="#" class="text-white text-decoration-none">Terms of Use</a>
         <a href="#" class="text-white text-decoration-none">Privacy Policy</a>
         <a href="#" class="text-white text-decoration-none">License</a>
       </div>
     </div>
-    </div>
+  </div>
 </footer>
