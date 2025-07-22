@@ -1,0 +1,29 @@
+
+/* الحاوية العامة */
+.app-layout {
+  position: relative;
+}
+
+/* ===== SIDEBAR ثابت على الشمال ===== */
+.side-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:20%;
+  height: 100vh;
+  z-index: 1000;
+}
+
+/* ===== NAVBAR ثابت فوق المحتوى ===== */
+.content-page app-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 80%;
+  z-index: 999;
+}
+
+/* ===== محتوى الصفحة الرئيسي ===== */
+.page-body {
+  margin-left: 20%;
+}

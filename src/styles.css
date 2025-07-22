@@ -57,7 +57,7 @@
 /* تكبير تدريجي */
 @keyframes zoomIn {
   0% {
-    transform: scale(0.8);
+    transform: scale(0.2);
     opacity: 0;
   }
   100% {
@@ -85,6 +85,7 @@
 body{
     background:var(--black-color);
     color: var(--white-volor);
+    height: 1111px;
 }
 i{
     cursor: pointer;
@@ -94,7 +95,6 @@ button{
     font-weight: 400;
     border-radius: 7px;
     border: 0.1px solid var(--border-color);
-    transition:2s;
     cursor: pointer;
     position: relative;
     z-index: 1;
@@ -115,6 +115,7 @@ button:hover::before {
 .logo{
     font-size: 1.7rem;
     font-weight: 700;
+    cursor: pointer;
 }
 .logo i{
     background:var(--mix-color);
@@ -124,3 +125,22 @@ button:hover::before {
 .button-mix-color::before{
     opacity: 1;
 }
+.banner {
+  border-radius: 12px;
+  padding: 2rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.banner-bg {
+background: linear-gradient(134deg,var(--blue-color) 50%, var(--main-color)  90%);
+  opacity: 0.8; 
+  z-index: 0;
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+}
+

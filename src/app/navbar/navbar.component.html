@@ -1,7 +1,8 @@
-<div [appAnimateOnVisible]="'animate-slide-down'" class="navigation-bar py-4 px-3">
-    <div class="w-100">
+<div [appAnimateOnVisible]="'animate-slide-down'"
+[ngClass]="{ 'scrolled': isScrolled }" class="navigation-bar   px-3 py-2">
+    <div class="">
         <!-- Top Bar -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center ">
           <div class="w-50 position-relative">
             <input type="text" class="search-box w-100" placeholder="Search Your Videos">
             <div class="position-absolute top-0 end-0 py-2 px-3">
