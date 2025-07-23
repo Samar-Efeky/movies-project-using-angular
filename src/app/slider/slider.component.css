@@ -1,0 +1,22 @@
+.swiper {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.swiper-slide {
+  background:var(--bg-section);
+  border-radius: 12px;
+}
+
+.swiper-slide img {
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+}
+.fa-play{
+    color: var(--main-color);
+}
+button{
+    border: 0.1px solid var(--main-color);
+    border-radius: 12px;
+}

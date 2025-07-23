@@ -1,4 +1,4 @@
-<div class="px-3">
+<div>
   <div class="position-relative header-content w-100">
     
     <!-- Banner section: not using absolute positioning for the banner itself -->
@@ -8,20 +8,31 @@
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
       
       <!-- Banner text/content positioned relatively to stay above background -->
-      <div class="banner-content position-relative">
+      <div class="banner-content ">
         
         <!-- Heading with slide-down animation when it becomes visible -->
-        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="header-title">
-          Discover The Latest From Tube
+        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="header-title px-5">
+          Discover The Latest TV SERIES From Tube
         </h2>
-
-        <!-- Subtext paragraph with slide-up animation -->
-        <p [appAnimateOnVisible]="'animate-slide-up'" class="py-2 fw-medium">
-          ScreenPal's intuitive tools help you capture, create, and share videos and images for effective communication.
+        <div [appAnimateOnVisible]="'animate-slide-up'" class=" mySwiper1">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide px-5" *ngFor="let movie of movies">
+      <div class="d-flex align-items-start py-2">
+          <img class="header-img" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster">
+        <div class="px-3">
+          <p class="pt-1 fw-bolder h5">{{movie.name}}</p>
+        <p [appAnimateOnVisible]="'animate-slide-up'" class="py-3 fw-medium w-75">
+         {{movie.overview|seeMore:30}}
         </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        <!-- Subtext paragraph with slide-up animation -->
 
         <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
-        <div class="d-flex gap-3 py-2">
+        <div class="d-flex gap-3 py-2 px-5">
           <button [appAnimateOnVisible]="'animate-zoom-in'" class="btn btn-light rounded-4 p-2">
             Watch Now
           </button>

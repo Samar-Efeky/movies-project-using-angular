@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between py-2">
+  <h3><i class="fa-solid fa-play"></i> {{ title }}</h3>
+  <button class="text-white p-2">View all</button>
+</div>
+
+<div [appAnimateOnVisible]="'animate-slide-up'" class="swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide p-3" *ngFor="let movie of movies">
+      <div class="position-relative">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
+        <button class="vote p-1 rounded-0 border-0 fw-bolder text-white
+        position-absolute top-0 end-0">{{movie.vote_average}}</button>
+      </div>
+      <p class="pt-1">{{movie.title|seeMore:2}}</p>
+    </div>
+  </div>
+</div>

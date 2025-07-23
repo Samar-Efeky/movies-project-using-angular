@@ -2,8 +2,9 @@
 .header-content {
   background-image: url(../../assets/images/header-img.jpg);
   background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 12px; /* Rounded corners for a softer look */
+  background-size: cover;
+  border-radius: 12px;
+  height: 30%; /* Rounded corners for a softer look */
 }
 
 /* Buttons inside the header: initially scaled down and hidden */
@@ -17,4 +18,10 @@
 .header-title {
   font-weight: 700;       /* Bold font */
   font-size: 2.7rem;      /* Large font size for emphasis */
+}
+.header-img{
+  width: 200px;
+  height: 200px;
+  border-radius:12px;
+   object-fit: cover;
 }
