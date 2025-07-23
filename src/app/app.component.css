@@ -26,3 +26,37 @@
 .page-body {
   margin-left: 20%;   /* Push content to the right to avoid sidebar */
 }
+@media screen and (max-width:1300px){
+  .side-content{
+    width: 25%;
+  }
+  .content-page app-navbar{
+    width: 75%;
+  }
+  .page-body {
+  margin-left: 25%;   /* Push content to the right to avoid sidebar */
+}
+}
+@media screen and (max-width:1100px){
+  .side-content{
+    width: 30%;
+  }
+  .content-page app-navbar{
+    width: 70%;
+  }
+  .page-body {
+  margin-left: 30%;   /* Push content to the right to avoid sidebar */
+}
+}
+@media screen and (max-width:1000px){
+  .side-content{
+    width: 50%;
+    left: -100%;
+  }
+  .content-page app-navbar{
+    width: 100%;
+  }
+  .page-body {
+  margin-left: 0%;   /* Push content to the right to avoid sidebar */
+}
+}

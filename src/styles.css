@@ -179,3 +179,8 @@ button:hover::before {
 .vote::before{
   opacity: 1;
 }
+@media screen and (max-width:1000px){
+  .logo{
+    font-size: 1.4rem;
+  }
+}

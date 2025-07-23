@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { MoviesService } from './../services/movies.service';
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { Subscription } from 'rxjs';
 
 declare var Swiper: any;
 
@@ -13,7 +14,7 @@ declare var Swiper: any;
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css'
 })
-export class SliderComponent implements OnInit, AfterViewInit {
+export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Input properties to receive data from parent component
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
@@ -21,12 +22,12 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   // Array to hold fetched movies
   movies: any[] = [];
-
+  private moviesSubscription!: Subscription;
   constructor(private _MoviesService: MoviesService) {}
 
   ngOnInit(): void {
     // Fetch movies from the API based on mediaType and category
-    this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
+    this.moviesSubscription = this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
       this.movies = res.results;
       // Wait for DOM elements to render before initializing Swiper
       setTimeout(() => this.initSwiper(), 0);
@@ -37,7 +38,6 @@ export class SliderComponent implements OnInit, AfterViewInit {
     // Initialize Swiper in case elements were not ready in ngOnInit
     setTimeout(() => this.initSwiper(), 0);
   }
-
   initSwiper() {
     // Configure and initialize Swiper instance
     new Swiper('.swiper', {
@@ -66,4 +66,9 @@ export class SliderComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  ngOnDestroy(): void {
+  if (this.moviesSubscription) {
+    this.moviesSubscription.unsubscribe();
+  }
+}
 }

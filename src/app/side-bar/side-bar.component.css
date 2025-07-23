@@ -41,3 +41,6 @@
 .navbar-select li:hover{
   color: var(--main-color);
 }
+@media screen and (max-width:1000px){
+  
+}

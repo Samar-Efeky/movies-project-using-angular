@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { MoviesService } from '../services/movies.service';
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
+import { Subscription } from 'rxjs';
 declare var Swiper: any;
 @Component({
   selector: 'app-header',
@@ -11,26 +12,31 @@ declare var Swiper: any;
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Input properties to get media type and category from parent component
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
 
   // Array to store fetched movies
   movies: any[] = [];
+   private moviesSubscription!: Subscription;
 
   constructor(private _MoviesService: MoviesService) {}
 
   // Called when component is initialized
   ngOnInit(): void {
     // Fetch movies from the service based on mediaType and category
-    this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
+    this.moviesSubscription =this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
       this.movies = res.results;
       // Wait for the view to update before initializing Swiper
       setTimeout(() => this.initSwiper(), 500);
     });
   }
-
+   ngOnDestroy(): void {
+    if (this.moviesSubscription) {
+      this.moviesSubscription.unsubscribe();
+    }
+  }
   // Called after the view is fully initialized
   ngAfterViewInit(): void {
     // Extra delay to make sure Swiper initializes after images are loaded
