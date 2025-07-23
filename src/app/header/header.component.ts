@@ -26,8 +26,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     // Fetch movies from the service based on mediaType and category
     this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
       this.movies = res.results;
-      console.log(this.movies);
-
       // Wait for the view to update before initializing Swiper
       setTimeout(() => this.initSwiper(), 500);
     });
@@ -45,7 +43,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       loop: true,
       slidesPerView: 1,
       autoplay: {
-        delay: 1500, // 1.5 seconds delay between slides
+        delay: 2000, // 1.5 seconds delay between slides
         disableOnInteraction: false
       },
       navigation: {

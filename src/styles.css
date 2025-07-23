@@ -92,7 +92,6 @@
 body {
   background: var(--black-color);
   color: var(--white-volor);
-  height: 1111px;
 }
 
 /* Icons cursor pointer */
@@ -132,7 +131,14 @@ button:hover::before {
 .button-mix-color::before {
   opacity: 1;
 }
-
+/* Main header title style */
+.header-title {
+  font-weight: 700;       /* Bold font */
+  font-size: 2.7rem;      /* Large font size for emphasis */
+}
+.popularity{
+  color: var(--main-color);
+}
 /* Logo style */
 .logo {
   font-size: 1.7rem;

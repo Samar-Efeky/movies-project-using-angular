@@ -11,22 +11,24 @@
       <div class="banner-content ">
         
         <!-- Heading with slide-down animation when it becomes visible -->
-        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="header-title px-5">
+        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="section-title px-5">
           Discover The Latest TV SERIES From Tube
         </h2>
         <div [appAnimateOnVisible]="'animate-slide-up'" class=" mySwiper1">
   <div class="swiper-wrapper">
-    <div class="swiper-slide px-5" *ngFor="let movie of movies">
+    @for(movie of movies; track movie.id){
+      <div class="swiper-slide px-5" *ngFor="let movie of movies">
       <div class="d-flex align-items-start py-2">
           <img class="header-img" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster">
-        <div class="px-3">
+        <div class="px-5">
           <p class="pt-1 fw-bolder h5">{{movie.name}}</p>
         <p [appAnimateOnVisible]="'animate-slide-up'" class="py-3 fw-medium w-75">
-         {{movie.overview|seeMore:30}}
+         {{movie.overview|seeMore:35}}
         </p>
         </div>
       </div>
     </div>
+    }
   </div>
 </div>
         <!-- Subtext paragraph with slide-up animation -->

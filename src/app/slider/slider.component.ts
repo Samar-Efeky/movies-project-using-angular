@@ -28,7 +28,6 @@ export class SliderComponent implements OnInit, AfterViewInit {
     // Fetch movies from the API based on mediaType and category
     this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
       this.movies = res.results;
-
       // Wait for DOM elements to render before initializing Swiper
       setTimeout(() => this.initSwiper(), 0);
     });

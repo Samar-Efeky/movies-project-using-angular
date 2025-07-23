@@ -1,17 +1,34 @@
-<div class="d-flex justify-content-between py-2">
+<div class="d-flex justify-content-between pt-5">
   <h3><i class="fa-solid fa-play"></i> {{ title }}</h3>
   <button class="text-white p-2">View all</button>
 </div>
 
 <div [appAnimateOnVisible]="'animate-slide-up'" class="swiper">
   <div class="swiper-wrapper">
-    <div class="swiper-slide p-3" *ngFor="let movie of movies">
+   @for(movie of movies; track movie.id){
+     <div class="swiper-slide p-3">
       <div class="position-relative">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
-        <button class="vote p-1 rounded-0 border-0 fw-bolder text-white
+        @if(movie.profile_path){
+          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
+        }
+        @if(movie.poster_path){
+          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Person Image" />
+        }
+        @if(movie.vote_average){
+          <button class="vote p-1 rounded-0 border-0 fw-bolder text-white
         position-absolute top-0 end-0">{{movie.vote_average}}</button>
+        }
       </div>
-      <p class="pt-1">{{movie.title|seeMore:2}}</p>
+      @if(movie.name){
+        <p>{{movie.name|seeMore:2}}</p>
+      }
+      @if(movie.title){
+        <p>{{movie.title|seeMore:2}}</p>
+      }
+      @if(movie.popularity){
+        <p>popularity : <span class="popularity">{{movie.popularity}}</span></p>
+      }
     </div>
+   }
   </div>
 </div>

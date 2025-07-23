@@ -20,6 +20,6 @@ export class NavbarComponent {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
 
     // Set isScrolled to true if scrolled more than 50px, false otherwise
-    this.isScrolled = scrollY > 50; // You can change 50 to any value you prefer
+    this.isScrolled = scrollY > 100; // You can change 50 to any value you prefer
   }
 }

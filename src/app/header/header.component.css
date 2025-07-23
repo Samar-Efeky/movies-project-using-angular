@@ -13,12 +13,6 @@
   opacity: 0;             /* Hide the button before animation */
   animation-delay: 1s;    /* Delay the animation to appear later */
 }
-
-/* Main header title style */
-.header-title {
-  font-weight: 700;       /* Bold font */
-  font-size: 2.7rem;      /* Large font size for emphasis */
-}
 .header-img{
   width: 200px;
   height: 200px;

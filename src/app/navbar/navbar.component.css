@@ -21,6 +21,6 @@ input:focus {
 
 /* Style applied when the navbar is scrolled */
 .scrolled {
-  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
   backdrop-filter: blur(5px); /* Blur effect behind the navbar */
 }

@@ -11,7 +11,8 @@
 .swiper-slide img {
   width: 100%;
   border-radius: 10px;
-  height: auto;
+  height: 250px;
+  object-fit: cover;
 }
 .fa-play{
     color: var(--main-color);

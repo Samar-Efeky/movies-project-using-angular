@@ -1,0 +1,13 @@
+.section-container{
+    background: var(--mix-color);
+}
+.container-img{
+    width: 50%;
+}
+.container-content{
+    width: 50%;
+}
+.see-latest-movies{
+    background-color: var(--blue-color);
+    color: var(--white-color);
+}
