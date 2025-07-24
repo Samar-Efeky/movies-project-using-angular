@@ -1,51 +1,60 @@
-<!-- Navbar container with slide-down animation when visible and class toggle on scroll -->
+<!-- Navbar container with animation on visibility and scroll styling -->
 <div [appAnimateOnVisible]="'animate-slide-down'"
      [ngClass]="{ 'scrolled': isScrolled }"
      class="navigation-bar px-3 py-2">
-     
+
   <div class="">
-    
-    <!-- Top navigation bar layout -->
+    <!-- Navbar layout container -->
     <div id="navigation-bar-links">
-        <div routerLink="home-page" class="logo">
-         <i class="fa-solid fa-clapperboard"></i>
+      
+      <!-- Logo with routing to home page -->
+      <div routerLink="home-page" class="logo">
+        <i class="fa-solid fa-clapperboard"></i>
         <span class="px-1">Tube</span>
-    </div>
-      <!-- Search box area (takes 50% width) -->
-      <div class="input-search position-relative">
-        <input type="text" class="search-box w-100" placeholder="Search Your Videos">
-        
-        <!-- Search icon positioned inside the input box -->
-        <div class="position-absolute top-0 end-0 py-2 px-3">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
       </div>
 
-      <!-- Navbar buttons section: notification, upload, profile -->
+      <!-- Show search input only if showSearch is true -->
+      @if(showSearch){
+        <div class="input-search">
+          <div class="position-relative search-box">
+            <input type="text" class="w-100" placeholder="Search Your Videos">
+            <!-- Icon inside the search box -->
+            <div class="position-absolute top-0 end-0 py-2 px-3">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Buttons section in the navbar -->
       <div class="navbar-button d-flex align-items-center gap-3">
-        <button  class="button-search btn btn-dark">
+        <!-- Search button triggers toggleSearch() -->
+        <button #searchBtn (click)="toggleSearch()" class="button-search btn btn-dark">
           <i class="fa-solid fa-magnifying-glass"></i> 
-          <span class="responsive-icon">Search</span>
+          <span class="responsive-icon"> Search</span>
         </button>
+
+        <!-- Notification button -->
         <button class="btn btn-dark">
           <i class="fa-solid fa-bell"></i>
         </button>
-        <!-- Notification button -->
 
-        <!-- Upload button with icon -->
+        <!-- Upload button -->
         <button class="btn btn-dark upload-button">
           <i class="fa-solid fa-circle-arrow-up"></i> Upload
         </button>
 
-        <!-- Profile button with custom mix color -->
+        <!-- Profile button -->
         <button class="btn btn-dark button-mix-color">
           <i class="fa-solid fa-user responsive-icon"></i> Profile
         </button>
-        <button class="btn btn-dark button-list-side-bar">
+
+        <!-- Sidebar toggle button -->
+        <button (click)="onButtonOpenSideBar()" class="btn btn-dark button-list-side-bar">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>
-    </div>
 
+    </div>
   </div>
 </div>

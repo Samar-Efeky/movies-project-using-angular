@@ -12,4 +12,9 @@ templateUrl: './app.component.html',
 })
 export class AppComponent{
   title = 'movies-project';
+   moveLeft = false;
+
+  onToggleSideBar() {
+    this.moveLeft = !this.moveLeft; // تغيير الحالة
+  }
 }

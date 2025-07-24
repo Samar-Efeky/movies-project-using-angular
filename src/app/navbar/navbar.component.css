@@ -5,7 +5,7 @@
 }
 
 /* Styling for the search input box */
-.search-box {
+.search-box input {
   border-radius: 20px; /* Rounded corners */
   background-color: var(--input-color); /* Custom variable for input background */
   border: none; /* Remove border */
@@ -14,6 +14,10 @@
 }
 .input-search{
   width: 50%;
+  position: relative;
+}
+.search-box{
+  width: 100%;
 }
 /* Remove default border and outline on focus */
 input:focus {
@@ -33,6 +37,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .button-list-side-bar{
   display: none;
@@ -48,7 +53,16 @@ input:focus {
 }
 @media screen and (max-width:1100px){
   .input-search{
-    display: none;
+    position: absolute;
+   top: 100%;
+   left: 0;
+    width: 100%;
+    padding: 2%;
+    background-color: rgba(0, 0, 0,0.6);
+  }
+  .search-box{
+    width: 80%;
+    margin: auto;
   }
   .button-search{
   display: block;

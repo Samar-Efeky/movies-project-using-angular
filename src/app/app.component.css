@@ -53,10 +53,19 @@
     width: 50%;
     left: -100%;
   }
+  .move-left {
+    left: 0%;
+    transition:left 0.5s ease;
+  }
   .content-page app-navbar{
     width: 100%;
   }
   .page-body {
   margin-left: 0%;   /* Push content to the right to avoid sidebar */
 }
+}
+@media screen and (max-width:850px){
+  .side-content{
+    width: 70%;
+  }
 }
