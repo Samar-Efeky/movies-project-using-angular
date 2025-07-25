@@ -55,7 +55,7 @@
   }
   .move-left {
     left: 0%;
-    transition:left 0.5s ease;
+    transition:left 0.6s ease;
   }
   .content-page app-navbar{
     width: 100%;

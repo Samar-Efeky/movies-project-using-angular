@@ -42,5 +42,8 @@
   color: var(--main-color);
 }
 @media screen and (max-width:1000px){
-  
+  .sidebar{
+    animation-delay:0s;
+    opacity: 1;
+  }
 }

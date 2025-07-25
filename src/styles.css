@@ -54,7 +54,7 @@
   }
 }
 .animate-slide-left {
-  animation: slideLeft 0.8s ease-out forwards;
+  animation: slideLeft 0.6s ease-out forwards;
 }
 
 /* Zoom in effect */
