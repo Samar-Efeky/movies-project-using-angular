@@ -28,14 +28,22 @@ export class NavbarComponent implements AfterViewInit {
 
   // Check the display status of the search button and update visibility of search input accordingly
   checkInputSearch() {
-    if (!this.searchBtn) return;
+    
     const display = window.getComputedStyle(this.searchBtn.nativeElement).display;
-    this.showSearch = display === "none";
+    if(display=="none"){
+      this.showSearch=true;
+    }
+    else{
+      this.showSearch=false;
+    }
+    
   }
 
   // Run check on initial view after component has rendered
   ngAfterViewInit(): void {
+     setTimeout(() => {
     this.checkInputSearch();
+  });
   }
 
   // Re-check on screen resize to update search input visibility

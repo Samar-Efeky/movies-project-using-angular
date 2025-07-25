@@ -1,8 +1,10 @@
 .section-container{
     background: var(--mix-color);
+    height: 300px;
 }
 .container-img{
     width: 50%;
+    height: 100%;
 }
 .container-content{
     width: 50%;
@@ -10,4 +12,33 @@
 .see-latest-movies{
     background-color: var(--blue-color);
     color: var(--white-color);
+}
+@media screen and (max-width:1550px){
+    .container-img{
+        width: 40%;
+    }
+    .container-content{
+        width: 60%;
+    }
+}
+@media screen and (max-width:1210px){
+     .container-img{
+        width: 100%;
+    }
+    .container-img img{
+        transform: scale(1.6,1.6);
+    }
+    .container-content{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color:rgba(0,0,0, 0.6);
+    }
+}
+@media screen and (max-width:400px){
+    .section-container{
+        height: 350px;
+    }
 }

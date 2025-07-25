@@ -1,74 +1,129 @@
-import { Component, Input, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef
+} from '@angular/core';
 import { MoviesService } from './../services/movies.service';
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Subscription } from 'rxjs';
 
+// Declare Swiper from CDN
 declare var Swiper: any;
 
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule,SeeMorePipe,AnimateOnVisibleDirective],
+  imports: [CommonModule, SeeMorePipe, AnimateOnVisibleDirective],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css'
 })
 export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
-  // Input properties to receive data from parent component
+  // Receive inputs from parent component
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
   @Input() title: string = '';
 
-  // Array to hold fetched movies
+  // Array to store fetched movies
   movies: any[] = [];
+
+  // Hold the movies subscription to unsubscribe later
   private moviesSubscription!: Subscription;
-  constructor(private _MoviesService: MoviesService) {}
+
+  // Store Swiper instance
+  private swiperInstance: any;
+
+  constructor(
+    private _MoviesService: MoviesService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    // Fetch movies from the API based on mediaType and category
-    this.moviesSubscription = this._MoviesService.getMovies(this.mediaType, this.category).subscribe((res) => {
-      this.movies = res.results;
-      // Wait for DOM elements to render before initializing Swiper
-      setTimeout(() => this.initSwiper(), 0);
-    });
+    // Subscribe to movie data from the API
+    this.moviesSubscription = this._MoviesService
+      .getMovies(this.mediaType, this.category)
+      .subscribe((res) => {
+        this.movies = res.results;
+
+        // Trigger change detection manually
+        this.cd.detectChanges();
+
+        // Initialize Swiper only if there are enough movies
+        setTimeout(() => {
+          if (this.movies.length >= 2) {
+            this.initSwiper();
+          }
+        }, 0);
+      });
   }
 
   ngAfterViewInit(): void {
-    // Initialize Swiper in case elements were not ready in ngOnInit
-    setTimeout(() => this.initSwiper(), 0);
+    // Backup Swiper initialization after view loads
+    setTimeout(() => {
+      if (this.movies.length >= 2 && !this.swiperInstance) {
+        this.initSwiper();
+      }
+    }, 0);
   }
-  initSwiper() {
-    // Configure and initialize Swiper instance
+
+  initSwiper(): void {
+    // Prevent Swiper if not enough movies
+    if (!this.movies || this.movies.length < 2) return;
+
+    // Destroy previous Swiper instance if it exists
+    if (this.swiperInstance && typeof this.swiperInstance.destroy === 'function') {
+      this.swiperInstance.destroy(true, true);
+      console.log('Previous Swiper instance destroyed before reinit ✅');
+    }
+
+    // Create a new Swiper instance with responsive options
     new Swiper('.swiper', {
-      loop: true,               // Enable looping of slides
-      slidesPerView: 5,         // Show 5 slides by default
-      spaceBetween: 20,         // Space between slides
+      loop: this.movies.length > 4,
+      slidesPerView: Math.min(5, this.movies.length),
+      spaceBetween: 20,
       autoplay: {
-        delay: 2500,            // Delay between slides in ms
-        disableOnInteraction: false // Keep autoplay active after user interaction
-      },
-      navigation: {
-        nextEl: '.swiper-button-next', // Next button selector
-        prevEl: '.swiper-button-prev'  // Previous button selector
-      },
-      pagination: {
-        el: '.swiper-pagination',     // Pagination element selector
-        clickable: false              // Pagination is not clickable
+        delay: 2500,
+        disableOnInteraction: false
       },
       breakpoints: {
-        // Responsive settings: change slidesPerView based on screen width
         0: { slidesPerView: 1 },
-        576: { slidesPerView: 2 },
-        768: { slidesPerView: 3 },
-        992: { slidesPerView: 4 },
-        1200: { slidesPerView: 5 }
+        570: {slidesPerView:2},
+        830: {slidesPerView:3},
+        1000: { slidesPerView: 2 },
+        1100: { slidesPerView: 3 },
+        1300: { slidesPerView: 4 },
+        1500: { slidesPerView: Math.min(5, this.movies.length) }
       }
     });
+
+    // Save the swiper instance safely after initialization
+    setTimeout(() => {
+      const swiperEl = document.querySelector('.swiper') as any;
+      if (swiperEl && swiperEl.swiper) {
+        this.swiperInstance = swiperEl.swiper;
+        console.log('Swiper instance saved ✅');
+      } else {
+        console.warn('Swiper instance not found');
+      }
+    }, 0);
   }
+
   ngOnDestroy(): void {
-  if (this.moviesSubscription) {
-    this.moviesSubscription.unsubscribe();
+    // Unsubscribe from the movie API to avoid memory leaks
+    if (this.moviesSubscription) {
+      this.moviesSubscription.unsubscribe();
+    }
+
+    // Destroy the Swiper instance when component is destroyed
+    if (this.swiperInstance && typeof this.swiperInstance.destroy === 'function') {
+      this.swiperInstance.destroy(true, true);
+      console.log('Swiper destroyed ✅');
+    } else {
+      console.warn('No valid Swiper to destroy');
+    }
   }
-}
 }

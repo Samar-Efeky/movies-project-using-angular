@@ -5,30 +5,31 @@
 
 <div [appAnimateOnVisible]="'animate-slide-up'" class="swiper">
   <div class="swiper-wrapper">
-   @for(movie of movies; track movie.id){
-     <div class="swiper-slide p-3">
-      <div class="position-relative">
-        @if(movie.profile_path){
-          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
+    @for (movie of movies; track movie.id) {
+      <div class="swiper-slide media-container ">
+        <div class="position-relative">
+          @if (movie.profile_path) {
+            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path"  alt="Person Image" />
+          }
+          @if (movie.poster_path) {
+            <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"  alt="Movie Poster" />
+          }
+          @if (movie.vote_average) {
+            <button class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+              {{ movie.vote_average }}
+            </button>
+          }
+        </div>
+        @if (movie.name) {
+          <p>{{ movie.name | seeMore:2 }}</p>
         }
-        @if(movie.poster_path){
-          <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Person Image" />
+        @if (movie.title) {
+          <p>{{ movie.title | seeMore:2 }}</p>
         }
-        @if(movie.vote_average){
-          <button class="vote p-1 rounded-0 border-0 fw-bolder text-white
-        position-absolute top-0 end-0">{{movie.vote_average}}</button>
+        @if (movie.popularity) {
+          <p>popularity: <span class="popularity">{{ movie.popularity }}</span></p>
         }
       </div>
-      @if(movie.name){
-        <p>{{movie.name|seeMore:2}}</p>
-      }
-      @if(movie.title){
-        <p>{{movie.title|seeMore:2}}</p>
-      }
-      @if(movie.popularity){
-        <p>popularity : <span class="popularity">{{movie.popularity}}</span></p>
-      }
-    </div>
-   }
+    }
   </div>
 </div>

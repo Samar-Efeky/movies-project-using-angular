@@ -14,8 +14,7 @@
       </div>
 
       <!-- Show search input only if showSearch is true -->
-      @if(showSearch){
-        <div class="input-search">
+        <div [ngStyle]="{display:(showSearch)?'block':'none'}" class="input-search">
           <div class="position-relative search-box">
             <input type="text" class="w-100" placeholder="Search Your Videos">
             <!-- Icon inside the search box -->
@@ -24,7 +23,6 @@
             </div>
           </div>
         </div>
-      }
 
       <!-- Buttons section in the navbar -->
       <div class="navbar-button d-flex align-items-center gap-3">

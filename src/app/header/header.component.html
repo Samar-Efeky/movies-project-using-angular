@@ -2,28 +2,28 @@
   <div class="position-relative header-content w-100">
     
     <!-- Banner section: not using absolute positioning for the banner itself -->
-    <div class="banner mb-4 w-100 overflow-hidden">
+    <div class="banner mb-2 w-100 overflow-hidden ">
     
       <!-- Semi-transparent background image layer positioned absolutely -->
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
       
       <!-- Banner text/content positioned relatively to stay above background -->
-      <div class="banner-content ">
+      <div class="banner-content">
         
         <!-- Heading with slide-down animation when it becomes visible -->
-        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="section-title px-5">
+        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="main-section-title ">
           Discover The Latest TV SERIES From Tube
         </h2>
         <div [appAnimateOnVisible]="'animate-slide-up'" class=" mySwiper1">
   <div class="swiper-wrapper">
     @for(movie of movies; track movie.id){
-      <div class="swiper-slide px-5" *ngFor="let movie of movies">
-      <div class="d-flex align-items-start py-2">
+      <div class="swiper-slide" *ngFor="let movie of movies">
+      <div class="header-content-container ">
           <img class="header-img" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster">
-        <div class="px-5">
-          <p class="pt-1 fw-bolder h5">{{movie.name}}</p>
-        <p [appAnimateOnVisible]="'animate-slide-up'" class="py-3 fw-medium w-75">
-         {{movie.overview|seeMore:35}}
+        <div class="px-md-5  pt-2">
+          <p class="pt-1 fw-bolder">{{movie.name}}</p>
+        <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-3 fw-medium ">
+         {{movie.overview|seeMore:25}}
         </p>
         </div>
       </div>
@@ -34,7 +34,7 @@
         <!-- Subtext paragraph with slide-up animation -->
 
         <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
-        <div class="d-flex gap-3 py-2 px-5">
+        <div class="d-flex gap-3 pt-md-3 ">
           <button [appAnimateOnVisible]="'animate-zoom-in'" class="btn btn-light rounded-4 p-2">
             Watch Now
           </button>

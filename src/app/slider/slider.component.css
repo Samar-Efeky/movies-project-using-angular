@@ -2,18 +2,6 @@
   width: 100%;
   padding: 10px 0;
 }
-
-.swiper-slide {
-  background:var(--bg-section);
-  border-radius: 12px;
-}
-
-.swiper-slide img {
-  width: 100%;
-  border-radius: 10px;
-  height: 250px;
-  object-fit: cover;
-}
 .fa-play{
     color: var(--main-color);
 }

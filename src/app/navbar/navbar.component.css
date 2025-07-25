@@ -76,8 +76,14 @@ input:focus {
     display: block;
   }
    .input-search{
-    display: block;
+    position: static;
     width: 50%;
+    display: block;
+    padding: 0%;
+    background-color: transparent;
+  }
+  .search-box{
+    width: 100%;
   }
   .button-search{
   display:none;
@@ -92,6 +98,14 @@ input:focus {
 @media screen and (max-width:850px){
     .input-search{
     display: none;
+    width: 100%;
+    position: absolute;
+     padding: 2%;
+    background-color: rgba(0, 0, 0,0.6);
+
+  }
+  .search-box{
+    width: 90%;
   }
   .button-search{
   display:block;
@@ -105,7 +119,10 @@ input:focus {
   .responsive-icon{
     display: none;
   }
-  .logo{
-    font-size: 1rem;
+   .logo i,.logo span{
+  font-size: 1rem;
+}
+   .search-box{
+    width: 95%;
   }
 }

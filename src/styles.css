@@ -1,4 +1,3 @@
-@import 'swiper/swiper-bundle.css';
 /* =================== Global Variables =================== */
 :root {
   --main-color: #CB50FC;
@@ -97,8 +96,14 @@ body {
 /* Icons cursor pointer */
 i {
   cursor: pointer;
+  font-size: 1.3rem;
 }
-
+p,a,span,li,button{
+  font-size: 1.6rem;
+}
+img{
+  object-fit:cover;
+}
 /* Button style with gradient hover effect */
 button {
   background: var(--black-color);
@@ -131,30 +136,30 @@ button:hover::before {
 .button-mix-color::before {
   opacity: 1;
 }
+/* Style for the vote button */
+.vote::before{
+  opacity: 1;
+}
 /* Main header title style */
-.header-title {
+.main-section-title{
   font-weight: 700;       /* Bold font */
   font-size: 2.7rem;      /* Large font size for emphasis */
 }
-.popularity{
-  color: var(--main-color);
-}
 /* Logo style */
 .logo {
-  font-size: 1.7rem;
   font-weight: 700;
   cursor: pointer;
 }
-
+.logo i,.logo span{
+  font-size: 1.7rem;
+}
 /* Logo icon with gradient text effect */
 .logo i {
   background: var(--mix-color);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 /* =================== Banner Section =================== */
-
 /* Banner container */
 .banner {
   border-radius: 12px;
@@ -176,11 +181,68 @@ button:hover::before {
   position: relative;
   z-index: 1;
 }
-.vote::before{
-  opacity: 1;
+/* Container styles for displaying movie, person, or TV show cards */
+.media-container {
+  background: var(--bg-section); /* Background color for media cards */
+  border-radius: 12px; /* Rounded corners for smooth card edges */
+  padding: 1%; /* Inner spacing around the content */
+}
+
+/* Styling the image inside each media card */
+.media-container img {
+  width: 100%; /* Full width to fill the container */
+  border-radius: 10px; /* Rounded corners for the image */
+  height: 250px; /* Fixed height for consistent layout */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+/* Style for displaying the popularity score of movies, people, or TV shows */
+.popularity {
+  color: var(--main-color); /* Use main theme color to highlight popularity */
+}
+@media screen and (max-width:2000px){
+  i {
+  cursor: pointer;
+  font-size: 1rem;
+}
+p,a,span,li,button{
+  font-size: 1rem;
+}
+}
+@media screen and (max-width:1300px){
+  .main-section-title{
+    font-size: 2.5rem;
+  }
+}
+@media screen and (max-width:1100px){
+  .main-section-title{
+    font-size: 2.2rem;
+  }
 }
 @media screen and (max-width:1000px){
-  .logo{
-    font-size: 1.4rem;
+  .logo i,.logo span{
+  font-size: 1.4rem;
+}
+  .main-section-title{
+    font-size: 2.4rem;
+  }
+}
+@media screen and (max-width:850px){
+  .media-container{
+    padding: 2%;
+  }
+  .main-section-title{
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width:550px){
+  h2,h3{
+    font-size: 1.2rem;
+    padding-top: 2%;
+  }
+  .main-section-title{
+    font-size: 1.8rem;
+  }
+  .media-container img{
+    height: 350px;
   }
 }

@@ -8,7 +8,7 @@
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
       
       <!-- Banner content centered vertically and horizontally -->
-      <div class="banner-content position-relative text-center pt-5">
+      <div class="banner-content position-relative text-center pt-5 ">
         
         <!-- Logo with router link to homepage -->
         <div routerLink="home-page" class="logo">
@@ -17,7 +17,7 @@
         </div>
 
         <!-- Navigation links in the footer -->
-        <ul class="footer-links pb-4 nav justify-content-center my-3 flex-wrap gap-4">
+        <ul class="footer-links pb-md-4 pb-2 nav justify-content-center my-md-3  my-1 flex-wrap gap-md-4 gap-3">
           <li>Home</li>
           <li>About</li>
           <li>People</li>
@@ -26,7 +26,7 @@
         </ul>
 
         <!-- Social media icons with zoom animation on visible -->
-        <div class="social-icons my-4 d-flex justify-content-center gap-4">
+        <div class="social-icons my-md-4 my-2 d-flex justify-content-center gap-md-4 gap-2">
           <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-facebook-f"></i></a>
           <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-twitter"></i></a>
           <a [appAnimateOnVisible]="'animate-zoom-in'" class="text-white"><i class="fab fa-instagram"></i></a>
@@ -37,19 +37,19 @@
   </div>
 
   <!-- Footer bottom section with copyright and links -->
-  <div class="footer-copyright w-100 angled-div overflow-hidden">
-    <div class="d-flex justify-content-between px-5 pt-2 text-center text-md-start">
+  <div class="footer-copyright py-1 w-100 angled-div overflow-hidden">
+    <div class="footer-copyright-content px-md-5 px-1 pt-2 text-center text-md-start">
       
       <!-- Copyright text -->
-      <div class="mb-2">
+      <div class="">
         <p>Copyright &copy;2025 by tube</p>
       </div>
       
       <!-- Footer policy links -->
-      <div class="d-flex justify-content-center gap-3">
-        <a href="#" class="text-white text-decoration-none">Terms of Use</a>
-        <a href="#" class="text-white text-decoration-none">Privacy Policy</a>
-        <a href="#" class="text-white text-decoration-none">License</a>
+      <div class="d-flex justify-content-center gap-md-3 gap-4">
+        <a class=" text-decoration-none">Terms of Use</a>
+        <a class=" text-decoration-none">Privacy Policy</a>
+        <a class=" text-decoration-none">License</a>
       </div>
     </div>
   </div>
