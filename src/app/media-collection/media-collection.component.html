@@ -1,1 +1,101 @@
-<p>media-collection works!</p>
+<!-- Main header displaying media type and category -->
+<app-main-header-page
+  *ngIf="mediaType && category" 
+  [mediaType]="mediaType" 
+  [category]="category">
+</app-main-header-page>
+
+<section>
+  <div class="mt-4">
+
+    <!-- Container holding all media cards -->
+    <div class="media-container-parent w-100">
+      <!-- Loop through paginated media list -->
+      @for (mediaContainer of paginatedMedia; track mediaContainer.id) {
+        <div class="">
+          <!-- Single media card -->
+          <div class="media-container p-3">
+            <div class="position-relative">
+              
+              <!-- Profile image if available (used for people) -->
+              @if (mediaContainer.profile_path) {
+                <img 
+                  [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.profile_path" 
+                  alt="Person Image" />
+              }
+
+              <!-- Poster image if available (used for movies/series) -->
+              @if (mediaContainer.poster_path) {
+                <img 
+                  [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.poster_path" 
+                  alt="mediaContainer Poster" />
+              }
+
+              <!-- Vote average shown as a badge -->
+              @if (mediaContainer.vote_average) {
+                <button 
+                  class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+                  {{ mediaContainer.vote_average }}
+                </button>
+              }
+            </div>
+
+            <!-- Media name (for person) -->
+            @if (mediaContainer.name) {
+              <p>{{ mediaContainer.name | seeMore: 2 }}</p>
+            }
+
+            <!-- Media title (for movies/shows) -->
+            @if (mediaContainer.title) {
+              <p>{{ mediaContainer.title | seeMore: 2 }}</p>
+            }
+
+            <!-- Popularity score -->
+            @if (mediaContainer.popularity) {
+              <p>
+                popularity: 
+                <span class="popularity">{{ mediaContainer.popularity }}</span>
+              </p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="pagination d-flex justify-content-center mt-5 gap-2 flex-wrap">
+      
+      <!-- Previous button -->
+      <button 
+        [disabled]="currentPage === 1"
+        (click)="changePage(currentPage - 1)">
+        &lt;
+      </button>
+
+      <!-- Smart dynamic pagination -->
+      @for (page of smartPagination; track page) {
+        <!-- Page number button -->
+        @if (isNumber(page)) {
+          <button 
+            [ngClass]="{'active-page': currentPage === page}"
+            [disabled]="currentPage === page"
+            (click)="changePage(page)">
+            {{ page }}
+          </button>
+        } 
+        <!-- Ellipsis for skipped pages -->
+        @else {
+          <button disabled>...</button>
+        }
+      }
+
+      <!-- Next button -->
+      <button
+        [disabled]="currentPage === totalPages"
+        (click)="changePage(currentPage + 1)">
+        &gt;
+      </button>
+    </div>
+
+  </div>
+</section>

@@ -9,3 +9,11 @@ button{
     border: 0.1px solid var(--main-color);
     border-radius: 12px;
 }
+h3 i{
+  font-size: 1.5rem;
+}
+@media screen and (max-width:900px){
+  h3 i{
+    font-size: 1.1rem;
+  }
+}

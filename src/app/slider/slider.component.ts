@@ -45,7 +45,7 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to movie data from the API
     this.moviesSubscription = this._MoviesService
-      .getMovies(this.mediaType, this.category)
+      .getMediaCollection(this.mediaType, this.category,'1')
       .subscribe((res) => {
         this.movies = res.results;
 

@@ -9,14 +9,8 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
-
-  // المسارات الثابتة أولًا
-  { path: 'media-collection/trending/all/day', component: MediaCollectionComponent },
-  { path: 'media-collection/people', component: MediaCollectionComponent },
-
-  // بعد كده الديناميكية
+  { path: 'media-collection/:mediaType', redirectTo: 'media-collection/:mediaType/popular', pathMatch: 'full' },
   { path: 'media-collection/:mediaType/:category', component: MediaCollectionComponent },
-
   { path: 'contact', component: ContactComponent },
   { path: '**', component: NotFoundComponent },
 ];

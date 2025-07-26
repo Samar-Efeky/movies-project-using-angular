@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to movie API and fetch data
     this.moviesSubscription = this._MoviesService
-      .getMovies(this.mediaType, this.category)
+      .getMediaCollection(this.mediaType, this.category,'1')
       .subscribe((res) => {
         this.movies = res.results;
         this.initSwiperWithDelay(); // Initialize swiper after data is ready

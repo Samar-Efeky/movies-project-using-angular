@@ -13,7 +13,6 @@ import { filter } from 'rxjs';
 export class SideBarComponent {
  // Create an output event to notify the parent when a link is clicked
 @Output() linkClicked = new EventEmitter<void>();
-
 // Emit the event when a link is clicked
 onLinkClick() {
   this.linkClicked.emit(); // Notify the parent component

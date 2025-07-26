@@ -163,7 +163,7 @@ button:hover::before {
 /* Banner container */
 .banner {
   border-radius: 12px;
-  padding: 2rem;
+  padding: 2% ;
   color: white;
   position: relative;
   z-index: 1;
@@ -238,6 +238,10 @@ p,a,span,li,button{
   h2,h3{
     font-size: 1.2rem;
     padding-top: 2%;
+  }
+  .banner{
+    padding: 1%;
+    text-align: center;
   }
   .main-section-title{
     font-size: 1.8rem;

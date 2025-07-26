@@ -13,7 +13,11 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getMovies(media:string,category:string): Observable<any> {
-    return this.http.get<any>(`https://api.themoviedb.org/3/${media}/${category}?language=en-US&page=1`, { headers: this.headers });
+  getMediaCollection(media:string,category:string,pageNumber:string): Observable<any> {
+    return this.http.get<any>(`https://api.themoviedb.org/3/${media}/${category}?language=en-US&page=${pageNumber}`, { headers: this.headers });
   }
+  getTrending(media:string,category:string,pageNumber:string): Observable<any> {
+    return this.http.get<any>(`https://api.themoviedb.org/3/${media}/${category}/day?language=en-US&page=${pageNumber}`, { headers: this.headers });
+  }
+  
 }
