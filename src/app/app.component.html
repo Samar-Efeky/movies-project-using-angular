@@ -2,7 +2,7 @@
   <!-- General container for the layout -->
   <div class="side-content" [class.move-left]="moveLeft">
     <!-- Fixed sidebar component on the left -->
-    <app-side-bar></app-side-bar>
+    <app-side-bar (linkClicked)="onToggleSideBar()"></app-side-bar>
   </div>
 
   <div class="content-page">

@@ -2,7 +2,7 @@
 <div [appAnimateOnVisible]="'animate-slide-left'" class="sidebar vh-100 px-sm-3 py-4 px-1">
 
     <!-- Logo section with clapperboard icon and brand name -->
-    <div routerLink="home-page" class="logo">
+    <div routerLink="home-page" (click)="onLinkClick()" class="logo">
          <i class="fa-solid fa-clapperboard"></i>
         <span class="px-1">Tube</span>
     </div>
@@ -11,20 +11,25 @@
     <ul class="sidebar-links list-unstyled my-4 ">
         
         <!-- Home Link -->
-        <li routerLink="home-page" routerLinkActive="active"  class="sidebar-link px-3 py-2">
+        <li routerLink="home-page" routerLinkActive="active" 
+        (click)="onLinkClick()" class="sidebar-link px-3 py-2">
             <i class="fa-solid fa-house"></i>
             <span class="px-2">Home</span>
         </li>
 
         <!-- About Link -->
-        <li routerLink="about" routerLinkActive="active" class="sidebar-link px-3 py-2">
+        <li routerLink="about" routerLinkActive="active"
+        (click)="onLinkClick()" class="sidebar-link px-3 py-2">
             <i class="fa-solid fa-user"></i>
             <span class="px-2">About</span>
         </li>
 
         <!-- ========== Movies Dropdown ========== -->
         <!-- Toggler for movies dropdown, shows selected option or 'Movies' -->
-        <li routerLink="movies" routerLinkActive="active" class="sidebar-link px-3 py-2 d-flex justify-content-between" (click)="toggleMovieDropdown()">
+        <li [routerLink]="['media-collection/movie']"
+         [routerLinkActiveOptions]="{ exact: false }" 
+           routerLinkActive="active" class="sidebar-link px-3 py-2 d-flex justify-content-between" 
+           (click)="toggleMovieDropdown()">
             <div>
                 <i class="fa-solid fa-play"></i>
                 <span class="select-movies px-2">{{ selectedMovieOption || 'Movies' }}</span>
@@ -38,7 +43,8 @@
         @if (isMovieDropdownOpen){
             <ul class="list-unstyled p-2 navbar-select">
                 @for(option of movieOptions; track option.value){
-                    <li (click)="selectMovieOption(option)" class="py-1 px-2">
+                    <li [routerLink]="option.pathToComponent"
+                    (click)="onLinkClick()" (click)="selectMovieOption(option)" class="py-1 px-2">
                         {{ option.label }}
                     </li>
                 }
@@ -47,7 +53,9 @@
 
         <!-- ========== TV Shows Dropdown ========== -->
         <!-- Toggler for TV shows dropdown, shows selected option or 'TV Shows' -->
-        <li routerLink="TV-shows" routerLinkActive="active" class="sidebar-link px-3 py-2 d-flex justify-content-between" (click)="toggleTVDropdown()">
+        <li  [routerLink]="['media-collection/tv']"
+         [routerLinkActiveOptions]="{ exact: false }"  routerLinkActive="active" 
+         class="sidebar-link px-3 py-2 d-flex justify-content-between" (click)="toggleTVDropdown()">
             <div>
                 <i class="fa-solid fa-clapperboard"></i>
                 <span class="select-movies px-2">{{ selectedTVOption || 'TV Shows' }}</span>
@@ -61,27 +69,30 @@
         @if (isTVDropdownOpen){
             <ul class="list-unstyled p-2 navbar-select">
                 @for(option of tvOptions; track option.value){
-                    <li (click)="selectTVOption(option)" class="py-1 px-2">
+                    <li  [routerLink]="option.pathToComponent"
+                    (click)="onLinkClick()" (click)="selectTVOption(option)" class="py-1 px-2">
                         {{ option.label }}
                     </li>
                 }
             </ul>
         }
-
         <!-- People Link -->
-        <li routerLink="people" routerLinkActive="active" class="sidebar-link px-3 py-2">
+        <li routerLink="media-collection/people" routerLinkActive="active"
+        (click)="onLinkClick()" class="sidebar-link px-3 py-2">
             <i class="fa-solid fa-circle-play"></i>
             <span class="px-2">People</span>
         </li>
 
         <!-- Trending Link -->
-        <li routerLink="trending" routerLinkActive="active" class="sidebar-link px-3 py-2">
+        <li routerLink="media-collection/trending/all/day" routerLinkActive="active" 
+        (click)="onLinkClick()" class="sidebar-link px-3 py-2">
             <i class="fa-solid fa-chart-simple"></i>
             <span class="px-2">Trending</span>
         </li>
 
         <!-- Contact Link -->
-        <li routerLinkActive="active" routerLink="contact" class="sidebar-link px-3 py-2">
+        <li routerLinkActive="active" routerLink="contact" (click)="onLinkClick()"
+         class="sidebar-link px-3 py-2">
             <i class="fa-solid fa-user"></i>
             <span class="px-2">Contact</span>
         </li>

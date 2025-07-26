@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,58 +11,79 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './side-bar.component.css'
 })
 export class SideBarComponent {
+ // Create an output event to notify the parent when a link is clicked
+@Output() linkClicked = new EventEmitter<void>();
 
-  // Movie dropdown options with labels for display and values for API use
-  movieOptions = [
-    { label: 'Top Rated', value: 'top_rated' },
-    { label: 'Popular', value: 'popular' },
-    { label: 'Upcoming', value: 'upcoming' },
-    { label: 'Latest', value: 'latest' }
-  ];
+// Emit the event when a link is clicked
+onLinkClick() {
+  this.linkClicked.emit(); // Notify the parent component
+}
+  // Movie dropdown options with corresponding navigation paths
+movieOptions = [
+  { label: 'Top Rated', value: 'top_rated', pathToComponent:'media-collection/movie/top_rated' },
+  { label: 'Popular', value: 'popular', pathToComponent:'media-collection/movie/popular' },
+  { label: 'Upcoming', value: 'upcoming' , pathToComponent:'media-collection/movie/upcoming'},
+  { label: 'Latest', value: 'latest', pathToComponent:'media-collection/movie/now_playing' }
+];
 
-  // TV dropdown options
-  tvOptions = [
-    { label: 'Airing Today', value: 'airing_today' },
-    { label: 'Popular', value: 'popular' },
-    { label: 'Top Rated', value: 'top_rated' }
-  ];
+// TV dropdown options with corresponding navigation paths
+tvOptions = [
+  { label: 'Airing Today', value: 'airing_today' , pathToComponent:'media-collection/tv/airing_today'},
+  { label: 'Popular', value: 'popular', pathToComponent:'media-collection/tv/popular' },
+  { label: 'Top Rated', value: 'top_rated' , pathToComponent:'media-collection/tv/top_rated'}
+];
 
-  // Stores the selected movie option label
-  selectedMovieOption: string | null = null;
+// Currently selected option from movie dropdown
+selectedMovieOption: string | null = null;
 
-  // Stores the selected TV option label
-  selectedTVOption: string | null = null;
+// Currently selected option from TV dropdown
+selectedTVOption: string | null = null;
 
-  // Controls visibility of movie dropdown list
-  isMovieDropdownOpen = false;
+// Toggle state of movie dropdown
+isMovieDropdownOpen = false;
 
-  // Controls visibility of TV dropdown list
-  isTVDropdownOpen = false;
+// Toggle state of TV dropdown
+isTVDropdownOpen = false;
 
-  // Toggles movie dropdown and closes TV dropdown
-  toggleMovieDropdown() {
-    this.isMovieDropdownOpen = !this.isMovieDropdownOpen;
-    this.isTVDropdownOpen = false;
-  }
+constructor(private router: Router) {
+  // Listen to navigation changes and reset selected options if route is not in the list
+  this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: NavigationEnd) => {
+      const currentUrl = event.urlAfterRedirects;
 
-  // Toggles TV dropdown and closes movie dropdown
-  toggleTVDropdown() {
-    this.isTVDropdownOpen = !this.isTVDropdownOpen;
-    this.isMovieDropdownOpen = false;
-  }
+      // Clear movie selection if current route is not a movie path
+      const isMovieRoute = this.movieOptions.some(opt => currentUrl.includes(opt.pathToComponent));
+      if (!isMovieRoute) this.selectedMovieOption = null;
 
-  // Handles movie option selection
-  selectMovieOption(option: { label: string; value: string }) {
-    this.selectedMovieOption = option.label; // Updates displayed label
-    this.isMovieDropdownOpen = false;        // Closes dropdown
-    console.log('Selected Movie:', option.value); // Logs selected value for API use
-  }
+      // Clear TV selection if current route is not a TV path
+      const isTVRoute = this.tvOptions.some(opt => currentUrl.includes(opt.pathToComponent));
+      if (!isTVRoute) this.selectedTVOption = null;
+    });
+}
 
-  // Handles TV option selection
-  selectTVOption(option: { label: string; value: string }) {
-    this.selectedTVOption = option.label; // Updates displayed label
-    this.isTVDropdownOpen = false;        // Closes dropdown
-    console.log('Selected TV:', option.value); // Logs selected value for API use
-  }
+// Toggle movie dropdown visibility and close TV dropdown
+toggleMovieDropdown() {
+  this.isMovieDropdownOpen = !this.isMovieDropdownOpen;
+  this.isTVDropdownOpen = false;
+}
+
+// Toggle TV dropdown visibility and close movie dropdown
+toggleTVDropdown() {
+  this.isTVDropdownOpen = !this.isTVDropdownOpen;
+  this.isMovieDropdownOpen = false;
+}
+
+// Set selected movie option and close the movie dropdown
+selectMovieOption(option: { label: string; value: string }) {
+  this.selectedMovieOption = option.label;
+  this.isMovieDropdownOpen = false;
+}
+
+// Set selected TV option and close the TV dropdown
+selectTVOption(option: { label: string; value: string }) {
+  this.selectedTVOption = option.label;
+  this.isTVDropdownOpen = false;
+}
 
 }

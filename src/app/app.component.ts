@@ -15,6 +15,6 @@ export class AppComponent{
    moveLeft = false;
 
   onToggleSideBar() {
-    this.moveLeft = !this.moveLeft; // تغيير الحالة
+    this.moveLeft = !this.moveLeft; 
   }
 }
