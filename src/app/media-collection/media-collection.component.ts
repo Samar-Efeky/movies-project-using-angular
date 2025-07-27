@@ -1,41 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MoviesService } from './../services/movies.service';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Subscription, switchMap } from 'rxjs';
 import { MainHeaderPageComponent } from "../main-header-page/main-header-page.component";
   import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
   selector: 'app-media-collection',
   standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe],
+  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe, AnimateOnVisibleDirective],
 templateUrl: './media-collection.component.html',
   styleUrl: './media-collection.component.css'
 })
-export class MediaCollectionComponent implements OnInit {
-  // Route parameters for media type and category
+export class MediaCollectionComponent implements OnInit, OnDestroy {
+  // Route parameters
   mediaType!: string;
   category!: string;
 
-  // Full media list and paginated media to display per page
+  // Full media list and paginated version
   mediaCollection: any[] = [];
   paginatedMedia: any[] = [];
 
-  // Current page and items per page for pagination
+  // Pagination control
   currentPage: number = 1;
   itemsPerPage: number = 12;
+
+  // To manage multiple subscriptions
+  private subscriptions = new Subscription();
 
   constructor(private _MoviesService: MoviesService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Listen to route params and fetch 3 pages of media data
-    this.route.paramMap
+    // Subscribe to route parameters and fetch media data (3 pages)
+    const routeSub = this.route.paramMap
       .pipe(
         switchMap(params => {
           this.mediaType = params.get('mediaType') || '';
           this.category = params.get('category') || '';
 
-          // Fetch data from 3 pages in parallel
           const page1 = this.getMedia(this.mediaType, this.category, '1');
           const page2 = this.getMedia(this.mediaType, this.category, '2');
           const page3 = this.getMedia(this.mediaType, this.category, '3');
@@ -44,18 +47,24 @@ export class MediaCollectionComponent implements OnInit {
         })
       )
       .subscribe(([res1, res2, res3]) => {
-        // Combine results from the 3 pages
+        // Combine results from 3 pages
         this.mediaCollection = [
           ...res1.results,
           ...res2.results,
           ...res3.results,
         ];
-        // Update paginated list to display
-        this.updatePagination();
+        this.updatePagination(); // Update the visible page
       });
+
+    this.subscriptions.add(routeSub); // Add to subscription list
   }
 
-  // Get media data based on type (trending or other)
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions to avoid memory leaks
+    this.subscriptions.unsubscribe();
+  }
+
+  // Fetch media based on type and category
   getMedia(mediaType: string, category: string, page: string) {
     if (mediaType === 'trending') {
       return this._MoviesService.getTrending(mediaType, category, page);
@@ -64,39 +73,37 @@ export class MediaCollectionComponent implements OnInit {
     }
   }
 
-  // Slice full list to get items for current page
+  // Slice data to show only current page
   updatePagination() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     this.paginatedMedia = this.mediaCollection.slice(start, end);
   }
 
-  // Change current page and refresh displayed items
+  // Change page and scroll to media section
   changePage(page: number) {
     if (page !== this.currentPage) {
       this.currentPage = page;
       this.updatePagination();
+
+      const element = document.getElementById('media-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }
 
-  // Generate smart pagination range with ellipsis
+  // Smart pagination logic (handles ellipsis ...)
   get smartPagination(): (number | string)[] {
     const total = this.totalPages;
     const current = this.currentPage;
     const range: (number | string)[] = [];
 
-    if (total <= 4) {
-      // Show all pages if total is small
-      return Array.from({ length: total }, (_, i) => i + 1);
-    }
+    if (total <= 3) return Array.from({ length: total }, (_, i) => i + 1);
 
-    range.push(1); // Always show first page
+    range.push(1);
+    if (current > 3) range.push('...');
 
-    if (current > 4) {
-      range.push('...');
-    }
-
-    // Show current, one before and one after
     const start = Math.max(2, current - 1);
     const end = Math.min(total - 1, current + 1);
 
@@ -104,21 +111,18 @@ export class MediaCollectionComponent implements OnInit {
       range.push(i);
     }
 
-    if (current < total - 3) {
-      range.push('...');
-    }
+    if (current < total - 2) range.push('...');
 
-    range.push(total); // Always show last page
-
+    range.push(total);
     return range;
   }
 
-  // Check if a value is a number (used in pagination buttons)
+  // Type guard to check if value is a number
   isNumber(value: number | string): value is number {
     return typeof value === 'number';
   }
 
-  // Calculate total number of pages
+  // Total number of pages
   get totalPages(): number {
     return Math.ceil(this.mediaCollection.length / this.itemsPerPage);
   }

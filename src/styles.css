@@ -137,9 +137,12 @@ button:hover::before {
   opacity: 1;
 }
 /* Style for the vote button */
-.vote::before{
-  opacity: 1;
+.vote{
+  background-color: var(--blue-color);
 }
+/* .vote::before{
+  opacity: 1;
+} */
 /* Main header title style */
 .main-section-title{
   font-weight: 700;       /* Bold font */
@@ -186,6 +189,24 @@ button:hover::before {
   background: var(--bg-section); /* Background color for media cards */
   border-radius: 12px; /* Rounded corners for smooth card edges */
   padding: 1%; /* Inner spacing around the content */
+  position: relative;
+  cursor: pointer;
+}
+.media-container::before{
+   content: "";
+   border-radius: 12px;
+  position: absolute;
+  inset: 0;
+  background: var(--mix-color);
+  width: 100%;
+  height: 0;
+  z-index: 2;
+  opacity: 0.5;
+  bottom: 0;
+  transition: 0.6s ease;
+}
+.media-container:hover::before{
+  height: 100%;
 }
 
 /* Styling the image inside each media card */
@@ -197,7 +218,7 @@ button:hover::before {
 }
 /* Style for displaying the popularity score of movies, people, or TV shows */
 .popularity {
-  color: var(--main-color); /* Use main theme color to highlight popularity */
+  color: var(--blue-color); /* Use main theme color to highlight popularity */
 }
 @media screen and (max-width:2000px){
   i {

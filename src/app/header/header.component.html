@@ -14,15 +14,15 @@
         <h2 [appAnimateOnVisible]="'animate-slide-down'" class="main-section-title ">
           Discover The Latest TV SERIES From Tube
         </h2>
-        <div [appAnimateOnVisible]="'animate-slide-up'" class=" mySwiper1">
+        <div [appAnimateOnVisible]="'animate-slide-up'" #swiperCont class=" mySwiper1">
   <div class="swiper-wrapper">
     @for(movie of movies; track movie.id){
       <div class="swiper-slide" *ngFor="let movie of movies">
       <div class="header-content-container ">
           <img class="header-img" [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster">
-        <div class="px-md-5  pt-2">
+        <div class="px-md-5 px-2 pt-2">
           <p class="pt-1 fw-bolder">{{movie.name}}</p>
-        <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-3 fw-medium ">
+        <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-md-3 pt-1 fw-medium ">
          {{movie.overview|seeMore:25}}
         </p>
         </div>
@@ -34,7 +34,7 @@
         <!-- Subtext paragraph with slide-up animation -->
 
         <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
-        <div class="d-flex gap-3 pt-md-3 ">
+        <div class="d-flex gap-3 pt-md-3 pt-2">
           <button [appAnimateOnVisible]="'animate-zoom-in'" class="btn btn-light rounded-4 p-2">
             Watch Now
           </button>

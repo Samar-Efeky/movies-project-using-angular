@@ -2,7 +2,12 @@
 .app-layout {
   position: relative;
 }
-
+.scroll-up{
+  z-index: 1000;
+}
+.scroll-up button{
+  background-color:var(--input-color);
+}
 /* ===== Fixed sidebar on the left ===== */
 .side-content {
   position: fixed;

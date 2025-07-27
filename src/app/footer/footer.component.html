@@ -11,18 +11,18 @@
       <div class="banner-content position-relative text-center pt-5 ">
         
         <!-- Logo with router link to homepage -->
-        <div routerLink="home-page" class="logo">
+        <div routerLink="home-page" (click)="scrollToTop()" class="logo">
           <i class="fa-solid fa-clapperboard"></i>
           <span class="px-1">Tube</span>
         </div>
 
         <!-- Navigation links in the footer -->
         <ul class="footer-links pb-md-4 pb-2 nav justify-content-center my-md-3  my-1 flex-wrap gap-md-4 gap-3">
-          <li>Home</li>
-          <li>About</li>
-          <li>People</li>
-          <li>Trending</li>
-          <li>Contact Us</li>
+          <li routerLink="home-page" (click)="scrollToTop()">Home</li>
+          <li routerLink="about" (click)="scrollToTop()">About</li>
+          <li routerLink="media-collection/person/popular" (click)="scrollToTop()">People</li>
+          <li routerLink="media-collection/trending/all" (click)="scrollToTop()">Trending</li>
+          <li routerLink="contact" (click)="scrollToTop()">Contact Us</li>
         </ul>
 
         <!-- Social media icons with zoom animation on visible -->

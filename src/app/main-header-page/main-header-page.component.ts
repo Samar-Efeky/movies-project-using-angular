@@ -1,10 +1,11 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 @Component({
   selector: 'app-main-header-page',
   standalone: true,
-  imports: [UpperCasePipe],
+  imports: [UpperCasePipe, AnimateOnVisibleDirective],
   templateUrl: './main-header-page.component.html',
   styleUrl: './main-header-page.component.css'
 })

@@ -10,8 +10,8 @@
       <!-- Banner text/content positioned relatively to stay above background -->
       <div class="banner-content h-100 d-flex justify-content-center align-items-center">
        <div class="text-center">
-         <p class="main-section-title">{{media|uppercase}}</p>
-         <p class="path"><i class="fa-solid fa-house"></i> HOME / {{type}} {{media}}</p>
+         <p [appAnimateOnVisible]="'animate-slide-down'" class="main-section-title">{{media|uppercase}}</p>
+         <p [appAnimateOnVisible]="'animate-slide-up'" class="path"><i class="fa-solid fa-house"></i> HOME / {{type}} {{media}}</p>
        </div>
       </div>
 
