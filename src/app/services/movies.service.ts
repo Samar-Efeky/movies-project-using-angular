@@ -19,5 +19,7 @@ export class MoviesService {
   getTrending(media:string,category:string,pageNumber:string): Observable<any> {
     return this.http.get<any>(`https://api.themoviedb.org/3/${media}/${category}/day?language=en-US&page=${pageNumber}`, { headers: this.headers });
   }
-  
+  getMediaDetails(media:string, mediaId:string):Observable<any>{
+    return this.http.get<any>(`https://api.themoviedb.org/3/${media}/${mediaId}?language=en-US`,{ headers: this.headers });
+  }
 }

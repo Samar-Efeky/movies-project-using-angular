@@ -18,7 +18,5 @@ export class MainHeaderPageComponent implements OnChanges{
     this.media=this.mediaType;
     this.media = this.media === 'person' ? 'people' : this.media;
     this.type=this.category;
-    console.log(this.media,this.type);
-    
   }
 }

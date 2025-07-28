@@ -14,7 +14,8 @@
       @for (mediaContainer of paginatedMedia; track mediaContainer.id) {
         <div class="">
           <!-- Single media card -->
-          <div class="media-container p-3">
+          <div class="media-container p-3"
+           (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">
             <div class="position-relative">
               
               <!-- Profile image if available (used for people) -->

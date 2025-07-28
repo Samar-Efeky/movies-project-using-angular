@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MoviesService } from './../services/movies.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription, switchMap } from 'rxjs';
 import { MainHeaderPageComponent } from "../main-header-page/main-header-page.component";
   import { CommonModule } from '@angular/common';
@@ -29,7 +29,7 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   // To manage multiple subscriptions
   private subscriptions = new Subscription();
 
-  constructor(private _MoviesService: MoviesService, private route: ActivatedRoute) {}
+  constructor(private _MoviesService: MoviesService, private route: ActivatedRoute,private _Router:Router) {}
 
   ngOnInit(): void {
     // Subscribe to route parameters and fetch media data (3 pages)
@@ -126,4 +126,12 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   get totalPages(): number {
     return Math.ceil(this.mediaCollection.length / this.itemsPerPage);
   }
+    goToMediaDetails(mediaType:string, mediaId:string): void {
+      // Navigate to the route with parameters: mediaType , media id
+      if(mediaType=='person'){
+        this._Router.navigate(['person-details',mediaType, mediaId]);
+      }else{
+        this._Router.navigate(['media-details',mediaType, mediaId]);
+      }
+    }
 }
