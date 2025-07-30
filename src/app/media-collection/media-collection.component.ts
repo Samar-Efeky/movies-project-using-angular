@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MoviesService } from './../services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription, switchMap } from 'rxjs';
 import { MainHeaderPageComponent } from "../main-header-page/main-header-page.component";
   import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { MediaService } from '../services/media.service';
 @Component({
   selector: 'app-media-collection',
   standalone: true,
@@ -29,7 +29,7 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   // To manage multiple subscriptions
   private subscriptions = new Subscription();
 
-  constructor(private _MoviesService: MoviesService, private route: ActivatedRoute,private _Router:Router) {}
+  constructor(private _MediaService: MediaService, private route: ActivatedRoute,private _Router:Router) {}
 
   ngOnInit(): void {
     // Subscribe to route parameters and fetch media data (3 pages)
@@ -67,9 +67,9 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   // Fetch media based on type and category
   getMedia(mediaType: string, category: string, page: string) {
     if (mediaType === 'trending') {
-      return this._MoviesService.getTrending(mediaType, category, page);
+      return this._MediaService.getTrending(mediaType, category, page);
     } else {
-      return this._MoviesService.getMediaCollection(mediaType, category, page);
+      return this._MediaService.getMediaCollection(mediaType, category, page);
     }
   }
 

@@ -12,7 +12,7 @@
     <div class="media-container-parent w-100">
       <!-- Loop through paginated media list -->
       @for (mediaContainer of paginatedMedia; track mediaContainer.id) {
-        <div class="">
+        <div *ngIf="mediaContainer.profile_path||mediaContainer.poster_path">
           <!-- Single media card -->
           <div class="media-container p-3"
            (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">

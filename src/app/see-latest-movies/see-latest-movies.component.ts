@@ -12,6 +12,6 @@ export class SeeLatestMoviesComponent {
   constructor(private router: Router){}
   goToLatestMovies(): void {
     // Navigate to the route with parameters: mediaType = 'movie', category = 'now_playing'
-    this.router.navigate(['media-collection', 'movie', 'now_playing']);
+    this.router.navigate(['media-collection', 'movie', 'top_rated']);
   }
 }

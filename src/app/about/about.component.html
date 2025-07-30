@@ -1,1 +1,38 @@
-<p>about works!</p>
+<!-- Main header component with page title -->
+<app-main-header-page page="about us"></app-main-header-page>
+<section>
+  <div class="about-container container">
+    <!-- Image with zoom-in animation on scroll -->
+    <div class="my-5">
+      <img [appAnimateOnVisible]="'animate-zoom-in'" 
+           src="assets/images/inner-about-img.jpg" class="rounded-4 w-100"  alt="about-image">
+    </div>
+    <!-- Section title and description with scroll animations -->
+    <section class="text-center text-white py-3 bg-black">
+      <div class="container">
+        <h2 class="fw-bold mb-4" [appAnimateOnVisible]="'animate-slide-down'">ABOUT Media</h2>
+        <p class="mb-5 text-light" [appAnimateOnVisible]="'animate-slide-up'">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum consectetur quia hic odit quisquam voluptates excepturi accusantium asperiores
+           blanditiis. Voluptas minus dolorem magni perferendis sint dolor quae libero quaerat reiciendis?
+        </p>
+        <!-- Stats section: shows animated numbers and icons -->
+        <div class="d-flex gap-4 flex-wrap justify-content-center m-auto"
+             #statsSection >
+          <div class="about-content rounded-3" [appAnimateOnVisible]="'animate-zoom-in'" *ngFor="let stat of stats">
+            <div class="p-4 h-100">
+              <div class="mb-2">
+                <!-- Dynamic icon class -->
+                <i [class]="stat.icon"></i>
+              </div>
+              <!-- Counter number -->
+              <h4 class="fw-bold">{{ stat.currentValue | number }}</h4>
+              <p class="mb-0">{{ stat.label }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Reuse movies component -->
+    <app-see-latest-movies></app-see-latest-movies>
+  </div>
+</section>

@@ -9,7 +9,7 @@
 
 /* Semi-transparent overlay for banner background */
 .banner-bg {
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 /* Angled shape effect using clip-path */

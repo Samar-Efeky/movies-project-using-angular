@@ -1,1 +1,97 @@
-<p>contact works!</p>
+<!-- Reusable header component with title -->
+<app-main-header-page page="contact us"></app-main-header-page>
+<div>
+  <!-- Section displaying address, email, and phone contact information -->
+  <div class="d-flex gap-4 my-5 flex-wrap justify-content-center m-auto">
+
+    <!-- Address box with icon and text -->
+    <div [appAnimateOnVisible]="'animate-zoom-in'" class="contact-details d-flex gap-3 flex-grow-1 flex-wrap rounded-3 p-md-5 p-3">
+      <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
+        <i class="fa-solid fa-location-dot fs-1"></i>
+      </div>
+      <div>
+        <h5>Our address</h5>
+        <p class="mb-0">Nasr City, Egypt</p>
+      </div>
+    </div>
+
+    <!-- Email box with multiple email links -->
+    <div [appAnimateOnVisible]="'animate-zoom-in'" class="contact-details flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+      <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
+        <i class="fa-solid fa-envelope fs-1"></i>
+      </div>
+      <div>
+        <h5>Email Address</h5>
+        <p class="mb-0">
+          <a class="text-white" href="mailto:info@media.com">info&#64;media.com</a>
+        </p>
+        <p class="mb-0">
+          <a class="text-white" href="mailto:contact@media.com">contact&#64;media.com</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Phone box with clickable phone numbers -->
+    <div [appAnimateOnVisible]="'animate-zoom-in'" class="contact-details flex-grow-md-1 flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+      <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
+        <i class="fa-solid fa-phone-volume fs-1"></i>
+      </div>
+      <div>
+        <h5>Phone NO</h5>
+        <p class="mb-0">
+          <a class="text-white" href="tel:+201207752327">+2012-077-523-27</a>
+        </p>
+        <p class="mb-0">
+          <a class="text-white" href="tel:+88 0123 456 987 00">+88 0123 456 987 00</a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Contact form container -->
+  <div class="form-container p-xl-5 p-2 rounded-3">
+    
+    <!-- Form title and short description -->
+    <div class="text-center text-white mb-4">
+      <h2 class="fw-bold" [appAnimateOnVisible]="'animate-slide-down'">Get in Touch</h2>
+      <p class="py-2" [appAnimateOnVisible]="'animate-slide-up'">
+        It is a long established fact that a reader will be distracted by the readable content...
+      </p>
+    </div>
+
+    <!-- Contact form with input fields and textarea -->
+    <form [appAnimateOnVisible]="'animate-zoom-in'" class="row g-3">
+      <!-- Name input -->
+      <div class="col-md-6">
+        <input type="text" class="form-control bg-black text-white border-dark" placeholder="Enter Name" />
+      </div>
+
+      <!-- Email input -->
+      <div class="col-md-6">
+        <input type="email" class="form-control bg-black text-white border-dark" placeholder="Enter Email Address" />
+      </div>
+
+      <!-- Subject input -->
+      <div class="col-md-6">
+        <input type="text" class="form-control bg-black text-white border-dark" placeholder="Write Subject" />
+      </div>
+
+      <!-- Website link input -->
+      <div class="col-md-6">
+        <input type="url" class="form-control bg-black text-white border-dark" placeholder="Enter Your Website Link" />
+      </div>
+
+      <!-- Message textarea -->
+      <div class="col-12">
+        <textarea rows="6" class="form-control bg-black text-white border-dark" placeholder="Write Message..."></textarea>
+      </div>
+
+      <!-- Submit button -->
+      <div class="col-12">
+        <button class="button-mix-color py-2 px-4 text-white">Send Message</button>
+      </div>
+    </form>
+
+  </div>
+</div>

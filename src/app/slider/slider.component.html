@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between pt-5">
   <h3><i class="fa-solid fa-play"></i> {{ title }}</h3>
-  <button class="text-white p-2">View all</button>
+  <button (click)="goToMediaCollection(mediaType,category)" class="text-white p-2">View all</button>
 </div>
 
 <!-- swiper container with ViewChild ref -->
@@ -11,7 +11,7 @@
 >
   <div class="swiper-wrapper">
     @for (movie of movies; track movie.id) {
-      <div class="swiper-slide media-container">
+      <div *ngIf="movie.profile_path || movie.poster_path" (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)" class="swiper-slide media-container">
         <div class="position-relative">
           @if (movie.profile_path) {
             <img [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />

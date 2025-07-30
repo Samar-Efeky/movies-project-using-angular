@@ -8,6 +8,7 @@
   --mix-color: linear-gradient(to right, var(--blue-color), var(--main-color));
   --border-color: rgb(55, 55, 55);
   --input-color: #2c2c2c;
+  --pragrah-color:rgb(161, 161, 161);
 }
 
 /* =================== Animations =================== */
@@ -103,6 +104,34 @@ p,a,span,li,button{
 }
 img{
   object-fit:cover;
+  object-position: top; 
+}
+a{
+  text-decoration: none;
+}
+.date-content{
+  color: var(--pragrah-color);
+}
+.media-name{
+  color:var(--white-volor);
+  cursor: pointer;
+  transition: color 0.5s ease-in;
+}
+.media-name:hover{
+  color: var(--main-color);
+}
+.overley{
+  background-color:rgba(0, 0, 0,0.5);
+}
+.see-more-link{
+  text-decoration: underline;
+  color: var(--blue-color);
+  cursor: pointer;
+}
+.media-title:hover{
+  color: var(--main-color);
+  text-decoration: underline;
+  cursor: pointer;
 }
 /* Button style with gradient hover effect */
 button {
@@ -175,7 +204,7 @@ button:hover::before {
 /* Banner background layer */
 .banner-bg {
   background: linear-gradient(134deg, var(--blue-color) 50%, var(--main-color) 90%);
-  opacity: 0.8;
+  opacity: 0.7;
   z-index: 0;
 }
 

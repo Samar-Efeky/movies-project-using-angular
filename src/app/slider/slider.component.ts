@@ -8,11 +8,13 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { MoviesService } from './../services/movies.service';
+
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Subscription } from 'rxjs';
+import { MediaService } from '../services/media.service';
+import { Router } from '@angular/router';
 
 // Declare Swiper from CDN
 declare var Swiper: any;
@@ -39,12 +41,13 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
 
   constructor(
-    private _MoviesService: MoviesService,
-    private cd: ChangeDetectorRef
+    private _MediaService: MediaService,
+    private cd: ChangeDetectorRef,
+    private _Router:Router
   ) {}
 
   ngOnInit(): void {
-    this.moviesSubscription = this._MoviesService
+    this.moviesSubscription = this._MediaService
       .getMediaCollection(this.mediaType, this.category, '1')
       .subscribe((res) => {
         this.movies = res.results;
@@ -111,5 +114,16 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
       this.swiperInstance = null;
       console.log('Swiper destroyed ✅');
     }
+  }
+   goToMediaDetails(mediaType:string, mediaId:string): void {
+      // Navigate to the route with parameters: mediaType , media id
+      if(mediaType=='person'){
+        this._Router.navigate(['person-details',mediaType, mediaId]);
+      }else{
+        this._Router.navigate(['media-details',mediaType, mediaId]);
+      }
+    }
+     goToMediaCollection(mediaType:string,category:string): void {
+      this._Router.navigate(['media-collection',mediaType, category]);
   }
 }

@@ -1,0 +1,24 @@
+/* Set background color for contact cards and form */
+.contact-details, .form-container {
+  background-color: var(--bg-section);
+}
+/* Icon color inside contact boxes */
+.contact-details i {
+  color: var(--blue-color);
+}
+/* Padding inside input fields */
+input {
+  padding: 4%;
+}
+/* Placeholder styling for input and textarea */
+input::placeholder,
+textarea::placeholder {
+  color: var(--pragrah-color);
+  font-style: italic;
+}
+/* Hide form and contact details initially for animation */
+form,
+.contact-details {
+  transform: scale(0);
+  opacity: 0;
+}
