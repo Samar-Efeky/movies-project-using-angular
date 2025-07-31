@@ -7,13 +7,14 @@ import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { MediaDetailsService } from '../services/media-details.service';
 import { FormsModule } from '@angular/forms'; 
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 @Component({
   selector: 'app-media-details',
   standalone: true,
-  imports: [CommonModule,SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
+  imports: [CommonModule,SeeMorePipe, FormsModule, TimeAgoPipe],
   templateUrl: './media-details.component.html',
-  styleUrl: './media-details.component.css'
+  styleUrl: './media-details.component.css',
+  animations: [slideDown,slideUp,zoomIn]
 })
 export class MediaDetailsComponent implements OnInit, OnDestroy {
   newComment: string = '';

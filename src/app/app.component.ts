@@ -4,20 +4,27 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { FooterComponent } from "./footer/footer.component";
 import { CommonModule } from '@angular/common';
+import { slideInOut } from './animations/animations';
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent,CommonModule],
 templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  animations: [slideInOut]
 })
 export class AppComponent implements OnInit{
   title = 'movies-project';
    moveLeft = false;
+  
   isScrollButtonVisible: boolean = false;
   ngOnInit(): void {
+    
   // Listen to scroll event
   window.addEventListener('scroll', this.onScroll.bind(this));
+}
+onSideBarToggleByScreen(shouldShow: boolean) {
+  this.moveLeft = shouldShow;
 }
 onScroll(): void {
   this.isScrollButtonVisible = window.scrollY > 300;

@@ -1,5 +1,5 @@
 <!-- Navbar container with animation on visibility and scroll styling -->
-<div [appAnimateOnVisible]="'animate-slide-down'"
+<div @slideDown
      [ngClass]="{ 'scrolled': isScrolled }"
      class="navigation-bar px-3 py-2">
 
@@ -48,7 +48,7 @@
         </button>
 
         <!-- Sidebar toggle button -->
-        <button (click)="onButtonOpenSideBar()" class="btn btn-dark button-list-side-bar">
+        <button (click)="onButtonOpenSideBar()" #sidebarToggleBtn class="btn btn-dark button-list-side-bar">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>

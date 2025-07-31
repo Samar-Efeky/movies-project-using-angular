@@ -1,13 +1,13 @@
 <header>
     <div *ngIf="mediaDetails" class="header-img w-100 rounded-3 position-relative">
-        <img [appAnimateOnVisible]="'animate-zoom-in'" [src]="'https://image.tmdb.org/t/p/w1280'+mediaDetails.backdrop_path"
+        <img @zoomIn [src]="'https://image.tmdb.org/t/p/w1280'+mediaDetails.backdrop_path"
          class="w-100 h-100 rounded-3" alt="">
          <div class="overley position-absolute top-0
          start-0 w-100 h-100"></div>
     </div>
 </header>
 <section>
-    <div *ngIf="mediaDetails" class="media-details position-relative overflow-hidden w-100 pt-5">
+    <div *ngIf="mediaDetails" class="media-details position-relative overflow-hidden w-100 py-5">
          <div  class="recommend-list p-3 position-absolute " (click)="onToggleRecommend()">
                 <i class="fa-solid fa-bars fs-5"></i>
             </div>
@@ -25,7 +25,8 @@
                 </ng-container>
                 <ng-template #noTrailer>
                     <div class="text-center py-3">
-                    <img *ngIf="mediaDetails" [src]="'https://image.tmdb.org/t/p/w500' + mediaDetails.poster_path"
+                    <img @zoomIn 
+                     *ngIf="mediaDetails" [src]="'https://image.tmdb.org/t/p/w500' + mediaDetails.poster_path"
                      alt="Poster" width="70%" height="300" class="rounded-4">
                     <p class="pt-2 ">Trailer is not available for this media.</p>
                     </div>
@@ -45,11 +46,11 @@
             </div>
             <div class="details-show mt-2">
                 <div class="pt-5 pb-1 border-bottom border-secondary">
-                    <h3 [appAnimateOnVisible]="'animate-slide-down'" *ngIf="mediaDetails.title">{{mediaDetails.title}}</h3>
-                    <h3 [appAnimateOnVisible]="'animate-slide-down'" *ngIf="mediaDetails.name">{{mediaDetails.name}}</h3>
+                    <h3 @slideDown *ngIf="mediaDetails.title">{{mediaDetails.title}}</h3>
+                    <h3 @slideDown *ngIf="mediaDetails.name">{{mediaDetails.name}}</h3>
                 </div>
                 <div class="py-3 border-bottom border-secondary">
-                    <p [appAnimateOnVisible]="'animate-slide-up'">
+                    <p @slideUp>
                        {{ showFullOverview ? mediaDetails.overview : (mediaDetails.overview)|seeMore:30  }}
                     </p>
                 <ng-container *ngIf="showFullOverview" >
@@ -59,11 +60,11 @@
                             <div (click)="goToProfileDetails('person', castPerson.id)"
                              *ngIf="castPerson.profile_path"
                               class="cast-person p-2 text-center overflow-hidden">
-                                <img [appAnimateOnVisible]="'animate-zoom-in'" (click)="goToProfileDetails('person', castPerson.id)"
+                                <img @zoomIn (click)="goToProfileDetails('person', castPerson.id)"
                                  [src]="'https://image.tmdb.org/t/p/w500' +castPerson.profile_path"
                                  [alt]="castPerson.name" width="100" height="100"
                                  class="rounded-circle">
-                                <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-2">{{castPerson.name}}</p> 
+                                <p @slideUp class="pt-2">{{castPerson.name}}</p> 
                             </div>
                         }
                     </div>
@@ -75,12 +76,12 @@
                             <div (click)="goToProfileDetails('person', crewPerson.id)" 
                             *ngIf="crewPerson.profile_path"
                              class="crew-person p-2 text-center overflow-hidden">
-                                <img [appAnimateOnVisible]="'animate-zoom-in'"
+                                <img @zoomIn
                                  (click)="goToProfileDetails('person', crewPerson.id)"
                                  [src]="'https://image.tmdb.org/t/p/w500' +crewPerson.profile_path"
                                  [alt]="crewPerson.name" width="100" height="100"
                                  class="rounded-circle">
-                                <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-2">{{crewPerson.name}}</p> 
+                                <p @slideUp class="pt-2">{{crewPerson.name}}</p> 
                             </div>
                         }
                     </div>
@@ -97,12 +98,12 @@
                             @if (company.logo_path) {
                                 <div class="company-container text-center overflow-hidden">
                                 <div class="  rounded-3 bg-white">
-                                    <img [appAnimateOnVisible]="'animate-zoom-in'"
+                                    <img @zoomIn
                                     [src]="'https://image.tmdb.org/t/p/w500' + company.logo_path" 
                                     alt="{{company.name}} Logo" 
                                      class="">
                                 </div>
-                                <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-2">{{company.name|seeMore:2}}</p>
+                                <p @slideUp class="pt-2">{{company.name|seeMore:2}}</p>
                                 </div>
                             }
                     }
@@ -111,7 +112,7 @@
                 <!-- reviews -->
                <div class="pt-5">
                  <div class="comments-container  rounded-3 p-xl-4 p-3 w-100 overflow-hidden">
-                    <h5 [appAnimateOnVisible]="'animate-slide-down'" class="fw-bold mb-3">Comments</h5>
+                    <h5 @slideDown class="fw-bold mb-3">Comments</h5>
                     <div class="mb-3">
                         <textarea class="form-control bg-black text-white border-0" [(ngModel)]="newComment"
                          placeholder="Add a comment..." rows="3"></textarea>
@@ -124,7 +125,7 @@
                         <div *ngIf="review.author_details.avatar_path"  class="bg-black mb-3 rounded-3 p-3">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <img [appAnimateOnVisible]="'animate-zoom-in'"
+                                    <img @zoomIn
                                      [src]="'https://image.tmdb.org/t/p/w500'+ review.author_details.avatar_path"
                                     class="rounded-circle me-2" width="50" height="50" alt="avatar" />
                                     <span class="fw-semibold text-white ps-2">
@@ -151,17 +152,17 @@
         <div [ngStyle]="{ 'right': MoveRight? '0%' :'-100%'}" class="recommendations mt-md-0 mt-5 rounded-3 p-3 ">
             @for(recommendation of mediaRecommendations; track recommendation.id){
                 <div class="w-100 d-flex  p-2 mb-2 bg-black rounded-3 overflow-hidden">
-                    <img [appAnimateOnVisible]="'animate-zoom-in'"
+                    <img @zoomIn
                      (click)="[goToMediaDetails(type,recommendation.id), onToggleRecommend()]"
                       [src]="'https://image.tmdb.org/t/p/w500'+ recommendation.poster_path" height="100"
                      class=" rounded-3" alt="">
                     <div class="ps-2">
-                        <p *ngIf="recommendation.title" [appAnimateOnVisible]="'animate-slide-down'"
+                        <p *ngIf="recommendation.title" @slideDown
                          (click)="[goToMediaDetails(type,recommendation.id), onToggleRecommend()]"
                           class=" media-title">
                             {{recommendation.title|seeMore:4}}
                         </p>
-                        <p *ngIf="recommendation.name" [appAnimateOnVisible]="'animate-slide-down'"
+                        <p *ngIf="recommendation.name" @slideDown
                          (click)="[goToMediaDetails(type,recommendation.id), onToggleRecommend()]"
                          class=" media-title">
                             {{recommendation.name|seeMore:4}}

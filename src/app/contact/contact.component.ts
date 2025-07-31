@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { MainHeaderPageComponent } from '../main-header-page/main-header-page.component';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
-
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [MainHeaderPageComponent, AnimateOnVisibleDirective],
+  imports: [MainHeaderPageComponent],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  styleUrl: './contact.component.css',
+  animations: [zoomIn,slideDown,slideUp]
 })
 export class ContactComponent {
 

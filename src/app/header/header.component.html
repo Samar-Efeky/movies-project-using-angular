@@ -11,15 +11,16 @@
       <div class="banner-content">
         
         <!-- Heading with slide-down animation when it becomes visible -->
-        <h2 [appAnimateOnVisible]="'animate-slide-down'" class="main-section-title ">
+        <h2 @slideDown class="main-section-title ">
           Discover The Latest TV Series From Media
         </h2>
-        <div [appAnimateOnVisible]="'animate-slide-up'" #swiperCont class=" mySwiper1">
+        <div  #swiperCont class=" mySwiper1">
   <div class="swiper-wrapper">
-    @for(movie of movies; track movie.id){
+    @for(movie of movies; track movie.id; let i = $index){
       <div class="swiper-slide" *ngIf="movie.poster_path">
       <div class="header-content-container ">
-          <img class="header-img" 
+          <img class="header-img"  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
+          (visible)="visibleItems[i] = true" appAnimateOnVisible
           [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
           (click)="goToMediaDetails(mediaType, movie.id)" alt="Movie Poster">
         <div class="px-md-5 px-2 pt-2">
@@ -27,7 +28,9 @@
            class="media-title pt-1 fw-bolder">{{movie.name}}</p>
           <p *ngIf="movie.title" (click)="goToMediaDetails(mediaType, movie.id)"
            class="media-title pt-1 fw-bolder">{{movie.title}}</p>
-        <p [appAnimateOnVisible]="'animate-slide-up'" class="pt-md-3 pt-1 fw-medium ">
+        <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
+        (visible)="visibleItems[i] = true" appAnimateOnVisible
+         class="pt-md-3 pt-1 fw-medium ">
          {{movie.overview|seeMore:25}}
         </p>
         </div>
@@ -41,10 +44,11 @@
 
         <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
         <div class="d-flex gap-3 pt-md-3 pt-2">
-          <button (click)="goToMediaCollection(mediaType,category)" [appAnimateOnVisible]="'animate-zoom-in'" class="btn btn-light rounded-4 p-2">
+          <button (click)="goToMediaCollection(mediaType,category)" @zoomIn class="btn btn-light rounded-4 p-2">
             Discover Now
           </button>
-          <button (click)="goToMediaCollection(mediaType,category)" [appAnimateOnVisible]="'animate-zoom-in'" class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white">
+          <button (click)="goToMediaCollection(mediaType,category)" @zoomIn
+           class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white">
             <i class="fa-solid fa-play"></i> Play Trailer
           </button>
         </div>

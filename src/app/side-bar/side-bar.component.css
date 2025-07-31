@@ -1,7 +1,4 @@
 .sidebar{
-  transform: translateX(-150px);
-    opacity: 0;
-    animation-delay: 0.4s;
     background-color: var(--bg-section);
 }
 .sidebar-link{
@@ -42,8 +39,5 @@
   color: var(--main-color);
 }
 @media screen and (max-width:1000px){
-  .sidebar{
-    animation-delay:0s;
-    opacity: 1;
-  }
+ 
 }

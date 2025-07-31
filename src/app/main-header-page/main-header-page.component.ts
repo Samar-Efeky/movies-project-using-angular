@@ -1,13 +1,13 @@
 import { CommonModule, UpperCasePipe } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
-
+import { slideDown, slideUp } from '../animations/animations';
 @Component({
   selector: 'app-main-header-page',
   standalone: true,
-  imports: [UpperCasePipe, AnimateOnVisibleDirective,CommonModule],
+  imports: [UpperCasePipe,CommonModule],
   templateUrl: './main-header-page.component.html',
-  styleUrl: './main-header-page.component.css'
+  styleUrl: './main-header-page.component.css',
+  animations: [slideDown,slideUp]
 })
 export class MainHeaderPageComponent implements OnChanges{
   @Input() mediaType!:string;

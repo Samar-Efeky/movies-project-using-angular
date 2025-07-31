@@ -11,14 +11,20 @@ import { MediaDetailsService } from '../services/media-details.service';
   styleUrl: './person-profile.component.css'
 })
 export class PersonProfileComponent implements OnInit, OnDestroy {
+  //make a comments in english in the code
+  
+  // Declare variables for media type and ID  
   type!: string;
   id!: string;
   profileDetails: any;
-
+  // Subscription to manage the route parameters
+  // This will help in unsubscribing when the component is destroyed
   private routeSubscription!: Subscription;
-
+  // Inject the MediaDetailsService and ActivatedRoute to fetch media details based on route parameters
+  // ActivatedRoute is used to access the current route parameters
   constructor(private _MediaDetailsService:MediaDetailsService, private route: ActivatedRoute) {}
-
+  // OnInit lifecycle hook to subscribe to route parameters and fetch media details
+  // The switchMap operator is used to switch to a new observable when the route parameters change  
   ngOnInit(): void {
     this.routeSubscription = this.route.paramMap.pipe(
       switchMap(params => {
@@ -43,4 +49,5 @@ export class PersonProfileComponent implements OnInit, OnDestroy {
       console.log('Unsubscribed from route paramMap.');
     }
   }
+
 }

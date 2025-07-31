@@ -11,10 +11,11 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
 import { Router } from '@angular/router';
+import { slideUp, zoomIn } from '../animations/animations';
+import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 
 // Declare Swiper from CDN
 declare var Swiper: any;
@@ -22,9 +23,10 @@ declare var Swiper: any;
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule, SeeMorePipe, AnimateOnVisibleDirective],
+  imports: [CommonModule, SeeMorePipe, TimeAgoPipe],
   templateUrl: './slider.component.html',
-  styleUrl: './slider.component.css'
+  styleUrl: './slider.component.css',
+  animations: [slideUp, zoomIn],
 })
 export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() category: string = 'popular';
@@ -36,7 +38,7 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private moviesSubscription!: Subscription;
   private swiperInstance: any;
-
+ 
   // Use ViewChild to reference the swiper container element
   @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
 
@@ -115,6 +117,7 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('Swiper destroyed ✅');
     }
   }
+  // Navigate to media details or person details based on mediaType
    goToMediaDetails(mediaType:string, mediaId:string): void {
       // Navigate to the route with parameters: mediaType , media id
       if(mediaType=='person'){

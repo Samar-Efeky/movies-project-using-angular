@@ -2,7 +2,6 @@
 <header>
   <app-header *ngIf="slidersVisible" mediaType="tv" category="airing_today"></app-header>
 </header>
-
 <!-- Regular sliders rendered immediately on load -->
 <app-slider *ngIf="slidersVisible" mediaType="movie" category="popular" title="Popular Movies"></app-slider>
 <app-slider *ngIf="slidersVisible" mediaType="person" category="popular" title="Latest people"></app-slider>
@@ -16,7 +15,7 @@
     *ngIf="showTrendingSlider" 
     mediaType="trending" 
     category="all/day" 
-    title="What’s Trending Today">
+    title="What`s Trending Today">
   </app-slider>
 </div>
 

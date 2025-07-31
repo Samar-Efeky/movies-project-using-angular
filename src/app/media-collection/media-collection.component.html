@@ -20,21 +20,21 @@
               
               <!-- Profile image if available (used for people) -->
               @if (mediaContainer.profile_path) {
-                <img [appAnimateOnVisible]="'animate-zoom-in'"
+                <img @zoomIn
                   [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.profile_path" 
                   alt="Person Image" />
               }
 
               <!-- Poster image if available (used for movies/series) -->
               @if (mediaContainer.poster_path) {
-                <img  [appAnimateOnVisible]="'animate-zoom-in'"
+                <img  @zoomIn
                   [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.poster_path" 
                   alt="mediaContainer Poster" />
               }
 
               <!-- Vote average shown as a badge -->
               @if (mediaContainer.vote_average) {
-                <button  [appAnimateOnVisible]="'animate-zoom-in'"
+                <button  @zoomIn
                   class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
                   {{ mediaContainer.vote_average }}
                 </button>
@@ -44,19 +44,25 @@
             <div class="overflow-hidden">
               <!-- Media name (for person) -->
             @if (mediaContainer.name) {
-              <p [appAnimateOnVisible]="'animate-slide-down'" >{{ mediaContainer.name | seeMore: 2 }}</p>
+              <p @slideDown >{{ mediaContainer.name | seeMore: 2 }}</p>
             }
 
             <!-- Media title (for movies/shows) -->
             @if (mediaContainer.title) {
-              <p [appAnimateOnVisible]="'animate-slide-down'" >{{ mediaContainer.title | seeMore: 2 }}</p>
+              <p @slideDown >{{ mediaContainer.title | seeMore: 2 }}</p>
             }
 
-            <!-- Popularity score -->
-            @if (mediaContainer.popularity) {
-              <p [appAnimateOnVisible]="'animate-slide-up'">
-                popularity: 
-                <span class="popularity">{{ mediaContainer.popularity }}</span>
+            <!-- date -->
+            @if (mediaContainer.release_date) {
+              <p @slideUp >
+                
+                <span class="date-media">{{ mediaContainer.release_date }}</span>
+              </p>
+            }
+            @if (mediaContainer.first_air_date) {
+              <p @slideUp >
+                
+                <span class="date-media">{{ mediaContainer.first_air_date }}</span>
               </p>
             }
             </div>

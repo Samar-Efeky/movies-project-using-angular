@@ -9,12 +9,6 @@
 .header-content p{
   font-size: 1.3rem;
 }
-/* Buttons inside the header: initially scaled down and hidden */
-.header-content button {
-  transform: scale(0.4);  /* Make the button smaller at first */
-  opacity: 0;             /* Hide the button before animation */
-  animation-delay: 1s;    /* Delay the animation to appear later */
-}
 .header-content-container{
   display: flex;
   align-items: flex-start;

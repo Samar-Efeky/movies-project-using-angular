@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { filter } from 'rxjs';
+import { slideInOut } from '../animations/animations';
 
 @Component({
   selector: 'app-side-bar',
   standalone: true,
-  imports: [AnimateOnVisibleDirective, RouterLink, RouterLinkActive],
+  imports: [ RouterLink, RouterLinkActive],
   templateUrl: './side-bar.component.html',
-  styleUrl: './side-bar.component.css'
+  styleUrl: './side-bar.component.css',
+  animations: [slideInOut]
 })
 export class SideBarComponent {
  // Create an output event to notify the parent when a link is clicked

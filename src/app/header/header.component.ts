@@ -1,26 +1,28 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
-
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
 import { Router } from '@angular/router';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 declare var Swiper: any;
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [AnimateOnVisibleDirective, CommonModule, SeeMorePipe, CommonModule],
+  imports: [ CommonModule, SeeMorePipe, CommonModule,AnimateOnVisibleDirective],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
+  animations: [slideDown, slideUp, zoomIn]
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Input properties for category and media type (default to 'popular' and 'movie')
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
-
+  // Object to track visibility of items in the slider
+   visibleItems: { [key: number]: boolean } = {}; 
   // Movies list to display in the header slider
   movies: any[] = [];
 

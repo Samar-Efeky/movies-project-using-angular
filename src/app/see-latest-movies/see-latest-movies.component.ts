@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Router } from '@angular/router';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 @Component({
   selector: 'app-see-latest-movies',
   standalone: true,
-  imports: [AnimateOnVisibleDirective],
+  imports: [],
   templateUrl: './see-latest-movies.component.html',
-  styleUrl: './see-latest-movies.component.css'
+  styleUrl: './see-latest-movies.component.css',
+  animations: [slideDown, slideUp,zoomIn],
 })
 export class SeeLatestMoviesComponent {
   constructor(private router: Router){}

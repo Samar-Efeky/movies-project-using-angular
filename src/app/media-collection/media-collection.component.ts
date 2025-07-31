@@ -4,14 +4,15 @@ import { forkJoin, Subscription, switchMap } from 'rxjs';
 import { MainHeaderPageComponent } from "../main-header-page/main-header-page.component";
   import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { MediaService } from '../services/media.service';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 @Component({
   selector: 'app-media-collection',
   standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe, AnimateOnVisibleDirective],
+  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe],
 templateUrl: './media-collection.component.html',
-  styleUrl: './media-collection.component.css'
+  styleUrl: './media-collection.component.css',
+  animations: [zoomIn,slideDown,slideUp]
 })
 export class MediaCollectionComponent implements OnInit, OnDestroy {
   // Route parameters
