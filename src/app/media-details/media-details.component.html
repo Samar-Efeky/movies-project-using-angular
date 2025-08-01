@@ -176,7 +176,7 @@
                      class="bg-black mb-3 rounded-3 p-3">
                   <div class="d-flex justify-content-between">
                     <div>
-                      <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
+                      <img  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
                            appAnimateOnVisible (visible)="visibleItems[i] = true"
                            [src]="'https://image.tmdb.org/t/p/w500' + review.author_details.avatar_path"
                            class="rounded-circle me-2" width="50" height="50" alt="avatar" />

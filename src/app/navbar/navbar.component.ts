@@ -4,11 +4,12 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Outpu
 import { CommonModule } from '@angular/common';
 import { slideDown } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, AnimateOnVisibleDirective],
+  imports: [CommonModule, AnimateOnVisibleDirective, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   animations: [slideDown] // Add any animations if needed

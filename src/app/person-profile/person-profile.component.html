@@ -1,1 +1,50 @@
-<p>person-profile works!</p>
+<app-main-header-page [page]="personDetails?.name"></app-main-header-page>
+<section>
+    <div class="person-profile mt-5">
+        <div *ngIf="personDetails" class="container">
+            <div class="row ">
+                <div class="col-md-4">
+                    <img [src]="'https://image.tmdb.org/t/p/w500' + personDetails?.profile_path" alt="Person Image" class="img-fluid rounded-3">
+                </div>
+                <div class="col-md-8">
+                    <h2>{{ personDetails?.name }}</h2>
+                    <p>{{ personDetails?.biography }}</p>
+                    <h4>Birthday:</h4><p> {{ personDetails?.birthday | date:'longDate' }}</p>
+                    <h4>Place of Birth:</h4><p> {{ personDetails?.place_of_birth }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Images Section -->
+        <div *ngIf="personImages" class="container mt-5">
+            <h3>Images</h3>
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                @for (image of personImages; track image.file_path) {
+                    
+                        <img [src]="'https://image.tmdb.org/t/p/w500' + image.file_path"
+                        width="150" height="100" alt="Image" class="img-fluid rounded-3">
+                }
+            </div>
+        </div>
+
+        <!-- Movie Credits Section -->
+        <div class="container mt-5">
+            <h3>Movie Credits</h3>
+            <ul class="list-unstyled">
+                @for (credit of personMovieCredits; track credit.id) {
+                    <li>{{ credit.title }} ({{ credit.release_date | date:'yyyy' }})</li>
+                }
+            </ul>
+        </div>
+
+        <!-- TV Credits Section -->
+        <div class="container mt-5">
+            <h3>TV Credits</h3>
+            <ul class="list-unstyled">
+                @for (credit of personTVCredits; track credit.id) {
+                    <li>{{ credit.name }} ({{ credit.first_air_date | date:'yyyy' }})</li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>

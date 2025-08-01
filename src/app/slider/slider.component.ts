@@ -89,6 +89,10 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
         delay: 2500,
         disableOnInteraction: false
       },
+  navigation: {
+    nextEl: '.custom-next',
+    prevEl: '.custom-prev',
+  },
       breakpoints: {
         0: { slidesPerView: 1 },
         570: { slidesPerView: 2 },
