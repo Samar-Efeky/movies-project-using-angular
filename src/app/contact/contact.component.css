@@ -16,9 +16,3 @@ textarea::placeholder {
   color: var(--pragrah-color);
   font-style: italic;
 }
-/* Hide form and contact details initially for animation */
-form,
-.contact-details {
-  transform: scale(0);
-  opacity: 0;
-}

@@ -3,10 +3,11 @@ import { MainHeaderPageComponent } from '../main-header-page/main-header-page.co
 import { CommonModule } from '@angular/common';
 import { SeeLatestMoviesComponent } from '../see-latest-movies/see-latest-movies.component';
 import { slideDown, slideUp, zoomIn } from '../animations/animations';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeLatestMoviesComponent],
+  imports: [MainHeaderPageComponent, CommonModule, SeeLatestMoviesComponent,AnimateOnVisibleDirective],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
   animations: [slideDown, slideUp,zoomIn]
@@ -14,6 +15,7 @@ import { slideDown, slideUp, zoomIn } from '../animations/animations';
 export class AboutComponent implements AfterViewInit {
   // Reference to the stats section in the template
   @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
+  overviewVisible = false; // Flag to track if the overview section is visible
   // Array of stats to display (movies, TV shows, people)
   stats = [
     { icon: 'fa-solid fa-clapperboard', label: 'Total Movies', value: 23150, currentValue: 0 },
@@ -21,6 +23,7 @@ export class AboutComponent implements AfterViewInit {
     { icon: 'fa-solid fa-user', label: 'Total People', value: 30678, currentValue: 0 },
   ];
   ngAfterViewInit(): void {
+    
     // Set up IntersectionObserver to detect when the stats section is visible
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {

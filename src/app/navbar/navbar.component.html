@@ -1,5 +1,6 @@
 <!-- Navbar container with animation on visibility and scroll styling -->
-<div @slideDown
+<div [@slideDown]="overviewVisible?'visible':'void'" 
+         appAnimateOnVisible (visible)="overviewVisible=true"
      [ngClass]="{ 'scrolled': isScrolled }"
      class="navigation-bar px-3 py-2">
 

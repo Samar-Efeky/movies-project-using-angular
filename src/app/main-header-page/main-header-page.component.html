@@ -8,14 +8,20 @@
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
       
       <!-- Banner text/content positioned relatively to stay above background -->
-      <div class="banner-content h-100 d-flex justify-content-center align-items-center">
+      <div class="banner-content overflow-hidden h-100 d-flex justify-content-center align-items-center">
        <div *ngIf="media&& type" class="text-center">
-         <p @slideDown class="main-section-title">{{media|uppercase}}</p>
-         <p @slideUp class="path"><i class="fa-solid fa-house"></i> HOME / {{type}} {{media}}</p>
+         <p [@slideDown]="overviewVisible?'visible':'void'" 
+         appAnimateOnVisible (visible)="overviewVisible=true" class="main-section-title">{{media|uppercase}}</p>
+         <p [@slideUp]="overviewVisible?'visible':'void'" 
+         appAnimateOnVisible (visible)="overviewVisible=true"
+          class="path"><i class="fa-solid fa-house"></i> HOME / {{type}} {{media}}</p>
        </div>
        <div *ngIf="page" class="text-center">
-         <p @slideDown class="main-section-title">{{page|uppercase}}</p>
-         <p @slideUp class="path"><i class="fa-solid fa-house"></i> HOME / {{page}}</p>
+         <p [@slideDown]="overviewVisible?'visible':'void'" 
+         appAnimateOnVisible (visible)="overviewVisible=true"
+          class="main-section-title">{{page|uppercase}}</p>
+         <p [@slideUp]="overviewVisible?'visible':'void'" 
+         appAnimateOnVisible (visible)="overviewVisible=true" class="path"><i class="fa-solid fa-house"></i> HOME / {{page}}</p>
        </div>
       </div>
 

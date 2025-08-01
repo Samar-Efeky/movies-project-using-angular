@@ -5,7 +5,9 @@
   <div class="d-flex gap-4 my-5 flex-wrap justify-content-center m-auto">
 
     <!-- Address box with icon and text -->
-    <div @zoomIn class="contact-details d-flex gap-3 flex-grow-1 flex-wrap rounded-3 p-md-5 p-3">
+    <div [@zoomIn]="overviewVisible?'visible':'void'"
+    appAnimateOnVisible  (visible)="overviewVisible=true"
+    class="contact-details d-flex gap-3 flex-grow-1 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-location-dot fs-1"></i>
       </div>
@@ -16,7 +18,9 @@
     </div>
 
     <!-- Email box with multiple email links -->
-    <div @zoomIn class="contact-details flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+    <div [@zoomIn]="overviewVisible?'visible':'void'"
+    appAnimateOnVisible (visible)="overviewVisible=true" 
+    class="contact-details flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-envelope fs-1"></i>
       </div>
@@ -32,7 +36,9 @@
     </div>
 
     <!-- Phone box with clickable phone numbers -->
-    <div @zoomIn class="contact-details flex-grow-md-1 flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+    <div [@zoomIn]="overviewVisible?'visible':'void'"
+    appAnimateOnVisible (visible)="overviewVisible=true" 
+    class="contact-details flex-grow-md-1 flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-phone-volume fs-1"></i>
       </div>
@@ -53,15 +59,19 @@
   <div class="form-container p-xl-5 p-2 rounded-3">
     
     <!-- Form title and short description -->
-    <div class="text-center text-white mb-4">
-      <h2 class="fw-bold" @slideDown>Get in Touch</h2>
-      <p class="py-2" @slideUp>
+    <div class="text-center text-white mb-4 overflow-hidden">
+      <h2 class="fw-bold" [@slideDown]="overviewVisible?'visible': 'void'"
+      appAnimateOnVisible (visible)="overviewVisible=true">Get in Touch</h2>
+      <p class="py-2" [@slideUp]="overviewVisible?'visible':'void'" 
+      appAnimateOnVisible (visible)="overviewVisible=true">
         It is a long established fact that a reader will be distracted by the readable content...
       </p>
     </div>
 
     <!-- Contact form with input fields and textarea -->
-    <form @zoomIn class="row g-3">
+    <form [@zoomIn]="overviewVisible?'visible':'void'"
+    appAnimateOnVisible (visible)="overviewVisible=true" 
+    class="row g-3">
       <!-- Name input -->
       <div class="col-md-6">
         <input type="text" class="form-control bg-black text-white border-dark" placeholder="Enter Name" />

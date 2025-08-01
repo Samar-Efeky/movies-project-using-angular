@@ -8,7 +8,6 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-
 import { CommonModule } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { Subscription } from 'rxjs';
@@ -16,6 +15,7 @@ import { MediaService } from '../services/media.service';
 import { Router } from '@angular/router';
 import { slideUp, zoomIn } from '../animations/animations';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 // Declare Swiper from CDN
 declare var Swiper: any;
@@ -23,7 +23,7 @@ declare var Swiper: any;
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule, SeeMorePipe, TimeAgoPipe],
+  imports: [CommonModule, SeeMorePipe, TimeAgoPipe,AnimateOnVisibleDirective],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.css',
   animations: [slideUp, zoomIn],
@@ -32,7 +32,7 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
   @Input() title: string = '';
-
+   visibleItems: { [key: number]: boolean } = {}; // Track visibility of items in the collection
   movies: any[] = [];
   private swiperTimeout: any;
 

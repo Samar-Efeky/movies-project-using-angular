@@ -6,10 +6,12 @@ import { MainHeaderPageComponent } from "../main-header-page/main-header-page.co
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { MediaService } from '../services/media.service';
 import { slideDown, slideUp, zoomIn } from '../animations/animations';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 @Component({
   selector: 'app-media-collection',
   standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe],
+  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe,TimeAgoPipe,AnimateOnVisibleDirective],
 templateUrl: './media-collection.component.html',
   styleUrl: './media-collection.component.css',
   animations: [zoomIn,slideDown,slideUp]
@@ -18,7 +20,7 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   // Route parameters
   mediaType!: string;
   category!: string;
-
+   visibleItems: { [key: number]: boolean } = {}; // Track visibility of items in the collection
   // Full media list and paginated version
   mediaCollection: any[] = [];
   paginatedMedia: any[] = [];
@@ -59,12 +61,6 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(routeSub); // Add to subscription list
   }
-
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions to avoid memory leaks
-    this.subscriptions.unsubscribe();
-  }
-
   // Fetch media based on type and category
   getMedia(mediaType: string, category: string, page: string) {
     if (mediaType === 'trending') {
@@ -135,4 +131,9 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
         this._Router.navigate(['media-details',mediaType, mediaId]);
       }
     }
+    
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions to avoid memory leaks
+    this.subscriptions.unsubscribe();
+  }
 }

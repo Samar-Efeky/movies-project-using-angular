@@ -48,13 +48,12 @@ textarea::placeholder {
     .recommendations{
         position: absolute;
         top: 0%;
-        right: -100%;
-        z-index: 44444444444;
+        right: 0;
+        z-index: 4444;
         width: 40%;
         transition: 0.5s ease-in-out;
         overflow-y: scroll;
         height:100%;
-        padding-bottom:3%;
     }
     .media-details-show{
         width: 100%;

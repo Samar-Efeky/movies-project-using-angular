@@ -16,7 +16,9 @@ export class SideBarComponent {
 @Output() linkClicked = new EventEmitter<void>();
 // Emit the event when a link is clicked
 onLinkClick() {
-  this.linkClicked.emit(); // Notify the parent component
+   if (window.innerWidth < 1000) {
+    this.linkClicked.emit(); // Notify the parent component
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
   // Movie dropdown options with corresponding navigation paths

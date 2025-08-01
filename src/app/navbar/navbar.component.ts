@@ -3,16 +3,18 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Outpu
 // Import common module and custom directive
 import { CommonModule } from '@angular/common';
 import { slideDown } from '../animations/animations';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AnimateOnVisibleDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
   animations: [slideDown] // Add any animations if needed
 })
 export class NavbarComponent implements AfterViewInit {
+  overviewVisible = false; // Flag to track if the overview section is visible
   // Reference to the sidebar toggle button element in the template
   @ViewChild('sidebarToggleBtn', { static: false }) sidebarToggleBtn!: ElementRef;
   // Reference to the search button element in the template

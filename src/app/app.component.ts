@@ -19,7 +19,6 @@ export class AppComponent implements OnInit{
   
   isScrollButtonVisible: boolean = false;
   ngOnInit(): void {
-    
   // Listen to scroll event
   window.addEventListener('scroll', this.onScroll.bind(this));
 }

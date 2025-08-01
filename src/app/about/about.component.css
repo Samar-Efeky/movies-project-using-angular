@@ -5,16 +5,10 @@
 /* Background color for each stat box */
 .about-content {
   background-color: var(--bg-section);
-  transform: scale(0%);
 }
 /* Icon and label font size */
 i, .about-content p {
   font-size: 1.5rem;
-}
-/* Hide image initially for animation */
-img {
-  transform: scale(0);
-  opacity: 0;
 }
 /* Responsive adjustments for screens below 1450px */
 @media screen and (max-width:1450px) {
