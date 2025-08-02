@@ -29,7 +29,7 @@ export class AnimateOnVisibleDirective implements AfterViewInit, OnDestroy {
       );
 
       this.observer.observe(this.el.nativeElement);
-    }, 300); // وقت التأخير
+    }, 100); // وقت التأخير
   }
 
   ngOnDestroy(): void {

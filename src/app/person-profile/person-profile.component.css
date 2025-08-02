@@ -1,0 +1,24 @@
+i{
+    color: var(--main-color);
+}
+.swiper-navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  pointer-events: none; 
+}
+.swiper-button-prev,
+.swiper-button-next {
+  pointer-events: all;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  padding: 25px;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease;
+}

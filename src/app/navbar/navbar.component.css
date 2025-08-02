@@ -45,6 +45,18 @@ input:focus {
 .logo{
   display: none;
 }
+.search-result-item{
+  height: 500px;
+  overflow-y: scroll;
+  background-color: var(--bg-section);
+}
+.search-result-item div{
+  transition:0.5s ease;
+  cursor: pointer;
+}
+.search-result-item div:hover{
+  box-shadow: 0 10px 10px rgba(255, 255, 255, 0.6);
+}
 /*................................... media queries start ......................................................*/
 @media screen and (max-width:1300px){
   .input-search{

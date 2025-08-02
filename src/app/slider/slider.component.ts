@@ -34,9 +34,8 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() title: string = '';
    visibleItems: { [key: number]: boolean } = {}; // Track visibility of items in the collection
   movies: any[] = [];
+    private moviesSubscription!: Subscription;
   private swiperTimeout: any;
-
-  private moviesSubscription!: Subscription;
   private swiperInstance: any;
  
   // Use ViewChild to reference the swiper container element

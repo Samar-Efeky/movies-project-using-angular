@@ -81,10 +81,10 @@
             <!-- Cast and crew if overview is fully shown -->
             <ng-container *ngIf="showFullOverview">
               <h4 class="pt-3">Cast</h4>
-              <div class="d-flex gap-3 flex-wrap">
+              <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <!-- Loop over cast members -->
                 @for(castPerson of cast; track castPerson.id; let i = $index){
-                  <div (click)="goToProfileDetails('person', castPerson.id)"
+                  <div (click)="goToProfileDetails('person', castPerson.id)" style="cursor: pointer;"
                        *ngIf="castPerson.profile_path"
                        class="cast-person p-2 text-center overflow-hidden">
                     <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
@@ -102,10 +102,10 @@
 
             <ng-container *ngIf="showFullOverview">
               <h4 class="pt-3">Crew</h4>
-              <div class="d-flex gap-3 flex-wrap">
+              <div class="d-flex justify-content-center gap-3 flex-wrap">
                 <!-- Loop over crew members -->
                 @for(crewPerson of crew; track crewPerson.id; let i = $index){
-                  <div (click)="goToProfileDetails('person', crewPerson.id)"
+                  <div (click)="goToProfileDetails('person', crewPerson.id)" style="cursor: pointer;"
                        *ngIf="crewPerson.profile_path"
                        class="crew-person p-2 text-center overflow-hidden">
                     <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
@@ -136,7 +136,7 @@
                 @if (company.logo_path) {
                   <div class="company-container text-center overflow-hidden">
                     <div class="rounded-3 bg-white">
-                      <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
+                      <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'" 
                            appAnimateOnVisible (visible)="visibleItems[i] = true"
                            [src]="'https://image.tmdb.org/t/p/w500' + company.logo_path"
                            alt="{{company.name}} Logo">
@@ -205,7 +205,7 @@
       <!-- Recommendations sidebar (if MoveRight is true) -->
       <div *ngIf="MoveRight" @slideOutIn class="recommendations rounded-3 p-3">
         @for(recommendation of mediaRecommendations; track recommendation.id; let i = $index){
-          <div class="w-100 d-flex p-2 mb-2 bg-black rounded-3 overflow-hidden">
+          <div *ngIf=" recommendation.poster_path" class="w-100 d-flex p-2 mb-2 bg-black rounded-3 overflow-hidden">
             <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
                  appAnimateOnVisible (visible)="visibleItems[i] = true"
                  (click)="[goToMediaDetails(type, recommendation.id), onToggleRecommend()]"

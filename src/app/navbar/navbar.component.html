@@ -17,7 +17,23 @@
       <!-- Show search input only if showSearch is true -->
         <div [ngStyle]="{display:(showSearch)?'block':'none'}" class="input-search">
           <div class="position-relative search-box">
-            <input type="text" class="w-100" placeholder="Search Your Videos">
+            <input type="text" class="w-100" placeholder="Search Your Videos"
+            (input)="onSearchInput($event)">
+            <div *ngIf="searchResults.length > 0" class="search-result-item w-100 p-4 
+              rounded-4 position-absolute top-100 start-0">
+              @for(item of searchResults;track item.id){
+                <div (click)="goToMediaDetails(item.media_type,item.id)" *ngIf="item.poster_path|| item.profile_path" class="bg-black my-2 rounded-4">
+                    <img *ngIf="item.poster_path" class="rounded-4" width="200" height="100"
+                         [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path" 
+                         alt="{{item.title || item.name}}" />
+                    <img *ngIf="item.profile_path" class="rounded-4" width="200" height="100"
+                         [src]="'https://image.tmdb.org/t/p/w500' + item.profile_path" 
+                         alt="{{item.title || item.name}}" />     
+                    <span class="p-3">{{item.title || item.name}}</span>
+                </div>
+              }
+
+            </div>
             <!-- Icon inside the search box -->
             <div class="position-absolute top-0 end-0 py-2 px-3">
               <i class="fa-solid fa-magnifying-glass"></i>
