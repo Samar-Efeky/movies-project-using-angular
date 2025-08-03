@@ -10,12 +10,11 @@ import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.dire
 declare var Swiper: any;
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [ CommonModule, SeeMorePipe, CommonModule,AnimateOnVisibleDirective],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
-  animations: [slideDown, slideUp, zoomIn]
+    selector: 'app-header',
+    imports: [CommonModule, SeeMorePipe, CommonModule, AnimateOnVisibleDirective],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    animations: [slideDown, slideUp, zoomIn]
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Input properties for category and media type (default to 'popular' and 'movie')

@@ -4,12 +4,11 @@ import { filter } from 'rxjs';
 import { slideInOut } from '../animations/animations';
 
 @Component({
-  selector: 'app-side-bar',
-  standalone: true,
-  imports: [ RouterLink, RouterLinkActive],
-  templateUrl: './side-bar.component.html',
-  styleUrl: './side-bar.component.css',
-  animations: [slideInOut]
+    selector: 'app-side-bar',
+    imports: [RouterLink, RouterLinkActive],
+    templateUrl: './side-bar.component.html',
+    styleUrl: './side-bar.component.css',
+    animations: [slideInOut]
 })
 export class SideBarComponent {
  // Create an output event to notify the parent when a link is clicked

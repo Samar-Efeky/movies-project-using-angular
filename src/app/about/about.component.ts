@@ -5,12 +5,11 @@ import { SeeLatestMoviesComponent } from '../see-latest-movies/see-latest-movies
 import { slideDown, slideUp, zoomIn } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeLatestMoviesComponent,AnimateOnVisibleDirective],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.css',
-  animations: [slideDown, slideUp,zoomIn]
+    selector: 'app-about',
+    imports: [MainHeaderPageComponent, CommonModule, SeeLatestMoviesComponent, AnimateOnVisibleDirective],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.css',
+    animations: [slideDown, slideUp, zoomIn]
 })
 export class AboutComponent implements AfterViewInit {
   // Reference to the stats section in the template

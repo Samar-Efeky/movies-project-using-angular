@@ -11,12 +11,11 @@ import { slideDown, slideUp, zoomIn } from '../animations/animations';
 // Declare Swiper from CDN
 declare var Swiper: any;
 @Component({
-  selector: 'app-person-profile',
-  standalone: true,
-  imports: [MainHeaderPageComponent, DatePipe, CommonModule, SeeMorePipe,TimeAgoPipe, AnimateOnVisibleDirective],
-  templateUrl: './person-profile.component.html',
-  styleUrl: './person-profile.component.css',
-  animations: [slideUp,zoomIn,slideDown]
+    selector: 'app-person-profile',
+    imports: [MainHeaderPageComponent, DatePipe, CommonModule, SeeMorePipe, TimeAgoPipe, AnimateOnVisibleDirective],
+    templateUrl: './person-profile.component.html',
+    styleUrl: './person-profile.component.css',
+    animations: [slideUp, zoomIn, slideDown]
 })
 export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 

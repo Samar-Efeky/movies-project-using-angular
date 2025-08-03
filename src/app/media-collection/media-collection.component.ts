@@ -9,12 +9,11 @@ import { slideDown, slideUp, zoomIn } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 @Component({
-  selector: 'app-media-collection',
-  standalone: true,
-  imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe,TimeAgoPipe,AnimateOnVisibleDirective],
-templateUrl: './media-collection.component.html',
-  styleUrl: './media-collection.component.css',
-  animations: [zoomIn,slideDown,slideUp]
+    selector: 'app-media-collection',
+    imports: [MainHeaderPageComponent, CommonModule, SeeMorePipe, TimeAgoPipe, AnimateOnVisibleDirective],
+    templateUrl: './media-collection.component.html',
+    styleUrl: './media-collection.component.css',
+    animations: [zoomIn, slideDown, slideUp]
 })
 export class MediaCollectionComponent implements OnInit, OnDestroy {
   // Route parameters

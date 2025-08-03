@@ -6,12 +6,11 @@ import { FooterComponent } from "./footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { slideInOut } from './animations/animations';
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent,CommonModule],
-templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  animations: [slideInOut]
+    selector: 'app-root',
+    imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent, CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    animations: [slideInOut]
 })
 export class AppComponent implements OnInit{
   title = 'movies-project';

@@ -6,11 +6,10 @@ import { CommonModule } from '@angular/common';
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
 
 @Component({
-  selector: 'app-home-page',
-  standalone: true,
-  imports: [HeaderComponent,SliderComponent,SeeLatestMoviesComponent,CommonModule,LazyLoadDirective],
-  templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+    selector: 'app-home-page',
+    imports: [HeaderComponent, SliderComponent, SeeLatestMoviesComponent, CommonModule, LazyLoadDirective],
+    templateUrl: './home-page.component.html',
+    styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   // Control general slider visibility

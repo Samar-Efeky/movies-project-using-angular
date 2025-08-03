@@ -9,12 +9,11 @@ import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs'
 import { MediaService } from '../services/media.service';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [CommonModule, AnimateOnVisibleDirective, RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css',
-  animations: [slideDown] // Add any animations if needed
+    selector: 'app-navbar',
+    imports: [CommonModule, AnimateOnVisibleDirective, RouterLink],
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css',
+    animations: [slideDown] // Add any animations if needed
 })
 export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
   // Flag to track visibility of overview section

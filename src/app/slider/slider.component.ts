@@ -21,12 +21,11 @@ import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.dire
 declare var Swiper: any;
 
 @Component({
-  selector: 'app-slider',
-  standalone: true,
-  imports: [CommonModule, SeeMorePipe, TimeAgoPipe,AnimateOnVisibleDirective],
-  templateUrl: './slider.component.html',
-  styleUrl: './slider.component.css',
-  animations: [slideUp, zoomIn],
+    selector: 'app-slider',
+    imports: [CommonModule, SeeMorePipe, TimeAgoPipe, AnimateOnVisibleDirective],
+    templateUrl: './slider.component.html',
+    styleUrl: './slider.component.css',
+    animations: [slideUp, zoomIn]
 })
 export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() category: string = 'popular';

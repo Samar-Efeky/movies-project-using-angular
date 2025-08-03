@@ -10,12 +10,11 @@ import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 import { slideDown, slideOutIn, slideUp, zoomIn } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
-  selector: 'app-media-details',
-  standalone: true,
-  imports: [CommonModule,SeeMorePipe, FormsModule, TimeAgoPipe,AnimateOnVisibleDirective],
-  templateUrl: './media-details.component.html',
-  styleUrl: './media-details.component.css',
-  animations: [slideDown,slideUp,zoomIn,slideOutIn]
+    selector: 'app-media-details',
+    imports: [CommonModule, SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
+    templateUrl: './media-details.component.html',
+    styleUrl: './media-details.component.css',
+    animations: [slideDown, slideUp, zoomIn, slideOutIn]
 })
 export class MediaDetailsComponent implements OnInit, OnDestroy{
   //make a simple comments in english explaining the purpose of each variable
