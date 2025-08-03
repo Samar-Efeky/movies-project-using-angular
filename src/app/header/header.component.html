@@ -8,7 +8,7 @@
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
       
       <!-- Banner text/content positioned relatively to stay above background -->
-      <div class="banner-content">
+      <div class="banner-content p-2">
         
         <!-- Heading with slide-down animation when it becomes visible -->
         <h2 @slideDown class="main-section-title ">
@@ -16,11 +16,12 @@
         </h2>
         <div  #swiperCont class=" mySwiper1">
   <div class="swiper-wrapper">
-    @for(movie of movies; track movie.id; let i = $index){
-      <div class="swiper-slide" *ngIf="movie.poster_path">
+    @for(movie of movies; track trackMedia($index,movie); let i = $index){
+      <div class="swiper-slide"
+       *ngIf="movie.poster_path"
+        appAnimateOnVisible (visible)="markAsVisible(i)">
       <div class="header-content-container ">
           <img class="header-img"  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-          (visible)="visibleItems[i] = true" appAnimateOnVisible
           [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
           (click)="goToMediaDetails(mediaType, movie.id)" alt="Movie Poster">
         <div class="px-md-5 px-2 pt-2">
@@ -29,7 +30,6 @@
           <p *ngIf="movie.title" (click)="goToMediaDetails(mediaType, movie.id)"
            class="media-title pt-1 fw-bolder">{{movie.title}}</p>
         <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
-        (visible)="visibleItems[i] = true" appAnimateOnVisible
          class="pt-md-3 pt-1 fw-medium ">
          {{movie.overview|seeMore:25}}
         </p>
@@ -43,7 +43,7 @@
         <!-- Subtext paragraph with slide-up animation -->
 
         <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
-        <div class="d-flex gap-3 pt-md-3 pt-2">
+        <div class="d-flex gap-3 pt-md-3 ">
           <button (click)="goToMediaCollection(mediaType,category)" @zoomIn class="btn btn-light rounded-4 p-2">
             Discover Now
           </button>

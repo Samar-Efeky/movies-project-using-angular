@@ -57,6 +57,10 @@ input:focus {
 .search-result-item div:hover{
   box-shadow: 0 10px 10px rgba(255, 255, 255, 0.6);
 }
+.img-search{
+  width: 200px;
+  height: 100px;
+}
 /*................................... media queries start ......................................................*/
 @media screen and (max-width:1300px){
   .input-search{
@@ -134,5 +138,9 @@ input:focus {
 }
    .search-box{
     width: 95%;
+  }
+  .img-search{
+    width: 100px;
+    height: 60px;
   }
 }

@@ -9,8 +9,9 @@
     <!-- Container holding all media cards -->
     <div class="media-container-parent w-100">
       <!-- Loop through paginated media list -->
-      @for (mediaContainer of paginatedMedia; track mediaContainer.id; let i = $index) {
-        <div class="overflow-hidden" *ngIf="mediaContainer.profile_path||mediaContainer.poster_path">
+      @for (mediaContainer of paginatedMedia; track trackMedia($index,mediaContainer); let i = $index) {
+        <div class="overflow-hidden" appAnimateOnVisible (visible)="markAsVisible(i)"
+         *ngIf="mediaContainer.profile_path||mediaContainer.poster_path">
           <!-- Single media card -->
           <div class="media-container p-3"
            (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">
@@ -19,7 +20,6 @@
               <!-- Profile image if available (used for people) -->
               @if (mediaContainer.profile_path) {
                 <img [@zoomIn]="visibleItems[i]?'visible':'void'"
-                 appAnimateOnVisible (visible)="visibleItems[i]=true"
                   [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.profile_path" 
                   alt="Person Image" />
               }
@@ -27,7 +27,6 @@
               <!-- Poster image if available (used for movies/series) -->
               @if (mediaContainer.poster_path) {
                 <img  [@zoomIn]="visibleItems[i]?'visible':'void'"
-                  appAnimateOnVisible (visible)="visibleItems[i]=true"
                   [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.poster_path" 
                   alt="mediaContainer Poster" />
               }
@@ -35,7 +34,6 @@
               <!-- Vote average shown as a badge -->
               @if (mediaContainer.vote_average) {
                 <button  [@zoomIn]="visibleItems[i]?'visible':'void'"
-                  appAnimateOnVisible (visible)="visibleItems[i]=true"
                   class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
                   {{ mediaContainer.vote_average }}
                 </button>
@@ -45,34 +43,33 @@
             <div class="overflow-hidden py-2">
               <!-- Media name (for person) -->
             @if (mediaContainer.name) {
-              <p [@slideDown]="visibleItems[i]?'visible':'void'" 
-               appAnimateOnVisible (visible)="visibleItems[i]=true" >{{ mediaContainer.name | seeMore: 2 }}</p>
+              <p [@slideDown]="visibleItems[i]?'visible':'void'"  >
+                {{ mediaContainer.name | seeMore: 2 }}
+              </p>
             }
 
             <!-- Media title (for movies/shows) -->
             @if (mediaContainer.title) {
-              <p [@slideDown]="visibleItems[i]?'visible':'void'" 
-               appAnimateOnVisible (visible)="visibleItems[i]=true" >{{ mediaContainer.title | seeMore: 2 }}</p>
+              <p [@slideDown]="visibleItems[i]?'visible':'void'"  >
+                {{ mediaContainer.title | seeMore: 2 }}
+              </p>
             }
 
             <!-- date -->
             @if (mediaContainer.release_date) {
-              <p [@slideUp]="visibleItems[i]?'visible': 'void'"
-               appAnimateOnVisible (visible)="visibleItems[i]=true">
+              <p [@slideUp]="visibleItems[i]?'visible': 'void'">
                 
                 <span class="date-media">{{ mediaContainer.release_date|timeAgo }}</span>
               </p>
             }
             @if (mediaContainer.first_air_date) {
-              <p [@slideUp]="visibleItems[i]?'visible': 'void'"
-               appAnimateOnVisible (visible)="visibleItems[i]=true">
+              <p [@slideUp]="visibleItems[i]?'visible': 'void'">
                 
                 <span class="date-media">{{ mediaContainer.first_air_date|timeAgo }}</span>
               </p>
             }
             @if (mediaContainer.popularity && mediaType==='person') {
-              <p [@slideUp]="visibleItems[i]?'visible': 'void'"
-               appAnimateOnVisible (visible)="visibleItems[i]=true">
+              <p [@slideUp]="visibleItems[i]?'visible': 'void'">
                 popularity: 
                 <span class="popularity">{{ mediaContainer.popularity }}</span>
               </p>

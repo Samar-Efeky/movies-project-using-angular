@@ -18,72 +18,124 @@ declare var Swiper: any;
   styleUrl: './person-profile.component.css',
   animations: [slideUp,zoomIn,slideDown]
 })
-export class PersonProfileComponent implements OnInit, OnDestroy, AfterViewInit {
-  visibleItems: { [key: number]: boolean } = {};
-  // Flag to control the visibility of the overview section
-   overviewVisible = false;
-  //make a comments in english in the code
-  sub!: Subscription;
-  // Declare variables for media type and ID  
+export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  /** UI Visibility flags */
+  overviewVisible = false;
+  showFullBiography = false;
+  showAllImages = false;
+
+  /** Data holders */
   type!: string;
   id!: string;
-  personDetails:any = null; // Object to hold person details
-  personImages:any[] = [];
+  personDetails: any = null;
+  personImages: any[] = [];
   visibleImages: any[] = [];
-showAllImages: boolean = false;
-  personCredits:any[] = []; // Array to hold person credits
-   showFullBiography = false;
-  private swiperTimeout: any;
+  personCredits: any[] = [];
+
+  /** Control swiper visibility and animations */
+  visibleItems: { [key: number]: boolean } = {};
+
+  /** Swiper control */
   private swiperInstance: any;
-  toggleBiography() {
-    this.showFullBiography = !this.showFullBiography;
-  }
-   shouldShowToggle(bio: string): boolean {
-    return bio?.split(" ").length > 40;
-  }
-  // Use ViewChild to reference the swiper container element
-    @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
-  constructor(private _MediaDetailsService:MediaDetailsService,
-     private route: ActivatedRoute,private _Router:Router,
-    private cd: ChangeDetectorRef) {}
-  // OnInit lifecycle hook to subscribe to route parameters and fetch media details
-  // The switchMap operator is used to switch to a new observable when the route parameters change  
+  private swiperTimeout: any;
+
+  /** Route subscription */
+  private sub!: Subscription;
+
+  /** Access to swiper container in template */
+  @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
+
+  constructor(
+    private _MediaDetailsService: MediaDetailsService,
+    private route: ActivatedRoute,
+    private _Router: Router,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  /** OnInit: fetch data when route parameters change */
   ngOnInit(): void {
-     this.sub = this.route.paramMap.subscribe(params => {
+    this.sub = this.route.paramMap.subscribe(params => {
       this.type = params.get('mediaType') || '';
       this.id = params.get('mediaId') || '';
-      const dataSub = forkJoin({
-              details: this._MediaDetailsService.getMediaDetails(this.type, this.id),
-              images: this._MediaDetailsService.getMostDetails(this.type, this.id, 'images'),
-              personCredits: this._MediaDetailsService.getMostDetails(this.type, this.id, 'combined_credits'),
-        }).subscribe({
-          next:({details, images,personCredits})=>{
-            this.personDetails = details;
-            this.personImages = images.profiles || [];
-            this.visibleImages = this.personImages.slice(0, 10); // Show first 10 images initially
-            this.personCredits = personCredits.cast || [];
-            this.swiperTimeout = setTimeout(() => {
-              if (this.personCredits.length >= 2) {
-                this.initSwiper();
-                this.cd.detectChanges();
-              }
-            }, 0);
-          }
-        
-        })
-    })
-  }
-  ngAfterViewInit(): void {
-    // Initialize swiper only when movies are present
-     this.swiperTimeout = setTimeout(() => {
-        if (this.personCredits.length >= 2) {
-          this.initSwiper();
+
+      // Fetch person details, images, and credits in parallel
+      forkJoin({
+        details: this._MediaDetailsService.getMediaDetails(this.type, this.id),
+        images: this._MediaDetailsService.getMostDetails(this.type, this.id, 'images'),
+        personCredits: this._MediaDetailsService.getMostDetails(this.type, this.id, 'combined_credits'),
+      }).subscribe({
+        next: ({ details, images, personCredits }) => {
+          this.personDetails = details;
+          this.personImages = images.profiles || [];
+          this.visibleImages = this.personImages.slice(0, 10); // Show first 10 images
+          this.personCredits = personCredits.cast || [];
+
+          // Initialize swiper if enough credits exist
+          this.swiperTimeout = setTimeout(() => {
+            if (this.personCredits.length >= 2) {
+              this.initSwiper();
+              this.cd.detectChanges();
+            }
+          }, 0);
         }
-      }, 0);
+      });
+    });
   }
-   initSwiper(): void {
+  trackByFn(index: number, item: any): any {
+    return item.file_path || index;
+}
+trackMediaPerson(index: number, item: any): string {
+  return `${item.credit_id || item.id || index}-${item.media_type}`;
+}
+
+  /** AfterViewInit: initialize swiper if data already available */
+  ngAfterViewInit(): void {
+    this.swiperTimeout = setTimeout(() => {
+      if (this.personCredits.length >= 2) {
+        this.initSwiper();
+      }
+    }, 0);
+  }
+
+  /** Clean up subscriptions, timers, and swiper instance */
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+
+    if (this.swiperTimeout) {
+      clearTimeout(this.swiperTimeout);
+    }
+
+    if (this.swiperInstance && typeof this.swiperInstance.destroy === 'function') {
+      this.swiperInstance.destroy(true, true);
+      this.swiperInstance = null;
+      console.log('Swiper destroyed ✅');
+    }
+  }
+
+  /** Toggle full/short biography */
+  toggleBiography(): void {
+    this.showFullBiography = !this.showFullBiography;
+  }
+
+  /** Check if biography is long enough to toggle display */
+  shouldShowToggle(bio: string): boolean {
+    return bio?.split(" ").length > 40;
+  }
+
+  /** Show/hide more images */
+  toggleImagesView(): void {
+    this.showAllImages = !this.showAllImages;
+    this.visibleImages = this.showAllImages
+      ? this.personImages
+      : this.personImages.slice(0, 10);
+  }
+
+  /** Initialize swiper with custom settings */
+  private initSwiper(): void {
     if (!this.personCredits || this.personCredits.length < 2) return;
-    // Destroy old swiper if exists
+
+    // Destroy existing swiper
     if (this.swiperInstance && typeof this.swiperInstance.destroy === 'function') {
       this.swiperInstance.destroy(true, true);
       this.swiperInstance = null;
@@ -97,10 +149,10 @@ showAllImages: boolean = false;
         delay: 2500,
         disableOnInteraction: false
       },
-  navigation: {
-    nextEl: '.custom-next',
-    prevEl: '.custom-prev',
-  },
+      navigation: {
+        nextEl: '.custom-next',
+        prevEl: '.custom-prev',
+      },
       breakpoints: {
         0: { slidesPerView: 1 },
         570: { slidesPerView: 2 },
@@ -114,33 +166,13 @@ showAllImages: boolean = false;
 
     console.log('Swiper instance initialized ✅');
   }
-  toggleImagesView() {
-  this.showAllImages = !this.showAllImages;
 
-  this.visibleImages = this.showAllImages
-    ? this.personImages
-    : this.personImages.slice(0, 10);
-}
-  ngOnDestroy(): void {
-   this.sub?.unsubscribe();
-     if (this.swiperTimeout) {
-    clearTimeout(this.swiperTimeout);
-  }
-
-    if (this.swiperInstance && typeof this.swiperInstance.destroy === 'function') {
-      this.swiperInstance.destroy(true, true);
-      this.swiperInstance = null;
-      console.log('Swiper destroyed ✅');
+  /** Navigate to media or person details page */
+  goToMediaDetails(mediaType: string, mediaId: string): void {
+    if (mediaType === 'person') {
+      this._Router.navigate(['person-details', mediaType, mediaId]);
+    } else {
+      this._Router.navigate(['media-details', mediaType, mediaId]);
     }
   }
-  // Navigate to media details or person details based on mediaType
-   goToMediaDetails(mediaType:string, mediaId:string): void {
-      // Navigate to the route with parameters: mediaType , media id
-      if(mediaType=='person'){
-        this._Router.navigate(['person-details',mediaType, mediaId]);
-      }else{
-        this._Router.navigate(['media-details',mediaType, mediaId]);
-      }
-    }
-
 }

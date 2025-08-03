@@ -13,19 +13,18 @@
     </button>
   </div>
   <div class="swiper-wrapper">
-    @for (movie of movies; track movie.id; let i = $index) {
-      <div *ngIf="movie.profile_path || movie.poster_path" (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)" 
+    @for (movie of movies; track trackMedia($index, movie); let i = $index) {
+      <div *ngIf="movie.profile_path || movie.poster_path" 
+      appAnimateOnVisible (visible)="markAsVisible(i)"
+      (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)" 
         class="swiper-slide media-container">
-        
         <div class="position-relative">
           @if (movie.profile_path) {
-            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                 appAnimateOnVisible (visible)="visibleItems[i] = true"  
+            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"  
                  [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
           }
           @if (movie.poster_path) {
-            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                 appAnimateOnVisible (visible)="visibleItems[i] = true"  
+            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"  
                  [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
           }
           @if (movie.vote_average) {

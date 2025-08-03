@@ -56,7 +56,18 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     // Ensure swiper is initialized after the view is loaded
     this.initSwiperWithDelay();
   }
+   trackMedia(index: number, item: any): string {
+  const id = item.id || 'no-id';
+  const name = item.name || item.title || 'no-name';
+  const image = item.profile_path || item.poster_path || 'no-image';
 
+  return `${id}-${name}-${image}-${index}`;
+}
+markAsVisible(index: number): void {
+  if (!this.visibleItems[index]) {
+    this.visibleItems[index] = true;
+  }
+}
   // Delay swiper init to make sure DOM is fully rendered
   initSwiperWithDelay() {
     if (this.swiperInitTimeout) clearTimeout(this.swiperInitTimeout);

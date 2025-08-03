@@ -69,6 +69,18 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
       return this._MediaService.getMediaCollection(mediaType, category, page);
     }
   }
+ trackMedia(index: number, item: any): string {
+  const id = item.id || 'no-id';
+  const name = item.name || item.title || 'no-name';
+  const image = item.profile_path || item.poster_path || 'no-image';
+
+  return `${id}-${name}-${image}-${index}`;
+}
+markAsVisible(index: number): void {
+  if (!this.visibleItems[index]) {
+    this.visibleItems[index] = true;
+  }
+}
 
   // Slice data to show only current page
   updatePagination() {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, NgZone, OnDestroy, Output } from '@angular/core';
 
 @Directive({
   selector: '[appAnimateOnVisible]',
@@ -10,12 +10,13 @@ export class AnimateOnVisibleDirective implements AfterViewInit, OnDestroy {
   private observer!: IntersectionObserver;
   private hasAnimated = false;
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef,private ngZone: NgZone) {}
 
   ngAfterViewInit(): void {
     // نأخر المراقبة شوية لضمان استقرار الصفحة
     setTimeout(() => {
-      this.observer = new IntersectionObserver(
+      this.ngZone.runOutsideAngular(() => {
+        this.observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting && !this.hasAnimated) {
@@ -29,6 +30,8 @@ export class AnimateOnVisibleDirective implements AfterViewInit, OnDestroy {
       );
 
       this.observer.observe(this.el.nativeElement);
+      })
+  
     }, 100); // وقت التأخير
   }
 

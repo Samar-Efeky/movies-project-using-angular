@@ -37,7 +37,7 @@
                  appAnimateOnVisible (visible)="overviewVisible = true"
              class="py-2"><i class="fa-solid fa-camera fa-1x"></i> Images</h3>
             <div class="w-100 d-flex justify-content-center flex-wrap gap-3 py-3">
-                @for (image of visibleImages; track image.file_path) {
+                @for (image of visibleImages; track trackByFn($index, image)) {
                     
                         <img [src]="'https://image.tmdb.org/t/p/w500' + image.file_path"
                         width="100"  alt="Image" class="img-fluid rounded-3">
@@ -67,7 +67,7 @@
     </button>
   </div>
   <div class="swiper-wrapper">
-    @for (mediaPerson of personCredits; track mediaPerson.id; let i = $index) {
+    @for (mediaPerson of personCredits;track trackMediaPerson($index, mediaPerson); let i = $index) {
       <div *ngIf="mediaPerson.poster_path&& mediaPerson.first_air_date || mediaPerson.poster_path&&mediaPerson.release_date" 
       (click)="goToMediaDetails(mediaPerson.media_type ,mediaPerson.id)" 
         class="swiper-slide media-container">
@@ -97,10 +97,10 @@
           <p>{{ mediaPerson.title | seeMore:2 }}</p>
         }
         @if (mediaPerson.release_date) {
-          <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ mediaPerson.release_date|timeAgo}}</span></p>
+          <p><span class="date-media"><i class="fa-solid fa-clock text-white"></i> {{ mediaPerson.release_date|timeAgo}}</span></p>
         }
         @if (mediaPerson.first_air_date) {
-          <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ mediaPerson.first_air_date|timeAgo}}</span></p>
+          <p><span class="date-media"><i class="fa-solid fa-clock text-white"></i> {{ mediaPerson.first_air_date|timeAgo}}</span></p>
         }
       </div>
     }

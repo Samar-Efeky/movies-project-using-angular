@@ -1,11 +1,11 @@
 // Import Angular core modules needed for component functionality
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 // Import common module and custom directive
 import { CommonModule } from '@angular/common';
 import { slideDown } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Router, RouterLink } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
 
 @Component({
@@ -16,25 +16,43 @@ import { MediaService } from '../services/media.service';
   styleUrl: './navbar.component.css',
   animations: [slideDown] // Add any animations if needed
 })
-export class NavbarComponent implements AfterViewInit, OnInit {
-  overviewVisible = false; // Flag to track if the overview section is visible
-  // Reference to the sidebar toggle button element in the template
-  @ViewChild('sidebarToggleBtn', { static: false }) sidebarToggleBtn!: ElementRef;
-  // Reference to the search button element in the template
-  @ViewChild('searchBtn') searchBtn!: ElementRef;
-  // Output event to toggle content layout from the parent
-  @Output() toggleContentLeft = new EventEmitter<void>();
-  // Boolean to control visibility of the search input
-  @Output() toggleBasedOnButtonDisplay = new EventEmitter<boolean>();
-  showSearch: boolean = false;
-  // Boolean to track if the page is scrolled
+export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
+  // Flag to track visibility of overview section
+  overviewVisible = false;
+
+  // Flag to track visibility of search input
+  showSearch = false;
+
+  // Flag to track scroll status for styling
   isScrolled = false;
-    searchResults: any[] = [];
+
+  // Store search results from API
+  searchResults: any[] = [];
+
+  // Subject to stream search input value
   private searchInput$ = new Subject<string>();
-  constructor(private mediaService: MediaService, private _Router:Router) {}
+
+  // ViewChild to access sidebar toggle button
+  @ViewChild('sidebarToggleBtn', { static: false }) sidebarToggleBtn!: ElementRef;
+
+  // ViewChild to access search button
+  @ViewChild('searchBtn') searchBtn!: ElementRef;
+
+  // Emit event to parent to open sidebar
+  @Output() toggleContentLeft = new EventEmitter<void>();
+
+  // Emit event to parent to toggle layout based on sidebar button visibility
+  @Output() toggleBasedOnButtonDisplay = new EventEmitter<boolean>();
+
+  // Subscription reference for cleanup
+  private searchSub!: Subscription;
+
+  constructor(private mediaService: MediaService, private _Router: Router) {}
+
+  /** Lifecycle hook: OnInit */
   ngOnInit(): void {
-     // Debounce user input
-    this.searchInput$
+    // Listen for search input changes with debounce
+    this.searchSub = this.searchInput$
       .pipe(debounceTime(300), distinctUntilChanged())
       .subscribe((query) => {
         if (query.trim()) {
@@ -46,86 +64,98 @@ export class NavbarComponent implements AfterViewInit, OnInit {
         }
       });
   }
-   // Called when input changes
-  onSearchInput(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.searchInput$.next(value);
 
-  }
-  // Toggle the visibility of the search input
-  toggleSearch(): void {
-    this.showSearch = !this.showSearch;
-  }
-  // Emit event to notify parent component when sidebar toggle button is clicked
- checkSideBarToggleVisibility() {
-  if (this.sidebarToggleBtn) {
-    const display = window.getComputedStyle(this.sidebarToggleBtn.nativeElement).display;
-    const shouldShowSidebar = (display === 'none'); // true يعني نعرض السايدبار
-    this.toggleBasedOnButtonDisplay.emit(shouldShowSidebar);
-  }
-}
-  // Check the display status of the search button and update visibility of search input accordingly
-  checkInputSearch() {
-    // Get the computed display style of the search button
-  const display = window.getComputedStyle(this.searchBtn.nativeElement).display;
-
-  // If the currently focused element is an input field (e.g., user is typing), do not change the search input visibility
-  const activeElement = document.activeElement as HTMLElement;
-  if (activeElement && activeElement.tagName === 'INPUT') return;
-
-  // Toggle the visibility of the search input based on the search button's display
-  // If the search button is hidden (e.g., on small screens), show the search input
-  this.showSearch = (display === 'none');
-  }
-  // Run check on initial view after component has rendered
+  /** Lifecycle hook: AfterViewInit */
   ngAfterViewInit(): void {
-     setTimeout(() => {
-    this.checkInputSearch();
-    this.checkSideBarToggleVisibility();
-  });
+    setTimeout(() => {
+      this.checkInputSearch();
+      this.checkSideBarToggleVisibility();
+    });
   }
 
-  // Re-check on screen resize to update search input visibility
-  @HostListener('window:resize')
-  onResize() {
-    this.checkInputSearch();
-    this.checkSideBarToggleVisibility();
+  /** Lifecycle hook: OnDestroy - clean up subscriptions */
+  ngOnDestroy(): void {
+    this.searchSub?.unsubscribe();
+    this.searchResults = [];
+    this.searchInput$.complete();
   }
 
-  // Emit event to open the sidebar from parent component
-  onButtonOpenSideBar() {
-    this.toggleContentLeft.emit();
-  }
-
-  // Update scroll state to apply styling when scrolled
+  /** HostListener: On window scroll - update scroll flag */
   @HostListener('window:scroll', [])
-  onWindowScroll() {
+  onWindowScroll(): void {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     this.isScrolled = scrollY > 100;
   }
-  goToMediaDetails(mediaType:string, mediaId:string): void {
-      // Navigate to the route with parameters: mediaType , media id
-      if(mediaType=='person'){
-        this._Router.navigate(['person-details',mediaType, mediaId]);
-      }else{
-        this._Router.navigate(['media-details',mediaType, mediaId]);
-      }
-       // Clear search input and results
-  this.searchResults = [];
-  const inputElement = document.querySelector('.input-search input') as HTMLInputElement;
-  if (inputElement) inputElement.value = '';
+
+  /** HostListener: On window resize - recheck visibility states */
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkInputSearch();
+    this.checkSideBarToggleVisibility();
+  }
+
+  /** HostListener: Click outside input/result hides dropdown - Optional */
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const inputEl = document.querySelector('.input-search input');
+    const resultsEl = document.querySelector('.search-result-item');
+    const clickedElement = event.target as HTMLElement;
+
+    const isInsideInput = inputEl?.contains(clickedElement);
+    const isInsideResults = resultsEl?.contains(clickedElement);
+
+    // Optional behavior: if needed, clear results on outside click
+    // if (!isInsideInput && !isInsideResults) {
+    //   this.searchResults = [];
+    // }
+  }
+
+  /** Called on input event from search input */
+  onSearchInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchInput$.next(value);
+  }
+
+  /** Toggle visibility of search input */
+  toggleSearch(): void {
+    this.showSearch = !this.showSearch;
+  }
+
+  /** Emit to parent when sidebar toggle button is clicked */
+  onButtonOpenSideBar(): void {
+    this.toggleContentLeft.emit();
+  }
+
+  /** Emit boolean to parent based on sidebar button visibility */
+  checkSideBarToggleVisibility(): void {
+    if (this.sidebarToggleBtn) {
+      const display = window.getComputedStyle(this.sidebarToggleBtn.nativeElement).display;
+      const shouldShowSidebar = (display === 'none');
+      this.toggleBasedOnButtonDisplay.emit(shouldShowSidebar);
     }
-    @HostListener('document:click', ['$event'])
-onDocumentClick(event: MouseEvent) {
-  const inputEl = document.querySelector('.input-search input');
-  const resultsEl = document.querySelector('.search-result-item');
+  }
 
-  const clickedElement = event.target as HTMLElement;
+  /** Check search button visibility and show input if hidden */
+  checkInputSearch(): void {
+    const display = window.getComputedStyle(this.searchBtn.nativeElement).display;
+    const activeElement = document.activeElement as HTMLElement;
 
-  // Check if the clicked element is inside the input or the results
-  const isInsideInput = inputEl?.contains(clickedElement);
-  const isInsideResults = resultsEl?.contains(clickedElement);
-}
+    if (activeElement && activeElement.tagName === 'INPUT') return;
 
-    
+    this.showSearch = (display === 'none');
+  }
+
+  /** Navigate to media or person details page */
+  goToMediaDetails(mediaType: string, mediaId: string): void {
+    if (mediaType === 'person') {
+      this._Router.navigate(['person-details', mediaType, mediaId]);
+    } else {
+      this._Router.navigate(['media-details', mediaType, mediaId]);
+    }
+
+    // Clear search results and reset input
+    this.searchResults = [];
+    const inputElement = document.querySelector('.input-search input') as HTMLInputElement;
+    if (inputElement) inputElement.value = '';
+  }
 }

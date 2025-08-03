@@ -70,7 +70,18 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }, 0);
   }
+ trackMedia(index: number, item: any): string {
+  const id = item.id || 'no-id';
+  const name = item.name || item.title || 'no-name';
+  const image = item.profile_path || item.poster_path || 'no-image';
 
+  return `${id}-${name}-${image}-${index}`;
+}
+markAsVisible(index: number): void {
+  if (!this.visibleItems[index]) {
+    this.visibleItems[index] = true;
+  }
+}
   initSwiper(): void {
     if (!this.movies || this.movies.length < 2) return;
 
