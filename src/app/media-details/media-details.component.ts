@@ -1,7 +1,7 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription, switchMap } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { MediaDetailsService } from '../services/media-details.service';
@@ -11,7 +11,7 @@ import { slideDown, slideOutIn, slideUp, zoomIn } from '../animations/animations
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
     selector: 'app-media-details',
-    imports: [CommonModule, SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
+    imports: [SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
     templateUrl: './media-details.component.html',
     styleUrl: './media-details.component.css',
     animations: [slideDown, slideUp, zoomIn, slideOutIn]

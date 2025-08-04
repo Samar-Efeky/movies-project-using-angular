@@ -1,0 +1,30 @@
+.sign{
+    width: 50%;
+    background-color: var(--bg-section);
+}
+input{
+    background-color: var(--black-color);
+    color: var(--white-volor);
+}
+
+.input-container{
+    margin: 5% 0;
+}
+label{
+    left: 25px;
+    transform: translateY(-50%);
+}
+.fa-eye,.fa-eye-slash{
+    transform: translateY(100%);
+    right: 15px;
+}
+@media screen and (max-width:1500px){
+    .sign{
+        width: 70%;
+    }
+}
+@media screen and (max-width:992px){
+    .sign{
+        width: 100%;
+    }
+}

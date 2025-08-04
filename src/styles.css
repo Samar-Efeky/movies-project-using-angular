@@ -32,6 +32,7 @@ img{
 }
 a{
   text-decoration: none;
+  cursor: pointer;
 }
 .date-content{
   color: var(--pragrah-color);

@@ -1,9 +1,11 @@
 <div class="app-layout">
   <!-- General container for the layout -->
-  <div class="side-content" @slideInOut *ngIf="moveLeft" >
-    <!-- Fixed sidebar component on the left -->
-    <app-side-bar (linkClicked)="onToggleSideBar()"></app-side-bar>
-  </div>
+  @if (moveLeft) {
+    <div class="side-content" @slideInOut >
+      <!-- Fixed sidebar component on the left -->
+      <app-side-bar (linkClicked)="onToggleSideBar()"></app-side-bar>
+    </div>
+  }
 
   <div class="content-page">
     <!-- Fixed navbar component at the top of the main content area -->
@@ -13,12 +15,14 @@
     <div class="page-body pt-5 mt-5 px-3">
       <!-- Dynamic content loaded by Angular Router -->
       <router-outlet></router-outlet>
-      
+
       <!-- Footer component below the page content -->
       <app-footer></app-footer>
     </div>
   </div>
-  <div  *ngIf="isScrollButtonVisible" class="scroll-up position-fixed bottom-0 end-0 p-5">
-    <button (click)="scrollToTop()" class=" p-3 text-white"><i class="fa-solid fa-arrow-up"></i></button>
-  </div>
+  @if (isScrollButtonVisible) {
+    <div  class="scroll-up position-fixed bottom-0 end-0 p-5">
+      <button (click)="scrollToTop()" class=" p-3 text-white"><i class="fa-solid fa-arrow-up"></i></button>
+    </div>
+  }
 </div>

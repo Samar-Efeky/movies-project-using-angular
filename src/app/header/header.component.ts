@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
@@ -11,7 +11,7 @@ declare var Swiper: any;
 
 @Component({
     selector: 'app-header',
-    imports: [CommonModule, SeeMorePipe, CommonModule, AnimateOnVisibleDirective],
+    imports: [SeeMorePipe, AnimateOnVisibleDirective],
     templateUrl: './header.component.html',
     styleUrl: './header.component.css',
     animations: [slideDown, slideUp, zoomIn]

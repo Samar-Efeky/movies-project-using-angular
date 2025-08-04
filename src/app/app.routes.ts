@@ -6,6 +6,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MediaCollectionComponent } from './media-collection/media-collection.component';
 import { MediaDetailsComponent } from './media-details/media-details.component';
 import { PersonProfileComponent } from './person-profile/person-profile.component';
+import { SignInComponent } from './sign-in-component/sign-in-component';
+import { SignUpComponent } from './sign-up-component/sign-up-component';
+import { ProfileComponent } from './profile-component/profile-component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
@@ -14,6 +17,9 @@ export const routes: Routes = [
   { path: 'media-collection/:mediaType', redirectTo: 'media-collection/:mediaType/popular', pathMatch: 'full' },
   { path: 'media-collection/:mediaType/:category', component: MediaCollectionComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'signIn', component: SignInComponent },
+  { path: 'signUp', component: SignUpComponent},
+  { path: 'profile', component: ProfileComponent},
   { path: 'media-details/:mediaType/:mediaId', component:MediaDetailsComponent},
   { path: 'person-details/:mediaType/:mediaId', component:PersonProfileComponent},
   { path: '**', component: NotFoundComponent },

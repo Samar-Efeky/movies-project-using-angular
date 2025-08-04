@@ -3,11 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { FooterComponent } from "./footer/footer.component";
-import { CommonModule } from '@angular/common';
+
 import { slideInOut } from './animations/animations';
 @Component({
     selector: 'app-root',
-    imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent, CommonModule],
+    imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     animations: [slideInOut]

@@ -1,13 +1,13 @@
 <!-- Navbar container with animation on visibility and scroll styling -->
-<div [@slideDown]="overviewVisible?'visible':'void'" 
-         appAnimateOnVisible (visible)="overviewVisible=true"
-     [ngClass]="{ 'scrolled': isScrolled }"
-     class="navigation-bar px-3 py-2">
+<div [@slideDown]="overviewVisible?'visible':'void'"
+  appAnimateOnVisible (visible)="overviewVisible=true"
+  [ngClass]="{ 'scrolled': isScrolled }"
+  class="navigation-bar px-3 py-2">
 
   <div class="">
     <!-- Navbar layout container -->
     <div id="navigation-bar-links">
-      
+
       <!-- Logo with routing to home page -->
       <div routerLink="home-page" class="logo">
         <i class="fa-solid fa-clapperboard"></i>
@@ -15,28 +15,34 @@
       </div>
 
       <!-- Show search input only if showSearch is true -->
-        <div [ngStyle]="{display:(showSearch)?'block':'none'}" class="input-search">
-          <div class="position-relative search-box">
-            <input type="text" class="w-100" placeholder="Search Your Videos"
+      <div [ngStyle]="{display:(showSearch)?'block':'none'}" class="input-search">
+        <div class="position-relative search-box">
+          <input type="text" class="w-100" placeholder="Search Your Videos"
             (input)="onSearchInput($event)">
-            <div @slideDown *ngIf="searchResults.length > 0" class="search-result-item w-100 p-2 
+            @if (searchResults.length > 0) {
+<div @slideDown class="search-result-item w-100 p-2 
               rounded-4 position-absolute top-100 start-0">
-              @for(item of searchResults;track item.id){
-                <div
-                 (click)="goToMediaDetails(item.media_type,item.id)" 
-                 *ngIf="item.poster_path|| item.profile_path"
-                 class="bg-black my-3 p-3 rounded-4">
-                    <img *ngIf="item.poster_path" class="img-search rounded-4"
-                         [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path" 
-                         alt="{{item.title || item.name}}" />
-                    <img *ngIf="item.profile_path" class="img-search rounded-4"
-                         [src]="'https://image.tmdb.org/t/p/w500' + item.profile_path" 
-                         alt="{{item.title || item.name}}" />     
-                    <span class="p-3">{{item.title || item.name}}</span>
-                </div>
-              }
-
-            </div>
+                @for(item of searchResults;track item.id){
+                  @if (item.poster_path|| item.profile_path) {
+                    <div
+                      (click)="goToMediaDetails(item.media_type,item.id)"
+                      class="bg-black my-3 p-3 rounded-4">
+                      @if (item.poster_path) {
+                        <img class="img-search rounded-4"
+                          [src]="'https://image.tmdb.org/t/p/w500' + item.poster_path"
+                          alt="{{item.title || item.name}}" />
+                      }
+                      @if (item.profile_path) {
+                        <img class="img-search rounded-4"
+                          [src]="'https://image.tmdb.org/t/p/w500' + item.profile_path"
+                          alt="{{item.title || item.name}}" />
+                      }
+                      <span class="p-3">{{item.title || item.name}}</span>
+                    </div>
+                  }
+                }
+              </div>
+            }
             <!-- Icon inside the search box -->
             <div class="position-absolute top-0 end-0 py-2 px-3">
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -44,35 +50,38 @@
           </div>
         </div>
 
-      <!-- Buttons section in the navbar -->
-      <div class="navbar-button d-flex align-items-center gap-3">
-        <!-- Search button triggers toggleSearch() -->
-        <button #searchBtn (click)="toggleSearch()" class="button-search btn btn-dark">
-          <i class="fa-solid fa-magnifying-glass"></i> 
-          <span class="responsive-icon"> Search</span>
-        </button>
+        <!-- Buttons section in the navbar -->
+        <div class="navbar-button d-flex align-items-center gap-3">
+          <!-- Search button triggers toggleSearch() -->
+          <button #searchBtn (click)="toggleSearch()" class="button-search btn btn-dark">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="responsive-icon"> Search</span>
+          </button>
 
-        <!-- Notification button -->
-        <button class="btn btn-dark">
-          <i class="fa-solid fa-bell"></i>
-        </button>
+          <!-- Notification button -->
+          <button class="btn btn-dark">
+            <i class="fa-solid fa-bell"></i>
+          </button>
 
-        <!-- Upload button -->
-        <button class="btn btn-dark upload-button">
-          <i class="fa-solid fa-circle-arrow-up"></i> Upload
-        </button>
+          <!-- Upload button -->
+          <button class="btn btn-dark upload-button">
+            <i class="fa-solid fa-circle-arrow-up"></i> Upload
+          </button>
+          <!-- sign in button -->
+          <button routerLink="signIn" class="btn btn-dark button-mix-color">
+            <i class="fa-solid fa-user responsive-icon"></i> Sign In
+          </button>
+          <!-- Profile button -->
+          <button routerLink="profile" class="btn btn-dark button-mix-color d-none">
+            <i class="fa-solid fa-user responsive-icon"></i> Profile
+          </button>
 
-        <!-- Profile button -->
-        <button class="btn btn-dark button-mix-color">
-          <i class="fa-solid fa-user responsive-icon"></i> Profile
-        </button>
+          <!-- Sidebar toggle button -->
+          <button (click)="onButtonOpenSideBar()" #sidebarToggleBtn class="btn btn-dark button-list-side-bar">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
 
-        <!-- Sidebar toggle button -->
-        <button (click)="onButtonOpenSideBar()" #sidebarToggleBtn class="btn btn-dark button-list-side-bar">
-          <i class="fa-solid fa-bars"></i>
-        </button>
       </div>
-
     </div>
   </div>
-</div>

@@ -1,30 +1,38 @@
 <!-- Header section shown only when slidersVisible is true -->
 <header>
-  <app-header *ngIf="slidersVisible" mediaType="tv" category="airing_today"></app-header>
+  @if (slidersVisible) {
+    <app-header mediaType="tv" category="airing_today"></app-header>
+  }
 </header>
 <!-- Regular sliders rendered immediately on load -->
-<app-slider *ngIf="slidersVisible" mediaType="movie" category="popular" title="Popular Movies"></app-slider>
-<app-slider *ngIf="slidersVisible" mediaType="person" category="popular" title="Latest people"></app-slider>
+@if (slidersVisible) {
+  <app-slider mediaType="movie" category="popular" title="Popular Movies"></app-slider>
+}
+@if (slidersVisible) {
+  <app-slider mediaType="person" category="popular" title="Latest people"></app-slider>
+}
 
 <!-- Section to show latest movies -->
 <app-see-latest-movies></app-see-latest-movies>
 
 <!-- Trending slider loaded only when it comes into view -->
 <div (appLazyLoad)="onTrendingLazyLoad()" appLazyLoad>
-  <app-slider 
-    *ngIf="showTrendingSlider" 
-    mediaType="trending" 
-    category="all/day" 
-    title="What`s Trending Today">
-  </app-slider>
+  @if (showTrendingSlider) {
+    <app-slider
+      mediaType="trending"
+      category="all/day"
+      title="What`s Trending Today">
+    </app-slider>
+  }
 </div>
 
 <!-- Top-rated TV series slider loaded only when it comes into view -->
 <div (appLazyLoad)="onTopRatedLazyLoad()" appLazyLoad>
-  <app-slider 
-    *ngIf="showTopRatedSlider" 
-    mediaType="tv" 
-    category="top_rated" 
-    title="Top rated TV Series">
-  </app-slider>
+  @if (showTopRatedSlider) {
+    <app-slider
+      mediaType="tv"
+      category="top_rated"
+      title="Top rated TV Series">
+    </app-slider>
+  }
 </div>

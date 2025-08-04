@@ -1,60 +1,64 @@
 <div>
   <div class="position-relative header-content w-100">
-    
+
     <!-- Banner section: not using absolute positioning for the banner itself -->
     <div class="banner mb-2 w-100 overflow-hidden ">
-    
+
       <!-- Semi-transparent background image layer positioned absolutely -->
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
-      
+
       <!-- Banner text/content positioned relatively to stay above background -->
       <div class="banner-content p-2">
-        
+
         <!-- Heading with slide-down animation when it becomes visible -->
         <h2 @slideDown class="main-section-title ">
           Discover The Latest TV Series From Media
         </h2>
         <div  #swiperCont class=" mySwiper1">
-  <div class="swiper-wrapper">
-    @for(movie of movies; track trackMedia($index,movie); let i = $index){
-      <div class="swiper-slide"
-       *ngIf="movie.poster_path"
-        appAnimateOnVisible (visible)="markAsVisible(i)">
-      <div class="header-content-container ">
-          <img class="header-img"  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-          (click)="goToMediaDetails(mediaType, movie.id)" alt="Movie Poster">
-        <div class="px-md-5 px-2 pt-2">
-          <p *ngIf="movie.name" (click)="goToMediaDetails(mediaType, movie.id)"
-           class="media-title pt-1 fw-bolder">{{movie.name}}</p>
-          <p *ngIf="movie.title" (click)="goToMediaDetails(mediaType, movie.id)"
-           class="media-title pt-1 fw-bolder">{{movie.title}}</p>
-        <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
-         class="pt-md-3 pt-1 fw-medium ">
-         {{movie.overview|seeMore:25}}
-        </p>
-        </div>
-      </div>
-      
-    </div>
-    }
-  </div>
-</div>
-        <!-- Subtext paragraph with slide-up animation -->
+          <div class="swiper-wrapper">
+            @for(movie of movies; track trackMedia($index,movie); let i = $index){
+              @if (movie.poster_path) {
+                <div class="swiper-slide"
+                  appAnimateOnVisible (visible)="markAsVisible(i)">
+                  <div class="header-content-container ">
+                    <img class="header-img"  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
+                      [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+                      (click)="goToMediaDetails(mediaType, movie.id)" alt="Movie Poster">
+                      <div class="px-md-5 px-2 pt-2">
+                        @if (movie.name) {
+                          <p (click)="goToMediaDetails(mediaType, movie.id)"
+                          class="media-title pt-1 fw-bolder">{{movie.name}}</p>
+                        }
+                        @if (movie.title) {
+                          <p (click)="goToMediaDetails(mediaType, movie.id)"
+                          class="media-title pt-1 fw-bolder">{{movie.title}}</p>
+                        }
+                        <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
+                          class="pt-md-3 pt-1 fw-medium ">
+                          {{movie.overview|seeMore:25}}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+          <!-- Subtext paragraph with slide-up animation -->
 
-        <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
-        <div class="d-flex gap-3 pt-md-3 ">
-          <button (click)="goToMediaCollection(mediaType,category)" @zoomIn class="btn btn-light rounded-4 p-2">
-            Discover Now
-          </button>
-          <button (click)="goToMediaCollection(mediaType,category)" @zoomIn
-           class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white">
-            <i class="fa-solid fa-play"></i> Play Trailer
-          </button>
+          <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
+          <div class="d-flex gap-3 pt-md-3 ">
+            <button (click)="goToMediaCollection(mediaType,category)" @zoomIn class="btn btn-light rounded-4 p-2">
+              Discover Now
+            </button>
+            <button (click)="goToMediaCollection(mediaType,category)" @zoomIn
+              class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white">
+              <i class="fa-solid fa-play"></i> Play Trailer
+            </button>
+          </div>
         </div>
+
       </div>
 
     </div>
-    
   </div>
-</div>

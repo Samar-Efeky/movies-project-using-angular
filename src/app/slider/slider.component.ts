@@ -8,7 +8,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
@@ -22,7 +22,7 @@ declare var Swiper: any;
 
 @Component({
     selector: 'app-slider',
-    imports: [CommonModule, SeeMorePipe, TimeAgoPipe, AnimateOnVisibleDirective],
+    imports: [SeeMorePipe, TimeAgoPipe],
     templateUrl: './slider.component.html',
     styleUrl: './slider.component.css',
     animations: [slideUp, zoomIn]
@@ -31,7 +31,6 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
   @Input() title: string = '';
-   visibleItems: { [key: number]: boolean } = {}; // Track visibility of items in the collection
   movies: any[] = [];
     private moviesSubscription!: Subscription;
   private swiperTimeout: any;
@@ -75,11 +74,6 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   const image = item.profile_path || item.poster_path || 'no-image';
 
   return `${id}-${name}-${image}-${index}`;
-}
-markAsVisible(index: number): void {
-  if (!this.visibleItems[index]) {
-    this.visibleItems[index] = true;
-  }
 }
   initSwiper(): void {
     if (!this.movies || this.movies.length < 2) return;

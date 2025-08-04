@@ -2,12 +2,12 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { HeaderComponent } from "../header/header.component";
 import { SliderComponent } from '../slider/slider.component';
 import { SeeLatestMoviesComponent } from '../see-latest-movies/see-latest-movies.component';
-import { CommonModule } from '@angular/common';
+
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
 
 @Component({
     selector: 'app-home-page',
-    imports: [HeaderComponent, SliderComponent, SeeLatestMoviesComponent, CommonModule, LazyLoadDirective],
+    imports: [HeaderComponent, SliderComponent, SeeLatestMoviesComponent, LazyLoadDirective],
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.css'
 })

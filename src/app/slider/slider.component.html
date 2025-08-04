@@ -7,46 +7,46 @@
 <div @slideUp class="swiper position-relative" #swiperContainer>
   <div class="swiper-navigation">
     <button class="swiper-button-prev custom-prev">
-      
+
     </button>
     <button class="swiper-button-next custom-next">
     </button>
   </div>
   <div class="swiper-wrapper">
     @for (movie of movies; track trackMedia($index, movie); let i = $index) {
-      <div *ngIf="movie.profile_path || movie.poster_path" 
-      appAnimateOnVisible (visible)="markAsVisible(i)"
-      (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)" 
-        class="swiper-slide media-container">
-        <div class="position-relative">
-          @if (movie.profile_path) {
-            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"  
-                 [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
+      @if (movie.profile_path || movie.poster_path) {
+        <div
+          (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)"
+          class="swiper-slide media-container">
+          <div class="position-relative">
+            @if (movie.profile_path) {
+              <img 
+                [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
+              }
+              @if (movie.poster_path) {
+                <img 
+                  [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
+                }
+                @if (movie.vote_average) {
+                  <button class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+                    {{ movie.vote_average }}
+                  </button>
+                }
+              </div>
+              @if (movie.name) {
+                <p>{{ movie.name | seeMore:2 }}</p>
+              }
+              @if (movie.title) {
+                <p>{{ movie.title | seeMore:2 }}</p>
+              }
+              @if (movie.release_date) {
+                <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ movie.release_date|timeAgo}}</span></p>
+              }
+              @if (movie.first_air_date) {
+                <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ movie.first_air_date|timeAgo}}</span></p>
+              }
+            </div>
           }
-          @if (movie.poster_path) {
-            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"  
-                 [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
-          }
-          @if (movie.vote_average) {
-            <button class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
-              {{ movie.vote_average }}
-            </button>
-          }
-        </div>
-
-        @if (movie.name) {
-          <p>{{ movie.name | seeMore:2 }}</p>
-        }
-        @if (movie.title) {
-          <p>{{ movie.title | seeMore:2 }}</p>
-        }
-        @if (movie.release_date) {
-          <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ movie.release_date|timeAgo}}</span></p>
-        }
-        @if (movie.first_air_date) {
-          <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ movie.first_air_date|timeAgo}}</span></p>
         }
       </div>
-    }
-  </div>
-</div>
+    </div>
