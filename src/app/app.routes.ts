@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'signIn',loadComponent: () => import('./sign-in-component/sign-in-component').then(m => m.SignInComponent) },
   { path: 'signUp', loadComponent: () => import('./sign-up-component/sign-up-component').then(m => m.SignUpComponent) },
   { path: 'profile', component: ProfileComponent},
-  { path: 'media-details/:mediaType/:mediaId', component:MediaDetailsComponent},
-  { path: 'person-details/:mediaType/:mediaId', component:PersonProfileComponent},
+  { path: 'media-details/:mediaType/:mediaId',loadComponent: () => import('./media-details/media-details.component').then(m => m.MediaDetailsComponent) },
+  { path: 'person-details/:mediaType/:mediaId',loadComponent: () => import('./person-profile/person-profile.component').then(m => m.PersonProfileComponent) },
   { path: '**', component: NotFoundComponent },
 ];
