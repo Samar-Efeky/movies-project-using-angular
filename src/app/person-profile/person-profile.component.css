@@ -22,3 +22,17 @@ i{
   
   transition: background-color 0.3s ease;
 }
+ .slider-container img{
+  height: 250px;
+  width: 100%;
+ }
+@media screen and (max-width:1300px){
+ .slider-container img{
+  height: 180px;
+ }
+}
+@media screen and (max-width:500px){
+ .slider-container img{
+  height: 150px;
+ }
+}

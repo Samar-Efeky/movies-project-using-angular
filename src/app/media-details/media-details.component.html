@@ -7,7 +7,7 @@
         appAnimateOnVisible (visible)="overviewVisible = true"
         [src]="'https://image.tmdb.org/t/p/w1280' + mediaDetails.backdrop_path"
         class="w-100 h-100 rounded-3" alt="">
-        <div class="overley position-absolute top-0 start-0 w-100 h-100"></div>
+        <div class="overley-poster position-absolute top-0 start-0 w-100 h-100"></div>
       </div>
     }
   </header>
@@ -26,7 +26,7 @@
             <div class="video-show w-100 rounded-4">
               @if (trailerKey) {
                 <!-- Embedded YouTube trailer -->
-                <iframe width="100%" height="300"
+                <iframe width="100%" height="400"
                   [src]="trailerKey"
                   frameborder="0"
                   allow="autoplay; encrypted-media"
@@ -53,7 +53,8 @@
                 }
                 <p class="ps-lg-0 ps-2"><i class="fa-solid fa-eye"></i> {{mediaDetails.vote_count}} views</p>
                 <div>
-                  <button class="px-2 py-1 text-white bg-dark"><i class="fa-solid fa-thumbs-up"></i> Like</button>
+                  <button
+                   class="px-2 py-1 text-white bg-dark"><i class="fa-solid fa-thumbs-up"></i> Like</button>
                   <button class="px-2 py-1 ms-1 bg-dark text-white"><i class="fa-solid fa-thumbs-down"></i> Dislike</button>
                 </div>
                 <div>

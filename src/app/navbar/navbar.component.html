@@ -68,13 +68,18 @@
             <i class="fa-solid fa-circle-arrow-up"></i> Upload
           </button>
           <!-- sign in button -->
-          <button routerLink="signIn" class="btn btn-dark button-mix-color">
+          <button *ngIf="!(isLoggedIn$ | async)" routerLink="signIn" class="btn btn-dark button-mix-color">
             <i class="fa-solid fa-user responsive-icon"></i> Sign In
           </button>
           <!-- Profile button -->
-          <button routerLink="profile" class="btn btn-dark button-mix-color d-none">
+          <!-- <button routerLink="profile" *ngIf="(isLoggedIn$ | async)" class="btn btn-dark button-mix-color ">
             <i class="fa-solid fa-user responsive-icon"></i> Profile
-          </button>
+          </button> -->
+          @if((isLoggedIn$ | async) && profileImageUrl){
+             <div class="profile-avatar" routerLink="profile">
+                <img [src]="profileImageUrl" alt="Profile" />
+              </div>
+          }
 
           <!-- Sidebar toggle button -->
           <button (click)="onButtonOpenSideBar()" #sidebarToggleBtn class="btn btn-dark button-list-side-bar">

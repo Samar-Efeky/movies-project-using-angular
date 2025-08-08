@@ -77,27 +77,29 @@
                   @if (mediaPerson.poster_path&& mediaPerson.first_air_date || mediaPerson.poster_path&&mediaPerson.release_date) {
                     <div
                       (click)="goToMediaDetails(mediaPerson.media_type ,mediaPerson.id)"
-                      class="swiper-slide media-container">
+                      class="swiper-slide slider-container rounded-3">
                       <div class="position-relative">
                         @if (mediaPerson.profile_path) {
                           <img 
-                            [src]="'https://image.tmdb.org/t/p/w500' + mediaPerson.profile_path" alt="Person Image" />
+                            [src]="'https://image.tmdb.org/t/p/w500' + mediaPerson.profile_path" class="rounded-3"
+                             alt="Person Image" />
                           }
                           @if (mediaPerson.poster_path) {
                             <img 
-                              [src]="'https://image.tmdb.org/t/p/w500' + mediaPerson.poster_path" alt="mediaPerson Poster" />
+                              [src]="'https://image.tmdb.org/t/p/w500' + mediaPerson.poster_path"
+                              class="rounded-3" alt="mediaPerson Poster" />
                             }
                             @if (mediaPerson.vote_average) {
-                              <button class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+                              <button class="vote p-1 rounded-3 border-0 fw-bolder text-white position-absolute top-0 end-0">
                                 {{ mediaPerson.vote_average }}
                               </button>
                             }
                           </div>
                           @if (mediaPerson.name) {
-                            <p>{{ mediaPerson.name | seeMore:2 }}</p>
+                            <p>{{ mediaPerson.name | seeMore:1 }}</p>
                           }
                           @if (mediaPerson.title) {
-                            <p>{{ mediaPerson.title | seeMore:2 }}</p>
+                            <p>{{ mediaPerson.title | seeMore:1 }}</p>
                           }
                           @if (mediaPerson.release_date) {
                             <p><span class="date-media"><i class="fa-solid fa-clock text-white"></i> {{ mediaPerson.release_date|timeAgo}}</span></p>

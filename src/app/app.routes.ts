@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, CanActivateFn } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
@@ -9,6 +9,8 @@ import { PersonProfileComponent } from './person-profile/person-profile.componen
 import { SignInComponent } from './sign-in-component/sign-in-component';
 import { SignUpComponent } from './sign-up-component/sign-up-component';
 import { ProfileComponent } from './profile-component/profile-component';
+import { authGuardGuard } from './guards/auth-guard-guard';
+import { logInGuard } from './guards/log-in-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
@@ -17,9 +19,12 @@ export const routes: Routes = [
   { path: 'media-collection/:mediaType', redirectTo: 'media-collection/:mediaType/popular', pathMatch: 'full' },
   { path: 'media-collection/:mediaType/:category', component: MediaCollectionComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'signIn',loadComponent: () => import('./sign-in-component/sign-in-component').then(m => m.SignInComponent) },
-  { path: 'signUp', loadComponent: () => import('./sign-up-component/sign-up-component').then(m => m.SignUpComponent) },
-  { path: 'profile', component: ProfileComponent},
+  { path: 'signIn',loadComponent: () => import('./sign-in-component/sign-in-component').then(m => m.SignInComponent) ,
+    canActivate: [logInGuard]
+  },
+  { path: 'signUp', loadComponent: () => import('./sign-up-component/sign-up-component').then(m => m.SignUpComponent),
+     canActivate: [logInGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuardGuard] },
   { path: 'media-details/:mediaType/:mediaId',loadComponent: () => import('./media-details/media-details.component').then(m => m.MediaDetailsComponent) },
   { path: 'person-details/:mediaType/:mediaId',loadComponent: () => import('./person-profile/person-profile.component').then(m => m.PersonProfileComponent) },
   { path: '**', component: NotFoundComponent },

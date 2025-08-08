@@ -15,7 +15,7 @@
           <div class="overflow-hidden" appAnimateOnVisible (visible)="markAsVisible(i)"
             >
             <!-- Single media card -->
-            <div class="media-container p-3"
+            <div class="media-container"
               (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">
               <div class="position-relative">
                 <!-- Profile image if available (used for people) -->
@@ -32,14 +32,15 @@
                     }
                     <!-- Vote average shown as a badge -->
                     @if (mediaContainer.vote_average) {
-                      <button  [@zoomIn]="visibleItems[i]?'visible':'void'"
-                        class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+                      <button  
+                        class="vote p-1 rounded-3 border-0 fw-bolder text-white position-absolute top-0 end-0">
                         {{ mediaContainer.vote_average }}
                       </button>
                     }
                   </div>
-                  <div class="overflow-hidden py-2">
-                    <!-- Media name (for person) -->
+                  <div class="overley overflow-hidden py-2">
+                   <div class="text-center">
+                     <!-- Media name (for person) -->
                     @if (mediaContainer.name) {
                       <p [@slideDown]="visibleItems[i]?'visible':'void'"  >
                         {{ mediaContainer.name | seeMore: 2 }}
@@ -69,6 +70,7 @@
                       </p>
                     }
                   </div>
+                   </div>
                 </div>
               </div>
             }

@@ -1,0 +1,68 @@
+.profile-details{
+    border-right:0.1px solid var(--border-color); ;
+}
+.history-child{
+    cursor: pointer;
+}
+i{
+    color: var(--blue-color);
+}
+.profile-container{
+    background-color: var(--bg-section);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); 
+  grid-gap: 8px; /* Gap between items */
+}
+.profile-container img{
+    height: 200px;
+}
+@media screen and (max-width: 1500px) {
+    .profile-container{
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+}
+@media screen and (max-width: 1400px) {
+   .profile-container img{
+    height: 180px;
+   }
+
+}
+@media screen and (max-width: 1300px) {
+      .profile-container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+   .profile-container img{
+    height: 150px;
+   }
+
+}
+@media screen and (max-width: 1150px) {
+    .profile-container{
+         grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media screen and (max-width: 1000px) {
+    .profile-container{
+         grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (max-width: 800px) {
+    .profile-container{
+         grid-template-columns: repeat(3, 1fr);
+    }
+    .profile-container img{
+    height: 130px;
+   }
+}
+
+@media screen and (max-width: 575px) {
+    .profile-image{
+        padding: 5%;
+    }
+}
+@media screen and (max-width:400px) {
+    .profile-container{
+         grid-template-columns: repeat(2, 1fr);
+    }
+}

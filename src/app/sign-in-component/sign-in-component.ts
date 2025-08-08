@@ -14,10 +14,10 @@ export class SignInComponent {
   showPassword:boolean=false;
  signInForm!: FormGroup;
  signInError: string = '';
-
   constructor(private fb: FormBuilder,
      private auth: UserService, 
      private _router: Router) {}
+     
   ngOnInit(): void {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

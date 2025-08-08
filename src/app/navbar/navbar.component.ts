@@ -5,8 +5,9 @@ import { CommonModule } from '@angular/common';
 import { slideDown } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { Router, RouterLink } from '@angular/router';
-import { debounceTime, distinctUntilChanged, Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, Observable, Subject, Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
+import { UserService } from '../services/user-service';
 
 @Component({
     selector: 'app-navbar',
@@ -45,8 +46,13 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
 
   // Subscription reference for cleanup
   private searchSub!: Subscription;
-
-  constructor(private mediaService: MediaService, private _Router: Router) {}
+   isLoggedIn$!: Observable<boolean>;
+    profileImageUrl: string = '';
+  constructor(private mediaService: MediaService, private _Router: Router,
+    private userService: UserService
+  ) {
+     this.isLoggedIn$ = this.userService.currentUser$.pipe(map(user => !!user));
+  }
 
   /** Lifecycle hook: OnInit */
   ngOnInit(): void {
@@ -62,6 +68,13 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
           this.searchResults = [];
         }
       });
+     this.userService.currentUser$.subscribe(user => {
+      if (user) {
+        this.userService.getUserData(user.uid).subscribe(snapshot => {
+          this.profileImageUrl = snapshot.data()?.['imageUrl']|| 'assets/default-avatar.png';
+        });
+      }
+    });  
   }
 
   /** Lifecycle hook: AfterViewInit */
@@ -104,9 +117,9 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     const isInsideResults = resultsEl?.contains(clickedElement);
 
     // Optional behavior: if needed, clear results on outside click
-    // if (!isInsideInput && !isInsideResults) {
-    //   this.searchResults = [];
-    // }
+    if (!isInsideInput && !isInsideResults) {
+      this.searchResults = [];
+    }
   }
 
   /** Called on input event from search input */

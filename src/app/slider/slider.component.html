@@ -17,18 +17,18 @@
       @if (movie.profile_path || movie.poster_path) {
         <div
           (click)="goToMediaDetails(mediaType=='trending'?movie.media_type:mediaType ,movie.id)"
-          class="swiper-slide media-container">
+          class="swiper-slide slider-container rounded-3">
           <div class="position-relative">
             @if (movie.profile_path) {
               <img 
-                [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" alt="Person Image" />
+                [src]="'https://image.tmdb.org/t/p/w500' + movie.profile_path" class="rounded-3" alt="Person Image" />
               }
               @if (movie.poster_path) {
                 <img 
-                  [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="Movie Poster" />
+                  [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" class="rounded-3" alt="Movie Poster" />
                 }
                 @if (movie.vote_average) {
-                  <button class="vote p-1 rounded-0 border-0 fw-bolder text-white position-absolute top-0 end-0">
+                  <button class="vote p-1 rounded-3 border-0 fw-bolder text-white position-absolute top-0 end-0">
                     {{ movie.vote_average }}
                   </button>
                 }
@@ -44,6 +44,9 @@
               }
               @if (movie.first_air_date) {
                 <p><span class="date-media"><i class="fa-solid fa-clock"></i> {{ movie.first_air_date|timeAgo}}</span></p>
+              }
+              @if (movie.popularity && mediaType=='person') {
+                <p>popularity : <span class="date-media popularity">{{ movie.popularity}}</span></p>
               }
             </div>
           }

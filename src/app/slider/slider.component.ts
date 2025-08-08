@@ -15,8 +15,6 @@ import { MediaService } from '../services/media.service';
 import { Router } from '@angular/router';
 import { slideUp, zoomIn } from '../animations/animations';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
-
 // Declare Swiper from CDN
 declare var Swiper: any;
 
@@ -97,12 +95,11 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
     prevEl: '.custom-prev',
   },
       breakpoints: {
-        0: { slidesPerView: 1 },
-        570: { slidesPerView: 2 },
-        830: { slidesPerView: 3 },
-        1000: { slidesPerView: 2 },
-        1100: { slidesPerView: 3 },
-        1300: { slidesPerView: 4 },
+        0: { slidesPerView: 2 },
+        500: { slidesPerView: 3 },
+        700: { slidesPerView: 4 },
+        1000: { slidesPerView: 3 },
+        1150: { slidesPerView: 4},
         1500: { slidesPerView: Math.min(5, this.movies.length) }
       }
     });

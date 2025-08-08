@@ -12,43 +12,60 @@ button.active-page::before {
 /* Grid container for media items */
 .media-container-parent {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns layout */
+  grid-template-columns: repeat(6, 1fr); /* 4 columns layout */
   grid-gap: 10px; /* Gap between items */
 }
-
+.media-container img{
+  height: 200px;
+}
 /* Responsive grid adjustments */
 
 /* Screens <= 1300px: 3 columns */
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1350px) {
   .media-container-parent {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
 /* Screens <= 1100px: 2 columns */
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
   .media-container-parent {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
-
+@media screen and (max-width: 1100px) {
+  .media-container-parent {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 /* Screens <= 1000px: 3 columns again */
 @media screen and (max-width: 1000px) {
   .media-container-parent {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media screen and (max-width: 900px) {
+  .media-container-parent {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .media-container img{
+    height: 150px;
   }
 }
 
 /* Screens <= 720px: 2 columns */
 @media screen and (max-width: 720px) {
   .media-container-parent {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 /* Screens <= 550px: 1 column */
 @media screen and (max-width: 550px) {
   .media-container-parent {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .media-container img{
+    height: 120px;
   }
 }

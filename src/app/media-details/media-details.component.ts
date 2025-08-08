@@ -1,7 +1,6 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Subscription, switchMap } from 'rxjs';
-
+import { forkJoin, Subscription, take } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { MediaDetailsService } from '../services/media-details.service';
@@ -9,10 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 import { slideDown, slideOutIn, slideUp, zoomIn } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { ProfileService } from '../services/profile-service';
+import { UserService } from '../services/user-service';
 @Component({
     selector: 'app-media-details',
     imports: [SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
-    templateUrl: './media-details.component.html',
+templateUrl: './media-details.component.html',
     styleUrl: './media-details.component.css',
     animations: [slideDown, slideUp, zoomIn, slideOutIn]
 })
@@ -48,11 +49,14 @@ export class MediaDetailsComponent implements OnInit, OnDestroy{
   mediaQuery!: MediaQueryList;
   // Subscription to manage multiple subscriptions
   private subscriptions = new Subscription();
+  uid: string = '';
   constructor(
     private _MediaDetailsService: MediaDetailsService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private _Router: Router,
+    private profileService: ProfileService,
+    private userService: UserService
   ) {}
   // Method to check screen width and set MoveRight accordingly
    checkScreenWidth() {
@@ -60,6 +64,11 @@ export class MediaDetailsComponent implements OnInit, OnDestroy{
   }
   // Method to toggle the visibility of recommendations on smaller screens
   ngOnInit(): void {
+    this.userService.currentUser$.pipe(take(1)).subscribe(user => {
+  if (user) {
+    this.uid = user.uid;
+  }
+});
     // Initialize media query to check for specific screen widths
     this.mediaQuery = window.matchMedia(
       '(min-width: 1301px), (min-width: 901px) and (max-width: 999px)'
@@ -83,6 +92,9 @@ export class MediaDetailsComponent implements OnInit, OnDestroy{
         // Handle successful data retrieval
         next: ({ details, videos, recommendations, credits, reviews }) => {
           this.mediaDetails = details;
+          if (this.uid && this.mediaDetails) {
+            this.addToHistory();
+        }
           this.mediaRecommendations = recommendations.results || [];
           this.cast = credits.cast?.slice(0, 8) || [];
           this.crew = credits.crew?.slice(0, 8) || [];
@@ -152,6 +164,17 @@ export class MediaDetailsComponent implements OnInit, OnDestroy{
   goToProfileDetails(mediaType: string, mediaId: string): void {
     this._Router.navigate(['person-details', mediaType, mediaId]);
   }
+  addToHistory() {
+  if (!this.uid) return;
+  this.profileService.addToHistory(this.uid, {
+    id: this.mediaDetails.id,
+    title: this.mediaDetails.title || this.mediaDetails.name,
+    imageUrl: this.mediaDetails.poster_path ? 'https://image.tmdb.org/t/p/w500/' + this.mediaDetails.poster_path : '',
+    type: this.type, // أو 'tv' أو 'person'
+  }).then(() => {
+    console.log('تمت الإضافة إلى history');
+  });
+}
   // Method to navigate to media collection page
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions to avoid memory leaks

@@ -26,7 +26,7 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
 
   // Pagination control
   currentPage: number = 1;
-  itemsPerPage: number = 12;
+  itemsPerPage: number = 20;
 
   // To manage multiple subscriptions
   private subscriptions = new Subscription();
@@ -44,16 +44,17 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
           const page1 = this.getMedia(this.mediaType, this.category, '1');
           const page2 = this.getMedia(this.mediaType, this.category, '2');
           const page3 = this.getMedia(this.mediaType, this.category, '3');
-
-          return forkJoin([page1, page2, page3]);
+          const page4= this.getMedia(this.mediaType, this.category, '4');
+          return forkJoin([page1, page2, page3,page4]);
         })
       )
-      .subscribe(([res1, res2, res3]) => {
+      .subscribe(([res1, res2, res3, res4]) => {
         // Combine results from 3 pages
         this.mediaCollection = [
           ...res1.results,
           ...res2.results,
           ...res3.results,
+          ...res4.results,
         ];
         this.updatePagination(); // Update the visible page
       });

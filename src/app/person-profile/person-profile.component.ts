@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin, Subscription, switchMap } from 'rxjs';
+import { forkJoin, Subscription, switchMap, take } from 'rxjs';
 import { MediaDetailsService } from '../services/media-details.service';
 import { MainHeaderPageComponent } from '../main-header-page/main-header-page.component';
 import { DatePipe, CommonModule } from '@angular/common';
@@ -8,6 +8,8 @@ import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { slideDown, slideUp, zoomIn } from '../animations/animations';
+import { ProfileService } from '../services/profile-service';
+import { UserService } from '../services/user-service';
 // Declare Swiper from CDN
 declare var Swiper: any;
 @Component({
@@ -41,7 +43,7 @@ export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy 
 
   /** Route subscription */
   private sub!: Subscription;
-
+ uid: string = '';
   /** Access to swiper container in template */
   @ViewChild('swiperContainer', { static: false }) swiperContainer!: ElementRef;
 
@@ -49,11 +51,18 @@ export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy 
     private _MediaDetailsService: MediaDetailsService,
     private route: ActivatedRoute,
     private _Router: Router,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+     private profileService: ProfileService,
+        private userService: UserService
   ) {}
 
   /** OnInit: fetch data when route parameters change */
   ngOnInit(): void {
+      this.userService.currentUser$.pipe(take(1)).subscribe(user => {
+      if (user) {
+        this.uid = user.uid;
+      }
+    });
     this.sub = this.route.paramMap.subscribe(params => {
       this.type = params.get('mediaType') || '';
       this.id = params.get('mediaId') || '';
@@ -66,6 +75,9 @@ export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy 
       }).subscribe({
         next: ({ details, images, personCredits }) => {
           this.personDetails = details;
+           if (this.uid && this.personDetails) {
+            this.addToHistory();
+        }
           this.personImages = images.profiles || [];
           this.visibleImages = this.personImages.slice(0, 10); // Show first 10 images
           this.personCredits = personCredits.cast || [];
@@ -139,10 +151,10 @@ trackMediaPerson(index: number, item: any): string {
       this.swiperInstance.destroy(true, true);
       this.swiperInstance = null;
     }
-
+     const slidesToShow = Math.min(5, this.personCredits.length);
     this.swiperInstance = new Swiper(this.swiperContainer.nativeElement, {
-      loop: this.personCredits.length > 4,
-      slidesPerView: Math.min(5, this.personCredits.length),
+      loop: this.personCredits.length > slidesToShow,
+      slidesPerView: slidesToShow,
       spaceBetween: 20,
       autoplay: {
         delay: 2500,
@@ -153,12 +165,11 @@ trackMediaPerson(index: number, item: any): string {
         prevEl: '.custom-prev',
       },
       breakpoints: {
-        0: { slidesPerView: 1 },
-        570: { slidesPerView: 2 },
-        830: { slidesPerView: 3 },
-        1000: { slidesPerView: 2 },
-        1100: { slidesPerView: 3 },
-        1300: { slidesPerView: 4 },
+        0: { slidesPerView: 2 },
+        500: { slidesPerView: 3 },
+        700: { slidesPerView: 4 },
+        1000: { slidesPerView: 3 },
+        1150: { slidesPerView: 4},
         1500: { slidesPerView: Math.min(5, this.personCredits.length) }
       }
     });
@@ -174,4 +185,15 @@ trackMediaPerson(index: number, item: any): string {
       this._Router.navigate(['media-details', mediaType, mediaId]);
     }
   }
+    addToHistory() {
+  if (!this.uid) return;
+  this.profileService.addToHistory(this.uid, {
+    id: this.personDetails.id,
+    title:this.personDetails.name,
+    imageUrl: this.personDetails.profile_path ? 'https://image.tmdb.org/t/p/w500/' + this.personDetails.profile_path: '',
+    type: 'person', // أو 'tv' أو 'person'
+  }).then(() => {
+    console.log('تمت الإضافة إلى history');
+  });
+}
 }
