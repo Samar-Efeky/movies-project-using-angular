@@ -43,11 +43,6 @@ export class UserService {
   signIn(email: string, password: string) {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
-
-  signInWithGoogle() {
-    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
-  }
-
   logout() {
     return from(signOut(this.auth));
   }

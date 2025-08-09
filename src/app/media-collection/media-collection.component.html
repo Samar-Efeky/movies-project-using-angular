@@ -12,12 +12,11 @@
       <!-- Loop through paginated media list -->
       @for (mediaContainer of paginatedMedia; track trackMedia($index,mediaContainer); let i = $index) {
         @if (mediaContainer.profile_path||mediaContainer.poster_path) {
-          <div class="overflow-hidden" appAnimateOnVisible (visible)="markAsVisible(i)"
-            >
+          <div class="media-container overflow-hidden" appAnimateOnVisible (visible)="markAsVisible(i)" >
             <!-- Single media card -->
-            <div class="media-container"
+            <div class=""
               (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">
-              <div class="position-relative">
+              <div class=" position-relative">
                 <!-- Profile image if available (used for people) -->
                 @if (mediaContainer.profile_path) {
                   <img [@zoomIn]="visibleItems[i]?'visible':'void'"

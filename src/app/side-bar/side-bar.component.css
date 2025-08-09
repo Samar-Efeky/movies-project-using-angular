@@ -38,6 +38,11 @@
 .navbar-select li:hover{
   color: var(--main-color);
 }
-@media screen and (max-width:1000px){
- 
+.dashboard-button{
+  display: none;
+}
+@media screen and (max-width:550px){
+ .dashboard-button{
+  display: block;
+}
 }

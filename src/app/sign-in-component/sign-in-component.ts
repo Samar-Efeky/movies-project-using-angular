@@ -45,17 +45,6 @@ export class SignInComponent {
     });
   }
 }
-onSignInWithGoogle() {
-    this.auth.signInWithGoogle().subscribe({
-      next: () => {
-        this._router.navigate(['/home-page']);
-      },
-      error: (err) => {
-        this.signInError = 'Google sign-in failed. Please try again later.';
-      }
-    });
-  }
-
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }

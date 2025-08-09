@@ -20,6 +20,9 @@ i{
     .profile-container{
         grid-template-columns: repeat(5, 1fr);
     }
+    .overley{
+    background-color: black;
+   }
 
 }
 @media screen and (max-width: 1400px) {

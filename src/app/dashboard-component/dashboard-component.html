@@ -1,0 +1,41 @@
+<div class="dashboard container-fluid">
+  <h3 class="mb-4">
+    <i class="fa-solid fa-grip fa-1x"></i> Dashboard
+  </h3>
+
+  <!-- Statistics section -->
+  <div class="row g-3 stats">
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card stat-card">
+        <h2>Movies</h2>
+        <p>{{ moviesCount }}</p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card stat-card">
+        <h2>Series</h2>
+        <p>{{ seriesCount }}</p>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card stat-card">
+        <h2>People</h2>
+        <p>{{ peopleCount }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts section -->
+  <div class="row g-4 charts mt-2">
+    <div class="col-12 col-lg-6">
+      <div class="chart">
+        <canvas baseChart [data]="barChartData" [options]="barChartOptions" type="bar"></canvas>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="chart">
+        <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" type="line"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

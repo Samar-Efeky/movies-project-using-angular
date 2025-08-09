@@ -64,8 +64,8 @@
           </button>
 
           <!-- Upload button -->
-          <button class="btn btn-dark upload-button">
-            <i class="fa-solid fa-circle-arrow-up"></i> Upload
+          <button routerLink="dashboard" class="btn btn-dark dashboard-button">
+            Dashboard
           </button>
           <!-- sign in button -->
           <button *ngIf="!(isLoggedIn$ | async)" routerLink="signIn" class="btn btn-dark button-mix-color">

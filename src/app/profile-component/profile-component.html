@@ -28,10 +28,9 @@
                 <i class="fa-solid fa-xmark text-white"></i>
               </button>
               <div (click)="goToMediaDetails(item.type,item.id)" 
-              class="overley rounded-3 position-absolute top-0 start-0 w-100 h-100
-               d-flex justify-content-center align-items-center">
+              class="overley rounded-3 py-1">
                <div class="text-center">
-                  <p class="pt-2 pb-0">{{ item.title|seeMore:1 }}</p>
+                  <p class="pt-2 mb-0">{{ item.title|seeMore:1 }}</p>
                   <span>Opened at :</span>
                   <p>{{ item.openedAt | date:'short' }}</p>
                </div>

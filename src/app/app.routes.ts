@@ -11,11 +11,13 @@ import { SignUpComponent } from './sign-up-component/sign-up-component';
 import { ProfileComponent } from './profile-component/profile-component';
 import { authGuardGuard } from './guards/auth-guard-guard';
 import { logInGuard } from './guards/log-in-guard';
+import { DashboardComponent } from './dashboard-component/dashboard-component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomePageComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'media-collection/:mediaType', redirectTo: 'media-collection/:mediaType/popular', pathMatch: 'full' },
   { path: 'media-collection/:mediaType/:category', component: MediaCollectionComponent },
   { path: 'contact', component: ContactComponent },
