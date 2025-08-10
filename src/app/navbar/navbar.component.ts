@@ -2,82 +2,84 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 // Import common module and custom directive
 import { CommonModule } from '@angular/common';
-import { slideDown } from '../animations/animations';
-import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 import { Router, RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
 import { UserService } from '../services/user-service';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 @Component({
     selector: 'app-navbar',
-    imports: [CommonModule, AnimateOnVisibleDirective, RouterLink],
+    imports: [CommonModule,  RouterLink,AnimateOnVisibleDirective],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
-    animations: [slideDown] // Add any animations if needed
+    animations: [zoomIn, slideUp, slideDown] // Add any animations if needed
 })
 export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
-  // Flag to track visibility of overview section
+  // Flags
   overviewVisible = false;
-
-  // Flag to track visibility of search input
   showSearch = false;
-
-  // Flag to track scroll status for styling
   isScrolled = false;
 
-  // Store search results from API
+  // Data
   searchResults: any[] = [];
+  profileImageUrl: string = '';
+  isLoggedIn$!: Observable<boolean>;
 
-  // Subject to stream search input value
+  // Subjects
   private searchInput$ = new Subject<string>();
 
-  // ViewChild to access sidebar toggle button
+  // ViewChild references
   @ViewChild('sidebarToggleBtn', { static: false }) sidebarToggleBtn!: ElementRef;
-
-  // ViewChild to access search button
   @ViewChild('searchBtn') searchBtn!: ElementRef;
 
-  // Emit event to parent to open sidebar
+  // Output events
   @Output() toggleContentLeft = new EventEmitter<void>();
-
-  // Emit event to parent to toggle layout based on sidebar button visibility
   @Output() toggleBasedOnButtonDisplay = new EventEmitter<boolean>();
 
-  // Subscription reference for cleanup
+  // Subscriptions
   private searchSub!: Subscription;
-   isLoggedIn$!: Observable<boolean>;
-    profileImageUrl: string = '';
-  constructor(private mediaService: MediaService, private _Router: Router,
+  private mediaSearchSub!: Subscription;
+  private userSub!: Subscription;
+  private userDataSub!: Subscription;
+
+  constructor(
+    private mediaService: MediaService,
+    private _Router: Router,
     private userService: UserService
   ) {
-     this.isLoggedIn$ = this.userService.currentUser$.pipe(map(user => !!user));
+    this.isLoggedIn$ = this.userService.currentUser$.pipe(map(user => !!user));
   }
 
-  /** Lifecycle hook: OnInit */
   ngOnInit(): void {
     // Listen for search input changes with debounce
-    this.searchSub = this.searchInput$
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((query) => {
-        if (query.trim()) {
-          this.mediaService.searchMulti(query).subscribe((res) => {
-            this.searchResults = res.results;
-          });
-        } else {
-          this.searchResults = [];
-        }
+   this.searchSub = this.searchInput$
+  .pipe(debounceTime(300), distinctUntilChanged())
+  .subscribe((query) => {
+    if (this.mediaSearchSub) {
+      this.mediaSearchSub.unsubscribe();
+    }
+    if (query.trim()) {
+      this.mediaSearchSub = this.mediaService.searchMulti(query).subscribe((res) => {
+        this.searchResults = res.results;
       });
-     this.userService.currentUser$.subscribe(user => {
-      if (user) {
-        this.userService.getUserData(user.uid).subscribe(snapshot => {
-          this.profileImageUrl = snapshot.data()?.['imageUrl']|| 'assets/default-avatar.png';
-        });
-      }
-    });  
+    } else {
+      this.searchResults = [];
+    }
+  });
+
+    // Listen for user data
+   this.userSub = this.userService.currentUser$.subscribe(user => {
+  if (user) {
+    this.userDataSub?.unsubscribe(); // cleanup old subscription
+    this.userDataSub = this.userService.getUserData(user.uid).subscribe(snapshot => {
+      this.profileImageUrl = snapshot.data()?.['imageUrl'] || 'assets/default-avatar.png';
+    });
+  }
+});
   }
 
-  /** Lifecycle hook: AfterViewInit */
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.checkInputSearch();
@@ -85,28 +87,30 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
-  /** Lifecycle hook: OnDestroy - clean up subscriptions */
   ngOnDestroy(): void {
+    // Unsubscribe all subscriptions
     this.searchSub?.unsubscribe();
+    this.mediaSearchSub?.unsubscribe();
+    this.userSub?.unsubscribe();
+    this.userDataSub?.unsubscribe();
+
+    // Clean up
     this.searchResults = [];
     this.searchInput$.complete();
   }
 
-  /** HostListener: On window scroll - update scroll flag */
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
     this.isScrolled = scrollY > 100;
   }
 
-  /** HostListener: On window resize - recheck visibility states */
   @HostListener('window:resize')
   onResize(): void {
     this.checkInputSearch();
     this.checkSideBarToggleVisibility();
   }
 
-  /** HostListener: Click outside input/result hides dropdown - Optional */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const inputEl = document.querySelector('.input-search input');
@@ -116,29 +120,24 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     const isInsideInput = inputEl?.contains(clickedElement);
     const isInsideResults = resultsEl?.contains(clickedElement);
 
-    // Optional behavior: if needed, clear results on outside click
     if (!isInsideInput && !isInsideResults) {
       this.searchResults = [];
     }
   }
 
-  /** Called on input event from search input */
   onSearchInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.searchInput$.next(value);
   }
 
-  /** Toggle visibility of search input */
   toggleSearch(): void {
     this.showSearch = !this.showSearch;
   }
 
-  /** Emit to parent when sidebar toggle button is clicked */
   onButtonOpenSideBar(): void {
     this.toggleContentLeft.emit();
   }
 
-  /** Emit boolean to parent based on sidebar button visibility */
   checkSideBarToggleVisibility(): void {
     if (this.sidebarToggleBtn) {
       const display = window.getComputedStyle(this.sidebarToggleBtn.nativeElement).display;
@@ -147,7 +146,6 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  /** Check search button visibility and show input if hidden */
   checkInputSearch(): void {
     const display = window.getComputedStyle(this.searchBtn.nativeElement).display;
     const activeElement = document.activeElement as HTMLElement;
@@ -157,7 +155,6 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
     this.showSearch = (display === 'none');
   }
 
-  /** Navigate to media or person details page */
   goToMediaDetails(mediaType: string, mediaId: string): void {
     if (mediaType === 'person') {
       this._Router.navigate(['person-details', mediaType, mediaId]);
@@ -165,7 +162,6 @@ export class NavbarComponent implements AfterViewInit, OnInit, OnDestroy {
       this._Router.navigate(['media-details', mediaType, mediaId]);
     }
 
-    // Clear search results and reset input
     this.searchResults = [];
     const inputElement = document.querySelector('.input-search input') as HTMLInputElement;
     if (inputElement) inputElement.value = '';

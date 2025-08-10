@@ -8,10 +8,10 @@
       <div class="banner-bg position-absolute top-0 start-0 w-100 h-100"></div>
 
       <!-- Banner text/content positioned relatively to stay above background -->
-      <div class="banner-content p-2">
+      <div class="banner-content p-2 overflow-hidden">
 
         <!-- Heading with slide-down animation when it becomes visible -->
-        <h2 @slideDown class="main-section-title ">
+        <h2 appAnimateOnScroll="slideDown"  class="main-section-title ">
           Discover The Latest TV Series From Media
         </h2>
         <div  #swiperCont class=" mySwiper1">
@@ -19,9 +19,9 @@
             @for(movie of movies; track trackMedia($index,movie); let i = $index){
               @if (movie.poster_path) {
                 <div class="swiper-slide"
-                  appAnimateOnVisible (visible)="markAsVisible(i)">
+                  >
                   <div class="header-content-container ">
-                    <img class="header-img"  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
+                    <img class="header-img"  
                       [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
                       (click)="goToMediaDetails(mediaType, movie.id)" alt="Movie Poster">
                       <div class="px-md-5 px-2 pt-2">
@@ -33,7 +33,7 @@
                           <p (click)="goToMediaDetails(mediaType, movie.id)"
                           class="media-title pt-1 fw-bolder">{{movie.title}}</p>
                         }
-                        <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
+                        <p
                           class="pt-md-3 pt-1 fw-medium ">
                           {{movie.overview|seeMore:25}}
                         </p>
@@ -48,10 +48,10 @@
 
           <!-- Action buttons: "Watch Now" and "Play Trailer", both animated on scroll -->
           <div class="d-flex gap-3 pt-md-3 ">
-            <button (click)="goToMediaCollection(mediaType,category)" @zoomIn class="btn btn-light rounded-4 p-2">
+            <button appAnimateOnScroll="zoomIn"  (click)="goToMediaCollection(mediaType,category)" class="btn btn-light rounded-4 p-2">
               Discover Now
             </button>
-            <button (click)="goToMediaCollection(mediaType,category)" @zoomIn
+            <button appAnimateOnScroll="zoomIn"  (click)="goToMediaCollection(mediaType,category)"
               class="btn-trailer button-mix-color border-white rounded-4 p-2 text-white">
               <i class="fa-solid fa-play"></i> Play Trailer
             </button>

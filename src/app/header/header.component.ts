@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
@@ -20,8 +19,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   // Input properties for category and media type (default to 'popular' and 'movie')
   @Input() category: string = 'popular';
   @Input() mediaType: string = 'movie';
-  // Object to track visibility of items in the slider
-   visibleItems: { [key: number]: boolean } = {}; 
   // Movies list to display in the header slider
   movies: any[] = [];
 
@@ -61,11 +58,6 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   const image = item.profile_path || item.poster_path || 'no-image';
 
   return `${id}-${name}-${image}-${index}`;
-}
-markAsVisible(index: number): void {
-  if (!this.visibleItems[index]) {
-    this.visibleItems[index] = true;
-  }
 }
   // Delay swiper init to make sure DOM is fully rendered
   initSwiperWithDelay() {

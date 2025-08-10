@@ -11,14 +11,12 @@
     <div class="container-content px-lg-3 p-2 pt-3">
 
       <!-- Animated section title -->
-      <h2 [@slideDown]="overViewVisible?'visible':'void'" 
-         appAnimateOnVisible (visible)="overViewVisible=true" class="main-section-title fw-bolder ">
+      <h2 appAnimateOnScroll="slideDown" class="main-section-title fw-bolder ">
         Kids Zone With Special Security
       </h2>
 
       <!-- Animated paragraph text -->
-      <p  [@slideUp]="overViewVisible?'visible':'void'" 
-         appAnimateOnVisible (visible)="overViewVisible=true" class="py-2">
+      <p class="py-2 " appAnimateOnScroll="slideUp">
         ScreenPal's intuitive tools help you capture, create, and share videos and images
         for authentic and effective visual communication.
       </p>
@@ -26,16 +24,14 @@
       <!-- Button group with animation on appear -->
       <div class="d-flex gap-md-3 gap-1 py-2 px-md-5">
         <!-- Button to see latest movies -->
-        <button  [@zoomIn]="overViewVisible?'visible':'void'" 
-         appAnimateOnVisible (visible)="overViewVisible=true"
+        <button appAnimateOnScroll="zoomIn"
         (click)="goToLatestMovies()"
         class="see-latest-movies border-white fw-bolder rounded-4 p-md-3 p-2">
           <i class="fa-solid fa-play"></i> See Top rated movies
         </button>
 
         <!-- Button to download the app -->
-        <button  [@zoomIn]="overViewVisible?'visible':'void'" 
-         appAnimateOnVisible (visible)="overViewVisible=true"
+        <button appAnimateOnScroll="zoomIn"
           class="btn-light border-white fw-bolder rounded-4 p-md-3 p-2 text-white">
           <i class="fa-brands fa-google-play"></i> Download Our App
         </button>

@@ -17,29 +17,20 @@
         </div>
 
         <!-- Navigation links in the footer -->
-        <ul class="footer-links pb-md-4 pb-2 nav justify-content-center my-md-3  my-1 flex-wrap gap-md-4 gap-3">
-          <li  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" routerLink="home-page" (click)="scrollToTop()">Home</li>
-          <li  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" routerLink="about" (click)="scrollToTop()">About</li>
-          <li  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" routerLink="media-collection/person/popular" (click)="scrollToTop()">People</li>
-          <li  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" routerLink="media-collection/trending/all" (click)="scrollToTop()">Trending</li>
-          <li  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" routerLink="contact" (click)="scrollToTop()">Contact Us</li>
+        <ul appAnimateOnScroll="slideUp" class="footer-links pb-md-4 pb-2 nav justify-content-center my-md-3  my-1 flex-wrap gap-md-4 gap-3">
+          <li  routerLink="home-page" (click)="scrollToTop()">Home</li>
+          <li  routerLink="about" (click)="scrollToTop()">About</li>
+          <li  routerLink="media-collection/person/popular" (click)="scrollToTop()">People</li>
+          <li  routerLink="media-collection/trending/all" (click)="scrollToTop()">Trending</li>
+          <li  routerLink="contact" (click)="scrollToTop()">Contact Us</li>
         </ul>
 
         <!-- Social media icons with zoom animation on visible -->
         <div class="social-icons my-md-4 my-2 d-flex justify-content-center gap-md-4 gap-2">
-          <a  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" class="text-white"><i class="fab fa-facebook-f"></i></a>
-          <a  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" class="text-white"><i class="fab fa-twitter"></i></a>
-          <a  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" class="text-white"><i class="fab fa-instagram"></i></a>
-          <a  [@zoomIn]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=true" class="text-white"><i class="fab fa-youtube"></i></a>
+           <a appAnimateOnScroll="zoomIn" class="text-white"><i class="fab fa-facebook-f"></i></a>
+           <a appAnimateOnScroll="zoomIn" class="text-white"><i class="fab fa-twitter"></i></a>
+           <a appAnimateOnScroll="zoomIn" class="text-white"><i class="fab fa-instagram"></i></a>
+           <a appAnimateOnScroll="zoomIn" class="text-white"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>

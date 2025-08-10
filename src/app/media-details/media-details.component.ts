@@ -12,7 +12,7 @@ import { ProfileService } from '../services/profile-service';
 import { UserService } from '../services/user-service';
 @Component({
     selector: 'app-media-details',
-    imports: [SeeMorePipe, FormsModule, TimeAgoPipe, AnimateOnVisibleDirective],
+    imports: [SeeMorePipe, FormsModule, TimeAgoPipe,AnimateOnVisibleDirective],
 templateUrl: './media-details.component.html',
     styleUrl: './media-details.component.css',
     animations: [slideDown, slideUp, zoomIn, slideOutIn]
@@ -171,8 +171,6 @@ export class MediaDetailsComponent implements OnInit, OnDestroy{
     title: this.mediaDetails.title || this.mediaDetails.name,
     imageUrl: this.mediaDetails.poster_path ? 'https://image.tmdb.org/t/p/w500/' + this.mediaDetails.poster_path : '',
     type: this.type, // أو 'tv' أو 'person'
-  }).then(() => {
-    console.log('تمت الإضافة إلى history');
   });
 }
   // Method to navigate to media collection page

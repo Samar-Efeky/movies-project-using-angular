@@ -1,48 +1,86 @@
 <div class="w-100">
   <div class="row">
-    @if (profile){
+
+    <!-- Profile sidebar section -->
+    @if (profile) {
       <div class="col-xl-3 col-lg-4 col-md-3 col-sm-4 px-3 profile-details">
-      <div class="profile-card">
-        <div class="profile-image">
-          <img [src]="profile?.imageUrl" alt="Profile Image" class="w-100 img-fluid rounded-3">
+
+        <!-- Profile card container -->
+        <div class="profile-card">
+
+          <!-- Profile image -->
+          <div class="profile-image">
+            <img appAnimateOnScroll="zoomIn" [src]="profile?.imageUrl" alt="Profile Image" class="w-100 img-fluid rounded-3">
+          </div>
+
+          <!-- Hidden file input for image change -->
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput>
+
+          <!-- Button to trigger file input -->
+          <button appAnimateOnScroll="zoomIn" class="btn btn-dark my-3" (click)="fileInput.click()">Change Photo</button>
+
+          <!-- Profile details -->
+          <h3 appAnimateOnScroll="slideUp">{{ profile?.name }}</h3>
+          <p appAnimateOnScroll="slideUp">Age : {{ profile?.age }} Years</p>
+          <p appAnimateOnScroll="slideUp">Email: {{ profile?.email }}</p>
         </div>
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput>
-        <button class="btn btn-dark my-3" (click)="fileInput.click()">Change Photo</button>
-        <h3>{{ profile?.name }}</h3>
-        <p>Age : {{ profile?.age }} Years</p>
-        <p>Email: {{ profile?.email }}</p>
-      </div>
-      <button class="px-3 py-2 text-white button-mix-color mt-2" (click)="logout()">Log out</button>
+
+        <!-- Logout button -->
+        <button class="px-3 py-2 text-white button-mix-color mt-2" (click)="logout()">Log out</button>
       </div>
     }
-    <div class="col-xl-9 col-lg-8 col-md-9 col-sm-8">
-      <h3 class="pb-2"><i class="fa-solid fa-circle-play fa-1x"></i> Recently Viewed by {{profile?.name|seeMore:1}}</h3>
-     @if(history$ | async; as history){
-       @if (history.length > 0) {
-          <div class=" profile-container py-3 px-2 rounded-3">
-            @for(item of history$ | async; track item.docId) {
-            <div>
-              <div  class=" rounded-3 media-container position-relative">
-              <img [src]="item.imageUrl" class="w-100 rounded-3"  alt="{{ item.title }}">
-               <button class="btn button-mix-color position-absolute rounded-3 btn-sm top-0 end-0" (click)="removeItem(item.docId)">
-                <i class="fa-solid fa-xmark text-white"></i>
-              </button>
-              <div (click)="goToMediaDetails(item.type,item.id)" 
-              class="overley rounded-3 py-1">
-               <div class="text-center">
-                  <p class="pt-2 mb-0">{{ item.title|seeMore:1 }}</p>
-                  <span>Opened at :</span>
-                  <p>{{ item.openedAt | date:'short' }}</p>
-               </div>
-              </div>
-            </div>
-            </div>
 
-          }
+    <!-- Main content: Recently viewed section -->
+    <div class="col-xl-9 col-lg-8 col-md-9 col-sm-8">
+
+      <!-- Section title with user name -->
+      <h3 class="pb-2" appAnimateOnScroll="slideDown">
+        <i class="fa-solid fa-circle-play fa-1x"></i> 
+        Recently Viewed by {{profile?.name | seeMore:1}}
+      </h3>
+
+      <!-- Async pipe to get history data -->
+      @if (history$ | async; as history) {
+
+        <!-- If history has items -->
+        @if (history.length > 0) {
+
+          <!-- Container for history items -->
+          <div class="profile-container py-3 px-2 rounded-3">
+
+            <!-- Loop through each history item -->
+            @for (item of history$ | async; track item.docId) {
+              <div>
+                <div class="rounded-3 media-container position-relative">
+
+                  <!-- History item image -->
+                  <img (click)="goToMediaDetails(item.type,item.id)"
+                   [src]="item.imageUrl" class="w-100 rounded-3" alt="{{ item.title }}">
+
+                  <!-- Remove button for history item -->
+                  <button class="btn button-mix-color position-absolute rounded-3 btn-sm top-0 end-0" 
+                          (click)="removeItem(item.docId)">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                  </button>
+
+                  <!-- Overlay for viewing item details -->
+                  <div (click)="goToMediaDetails(item.type,item.id)" class="overley rounded-3 py-1">
+                    <div class="text-center">
+                      <p class="pt-2 mb-0">{{ item.title | seeMore:1 }}</p>
+                      <span>Opened at :</span>
+                      <p>{{ item.openedAt | date:'short' }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
           </div>
-      } @else {
-          <p class="text-center  my-4">You haven`t viewed anything yet.</p>
+
+        <!-- If history is empty -->
+        } @else {
+          <p class="text-center my-4">You haven`t viewed anything yet.</p>
         }
-     }
+      }
+    </div>
   </div>
 </div>

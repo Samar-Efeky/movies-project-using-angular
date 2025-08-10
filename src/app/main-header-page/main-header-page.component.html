@@ -11,20 +11,16 @@
       <div class="banner-content overflow-hidden h-100 d-flex justify-content-center align-items-center">
         @if (media&& type) {
           <div class="text-center">
-            <p [@slideDown]="overviewVisible?'visible':'void'"
-            appAnimateOnVisible (visible)="overviewVisible=true" class="main-section-title">{{media|uppercase}}</p>
-            <p [@slideUp]="overviewVisible?'visible':'void'"
-              appAnimateOnVisible (visible)="overviewVisible=true"
+            <p appAnimateOnScroll="slideDown" class="main-section-title">{{media|uppercase}}</p>
+            <p appAnimateOnScroll="slideUp"
               class="path"><i class="fa-solid fa-house"></i> HOME / {{type}} {{media}}</p>
             </div>
           }
           @if (page) {
             <div class="text-center">
-              <p [@slideDown]="overviewVisible?'visible':'void'"
-                appAnimateOnVisible (visible)="overviewVisible=true"
+              <p appAnimateOnScroll="slideDown"
               class="main-section-title">{{page|uppercase}}</p>
-              <p [@slideUp]="overviewVisible?'visible':'void'"
-                appAnimateOnVisible (visible)="overviewVisible=true" class="path"><i class="fa-solid fa-house"></i> HOME / {{page}}</p>
+              <p appAnimateOnScroll="slideUp" class="path"><i class="fa-solid fa-house"></i> HOME / {{page}}</p>
               </div>
             }
           </div>

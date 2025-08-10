@@ -3,10 +3,9 @@
   @if (mediaDetails) {
     <div class="header-img w-100 rounded-3 position-relative">
       <!-- Zoom animation when image becomes visible -->
-      <img [@zoomIn]="overviewVisible ? 'visible' : 'void'"
-        appAnimateOnVisible (visible)="overviewVisible = true"
+      <img  appAnimateOnScroll="zoomIn"
         [src]="'https://image.tmdb.org/t/p/w1280' + mediaDetails.backdrop_path"
-        class="w-100 h-100 rounded-3" alt="">
+        class="w-100 h-100 rounded-3" alt="backdrop_path">
         <div class="overley-poster position-absolute top-0 start-0 w-100 h-100"></div>
       </div>
     }
@@ -21,7 +20,7 @@
         </div>
         <!-- Media details section -->
         <div class="media-details position-relative">
-          <div class="media-details-show px-2">
+          <div class="media-details-show px-lg-2">
             <!-- Trailer or fallback image if trailer is not available -->
             <div class="video-show w-100 rounded-4">
               @if (trailerKey) {
@@ -35,8 +34,7 @@
                 <!-- Display poster and fallback message -->
                 <div class="text-center py-3">
                   @if (mediaDetails) {
-                    <img [@zoomIn]="overviewVisible ? 'visible' : 'void'"
-                      appAnimateOnVisible (visible)="overviewVisible = true"
+                    <img appAnimateOnScroll="zoomIn"
                       [src]="'https://image.tmdb.org/t/p/w500' + mediaDetails.poster_path"
                       alt="Poster" width="70%" height="300" class="rounded-4">
                   }
@@ -65,40 +63,35 @@
             <!-- Overview and cast/crew -->
             <div class="details-show mt-2">
               <!-- Title -->
-              <div class="pt-5 pb-1 border-bottom border-secondary">
+              <div class="pt-5 pb-1 border-bottom border-secondary overflow-hidden">
                 @if (mediaDetails.title) {
-                  <h3 [@slideDown]="overviewVisible ? 'visible' : 'void'"
-                    appAnimateOnVisible (visible)="overviewVisible = true"
+                  <h3 appAnimateOnScroll="slideDown"
                   >{{mediaDetails.title}}</h3>
                 }
                 @if (mediaDetails.name) {
-                  <h3 [@slideDown]="overviewVisible ? 'visible' : 'void'"
-                    appAnimateOnVisible (visible)="overviewVisible = true"
+                  <h3 appAnimateOnScroll="slideDown"
                   >{{mediaDetails.name}}</h3>
                 }
               </div>
               <!-- Overview paragraph -->
-              <div class="py-3 border-bottom border-secondary">
-                <p [@slideUp]="overviewVisible ? 'visible' : 'void'"
-                  appAnimateOnVisible (visible)="overviewVisible = true">
+              <div class="py-3 border-bottom border-secondary overflow-hidden">
+                <p appAnimateOnScroll="slideUp">
                   {{ showFullOverview ? mediaDetails.overview : (mediaDetails.overview) | seeMore:30 }}
                 </p>
                 <!-- Cast and crew if overview is fully shown -->
                 @if (showFullOverview) {
                   <h4 class="pt-3">Cast</h4>
-                  <div class="d-flex justify-content-center gap-3 flex-wrap">
+                  <div appAnimateOnScroll="zoomIn" class="d-flex justify-content-center gap-3 flex-wrap">
                     <!-- Loop over cast members -->
                     @for(castPerson of cast; track castPerson.id; let i = $index){
                       @if (castPerson.profile_path) {
                         <div (click)="goToProfileDetails('person', castPerson.id)" style="cursor: pointer;"
                           class="cast-person p-2 text-center overflow-hidden">
-                          <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                            appAnimateOnVisible (visible)="visibleItems[i] = true"
+                          <img 
                             [src]="'https://image.tmdb.org/t/p/w500' + castPerson.profile_path"
                             [alt]="castPerson.name" width="100" height="100"
                             class="rounded-circle">
-                            <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
-                              appAnimateOnVisible (visible)="visibleItems[i] = true"
+                            <p 
                             class="pt-2">{{castPerson.name}}</p>
                           </div>
                         }
@@ -107,19 +100,17 @@
                   }
                   @if (showFullOverview) {
                     <h4 class="pt-3">Crew</h4>
-                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <div appAnimateOnScroll="zoomIn" class="d-flex justify-content-center gap-3 flex-wrap">
                       <!-- Loop over crew members -->
                       @for(crewPerson of crew; track crewPerson.id; let i = $index){
                         @if (crewPerson.profile_path) {
                           <div (click)="goToProfileDetails('person', crewPerson.id)" style="cursor: pointer;"
                             class="crew-person p-2 text-center overflow-hidden">
-                            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                              appAnimateOnVisible (visible)="visibleItems[i] = true"
+                            <img 
                               [src]="'https://image.tmdb.org/t/p/w500' + crewPerson.profile_path"
                               [alt]="crewPerson.name" width="100" height="100"
                               class="rounded-circle">
-                              <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
-                                appAnimateOnVisible (visible)="visibleItems[i] = true" class="pt-2">
+                              <p  class="pt-2">
                                 {{crewPerson.name}}
                               </p>
                             </div>
@@ -135,18 +126,17 @@
                   <!-- Production companies -->
                   <div class="pt-4">
                     <h5>Production companies</h5>
-                    <div class="d-flex justify-content-center flex-wrap gap-4 pt-4 border-bottom border-secondary">
+                    <div appAnimateOnScroll="zoomIn"
+                     class="d-flex justify-content-center flex-wrap gap-4 pt-4 border-bottom border-secondary">
                       @for(company of mediaDetails.production_companies; track company.id; let i = $index){
                         @if (company.logo_path) {
                           <div class="company-container text-center overflow-hidden">
                             <div class="rounded-3 bg-white">
-                              <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                                appAnimateOnVisible (visible)="visibleItems[i] = true"
+                              <img 
                                 [src]="'https://image.tmdb.org/t/p/w500' + company.logo_path"
                                 alt="{{company.name}} Logo">
                               </div>
-                              <p [@slideUp]="visibleItems[i] ? 'visible' : 'void'"
-                                appAnimateOnVisible (visible)="visibleItems[i] = true"
+                              <p 
                               class="pt-2">{{company.name | seeMore:2}}</p>
                             </div>
                           }
@@ -155,18 +145,19 @@
                     </div>
                     <!-- Comments section -->
                     <div class="pt-5">
-                      <div class="comments-container rounded-3 p-xl-4 p-3 w-100 overflow-hidden">
-                        <h5 [@slideDown]="overviewVisible ? 'visible' : 'void'"
-                          appAnimateOnVisible (visible)="overviewVisible = true"
+                      <div class="comments-container rounded-3 p-xl-3
+                       py-3 px-2 w-100 overflow-hidden">
+                        <h5 appAnimateOnScroll="slideDown"
                         class="fw-bold mb-3">Comments</h5>
                         <!-- New comment input -->
                         <div class="mb-3">
-                          <textarea class="form-control bg-black text-white border-0"
+                          <textarea appAnimateOnScroll="slideUp" class="form-control bg-black text-white border-0"
                             [(ngModel)]="newComment"
                           placeholder="Add a comment..." rows="3"></textarea>
                           <div class="mt-2 d-flex justify-content-start gap-2">
-                            <button class="btn btn-outline-light btn-sm" (click)="cancelComment()">Cancel</button>
-                            <button class="button-mix-color text-white"
+                            <button appAnimateOnScroll="zoomIn" class="btn btn-outline-light btn-sm" 
+                            (click)="cancelComment()">Cancel</button>
+                            <button appAnimateOnScroll="zoomIn" class="button-mix-color text-white"
                               [disabled]="!newComment.trim()"
                             (click)="postComment()">Post Comment</button>
                           </div>
@@ -178,8 +169,7 @@
                               class="bg-black mb-3 rounded-3 p-3">
                               <div class="d-flex justify-content-between">
                                 <div>
-                                  <img  [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                                    appAnimateOnVisible (visible)="visibleItems[i] = true"
+                                  <img  
                                     [src]="'https://image.tmdb.org/t/p/w500' + review.author_details.avatar_path"
                                     class="rounded-circle me-2" width="50" height="50" alt="avatar" />
                                     <span class="fw-semibold text-white ps-2">
@@ -211,9 +201,8 @@
                     <div @slideOutIn class="recommendations rounded-3 p-3">
                       @for(recommendation of mediaRecommendations; track recommendation.id; let i = $index){
                         @if ( recommendation.poster_path) {
-                          <div class="w-100 d-flex p-2 mb-2 bg-black rounded-3 overflow-hidden">
-                            <img [@zoomIn]="visibleItems[i] ? 'visible' : 'void'"
-                              appAnimateOnVisible (visible)="visibleItems[i] = true"
+                          <div class="recommendation-container w-100 d-flex p-2 mb-2 bg-black rounded-3 overflow-hidden">
+                            <img 
                               (click)="[goToMediaDetails(type, recommendation.id), onToggleRecommend()]"
                               [src]="'https://image.tmdb.org/t/p/w500' + recommendation.poster_path"
                               height="100"
@@ -221,8 +210,7 @@
                               <div class="ps-2">
                                 @if (recommendation.title) {
                                   <p
-                                    [@slideDown]="visibleItems[i] ? 'visible' : 'void'"
-                                    appAnimateOnVisible (visible)="visibleItems[i] = true"
+                                    
                                     (click)="[goToMediaDetails(type, recommendation.id), onToggleRecommend()]"
                                     class="media-title">
                                     {{recommendation.title | seeMore:4}}
@@ -230,8 +218,7 @@
                                 }
                                 @if (recommendation.name) {
                                   <p
-                                    [@slideDown]="visibleItems[i] ? 'visible' : 'void'"
-                                    appAnimateOnVisible (visible)="visibleItems[i] = true"
+                                    
                                     (click)="[goToMediaDetails(type, recommendation.id), onToggleRecommend()]"
                                     class="media-title">
                                     {{recommendation.name | seeMore:4}}

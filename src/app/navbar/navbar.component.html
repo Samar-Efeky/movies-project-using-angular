@@ -1,6 +1,5 @@
 <!-- Navbar container with animation on visibility and scroll styling -->
-<div [@slideDown]="overviewVisible?'visible':'void'"
-  appAnimateOnVisible (visible)="overviewVisible=true"
+<div appAnimateOnScroll="slideDown"
   [ngClass]="{ 'scrolled': isScrolled }"
   class="navigation-bar px-3 py-2">
 
@@ -20,7 +19,7 @@
           <input type="text" class="w-100" placeholder="Search Your Videos"
             (input)="onSearchInput($event)">
             @if (searchResults.length > 0) {
-<div @slideDown class="search-result-item w-100 p-2 
+            <div @slideDown class="search-result-item w-100 p-2 
               rounded-4 position-absolute top-100 start-0">
                 @for(item of searchResults;track item.id){
                   @if (item.poster_path|| item.profile_path) {
@@ -65,16 +64,14 @@
 
           <!-- Upload button -->
           <button routerLink="dashboard" class="btn btn-dark dashboard-button">
-            Dashboard
+           <i class="fa-solid fa-grip fa-1x"></i> Dashboard
           </button>
           <!-- sign in button -->
-          <button *ngIf="!(isLoggedIn$ | async)" routerLink="signIn" class="btn btn-dark button-mix-color">
+           @if(!(isLoggedIn$ | async)){
+              <button routerLink="signIn" class="btn btn-dark button-mix-color">
             <i class="fa-solid fa-user responsive-icon"></i> Sign In
           </button>
-          <!-- Profile button -->
-          <!-- <button routerLink="profile" *ngIf="(isLoggedIn$ | async)" class="btn btn-dark button-mix-color ">
-            <i class="fa-solid fa-user responsive-icon"></i> Profile
-          </button> -->
+           }
           @if((isLoggedIn$ | async) && profileImageUrl){
              <div class="profile-avatar" routerLink="profile">
                 <img [src]="profileImageUrl" alt="Profile" />

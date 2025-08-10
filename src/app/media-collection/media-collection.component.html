@@ -6,26 +6,26 @@
   </app-main-header-page>
 }
 <section>
-  <div class="mt-5">
+  <div class="mt-5 overflow-hidden" >
     <!-- Container holding all media cards -->
-    <div class="media-container-parent w-100">
+    <div appAnimateOnScroll="slideUp" class="media-container-parent w-100">
       <!-- Loop through paginated media list -->
       @for (mediaContainer of paginatedMedia; track trackMedia($index,mediaContainer); let i = $index) {
         @if (mediaContainer.profile_path||mediaContainer.poster_path) {
-          <div class="media-container overflow-hidden" appAnimateOnVisible (visible)="markAsVisible(i)" >
+          <div class="media-container overflow-hidden" >
             <!-- Single media card -->
             <div class=""
               (click)="goToMediaDetails(mediaType === 'trending' ? mediaContainer.media_type : mediaType, mediaContainer.id)">
               <div class=" position-relative">
                 <!-- Profile image if available (used for people) -->
                 @if (mediaContainer.profile_path) {
-                  <img [@zoomIn]="visibleItems[i]?'visible':'void'"
+                  <img  
                     [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.profile_path"
                     alt="Person Image" />
                   }
                   <!-- Poster image if available (used for movies/series) -->
                   @if (mediaContainer.poster_path) {
-                    <img  [@zoomIn]="visibleItems[i]?'visible':'void'"
+                    <img  
                       [src]="'https://image.tmdb.org/t/p/w500' + mediaContainer.poster_path"
                       alt="mediaContainer Poster" />
                     }
@@ -41,29 +41,29 @@
                    <div class="text-center">
                      <!-- Media name (for person) -->
                     @if (mediaContainer.name) {
-                      <p [@slideDown]="visibleItems[i]?'visible':'void'"  >
+                      <p   >
                         {{ mediaContainer.name | seeMore: 2 }}
                       </p>
                     }
                     <!-- Media title (for movies/shows) -->
                     @if (mediaContainer.title) {
-                      <p [@slideDown]="visibleItems[i]?'visible':'void'"  >
+                      <p   >
                         {{ mediaContainer.title | seeMore: 2 }}
                       </p>
                     }
                     <!-- date -->
                     @if (mediaContainer.release_date) {
-                      <p [@slideUp]="visibleItems[i]?'visible': 'void'">
+                      <p >
                         <span class="date-media">{{ mediaContainer.release_date|timeAgo }}</span>
                       </p>
                     }
                     @if (mediaContainer.first_air_date) {
-                      <p [@slideUp]="visibleItems[i]?'visible': 'void'">
+                      <p >
                         <span class="date-media">{{ mediaContainer.first_air_date|timeAgo }}</span>
                       </p>
                     }
                     @if (mediaContainer.popularity && mediaType==='person') {
-                      <p [@slideUp]="visibleItems[i]?'visible': 'void'">
+                      <p >
                         popularity:
                         <span class="popularity">{{ mediaContainer.popularity }}</span>
                       </p>

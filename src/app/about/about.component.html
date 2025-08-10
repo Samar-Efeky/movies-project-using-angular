@@ -2,33 +2,42 @@
 <app-main-header-page page="about us"></app-main-header-page>
 <section>
   <div class="about-container container">
-    <!-- Image with zoom-in animation on scroll -->
+    <!-- About image -->
     <div class="my-5">
-      <img   src="assets/images/inner-about-img.jpg" class="rounded-4 w-100"  alt="about-image">
+      <img appAnimateOnScroll="zoomIn" src="assets/images/inner-about-img.jpg" class="rounded-4 w-100" alt="about-image">
     </div>
-    <!-- Section title and description with scroll animations -->
+
+    <!-- Main about section with black background -->
     <section class="text-center text-white py-3 bg-black">
       <div class="container overflow-hidden">
-        <h2 class="fw-bold mb-4" [@slideDown]="overviewVisible?'visible':'void'"
-        appAnimateOnVisible (visible)="overviewVisible=$event">ABOUT Media</h2>
-        <p class="mb-5 text-light" [@slideUp]="overviewVisible?'visible':'void'"
-          appAnimateOnVisible (visible)="overviewVisible=$event">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum consectetur quia hic odit quisquam voluptates excepturi accusantium asperiores
-          blanditiis. Voluptas minus dolorem magni perferendis sint dolor quae libero quaerat reiciendis?
+
+        <!-- Title with slide-down animation triggered on scroll -->
+        <h2 class="fw-bold mb-4" appAnimateOnScroll="slideDown"
+            >
+          ABOUT Media
+        </h2>
+
+        <!-- Description with slide-up animation triggered on scroll -->
+        <p class="mb-5 text-light" appAnimateOnScroll="slideUp"
+           >
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum consectetur quia hic odit quisquam voluptates excepturi.
         </p>
-        <!-- Stats section: shows animated numbers and icons -->
-        <div class="d-flex gap-4 flex-wrap justify-content-center m-auto"
-          #statsSection >
+
+        <!-- Statistics section -->
+        <div class="d-flex gap-4 flex-wrap justify-content-center m-auto" #statsSection>
           @for (stat of stats; track stat) {
-            <div class="about-content rounded-3" [@zoomIn]="overviewVisible?'visible':'void'"
-              appAnimateOnVisible (visible)="overviewVisible=$event">
+            <!-- Individual stat card with zoom-in animation when visible -->
+            <div class="about-content rounded-3"
+                 #statCard
+                 >
               <div class="p-4 h-100">
+                <!-- Icon for the stat -->
                 <div class="mb-2">
-                  <!-- Dynamic icon class -->
                   <i [class]="stat.icon"></i>
                 </div>
-                <!-- Counter number -->
+                <!-- Animated number counter -->
                 <h4 class="fw-bold">{{ stat.currentValue | number }}</h4>
+                <!-- Label for the stat -->
                 <p class="mb-0">{{ stat.label }}</p>
               </div>
             </div>
@@ -36,7 +45,8 @@
         </div>
       </div>
     </section>
-    <!-- Reuse movies component -->
-    <app-see-latest-movies></app-see-latest-movies>
+
+    <!-- Reusable component to show latest movies -->
+    <app-see-latest-movies appAnimateOnScroll="zoomIn"></app-see-latest-movies>
   </div>
 </section>

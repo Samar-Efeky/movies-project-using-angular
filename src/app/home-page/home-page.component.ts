@@ -1,10 +1,8 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component,  OnDestroy, OnInit} from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { SliderComponent } from '../slider/slider.component';
 import { SeeLatestMoviesComponent } from '../see-latest-movies/see-latest-movies.component';
-
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
-
 @Component({
     selector: 'app-home-page',
     imports: [HeaderComponent, SliderComponent, SeeLatestMoviesComponent, LazyLoadDirective],

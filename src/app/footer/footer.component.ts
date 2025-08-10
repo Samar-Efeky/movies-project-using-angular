@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
   import { RouterLink } from '@angular/router';
-import { zoomIn } from '../animations/animations';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 @Component({
     selector: 'app-footer',
     imports: [RouterLink, AnimateOnVisibleDirective],
     templateUrl: './footer.component.html',
     styleUrl: './footer.component.css',
-    animations: [zoomIn]
+    animations: [zoomIn,slideDown,slideUp]
 })
 export class FooterComponent {
-  overviewVisible = false;
   scrollToTop(): void {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }

@@ -4,10 +4,9 @@
   <!-- Section displaying address, email, and phone contact information -->
   <div class="d-flex gap-4 my-5 flex-wrap justify-content-center m-auto">
 
-    <!-- Address box with icon and text -->
-    <div [@zoomIn]="overviewVisible?'visible':'void'"
-    appAnimateOnVisible  (visible)="overviewVisible=true"
-    class="contact-details d-flex gap-3 flex-grow-1 flex-wrap rounded-3 p-md-5 p-3">
+    <!-- Address -->
+    <div  appAnimateOnScroll="zoomIn"
+         class="contact-details d-flex gap-3 flex-grow-1 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-location-dot fs-1"></i>
       </div>
@@ -17,10 +16,9 @@
       </div>
     </div>
 
-    <!-- Email box with multiple email links -->
-    <div [@zoomIn]="overviewVisible?'visible':'void'"
-    appAnimateOnVisible (visible)="overviewVisible=true" 
-    class="contact-details flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+    <!-- Email -->
+    <div  appAnimateOnScroll="zoomIn"
+         class="contact-details flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-envelope fs-1"></i>
       </div>
@@ -35,10 +33,9 @@
       </div>
     </div>
 
-    <!-- Phone box with clickable phone numbers -->
-    <div [@zoomIn]="overviewVisible?'visible':'void'"
-    appAnimateOnVisible (visible)="overviewVisible=true" 
-    class="contact-details flex-grow-md-1 flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
+    <!-- Phone -->
+    <div  appAnimateOnScroll="zoomIn"
+         class="contact-details flex-grow-md-1 flex-grow-1 d-flex gap-3 flex-wrap rounded-3 p-md-5 p-3">
       <div class="bg-white d-flex align-items-center px-3 rounded-3 h-100">
         <i class="fa-solid fa-phone-volume fs-1"></i>
       </div>
@@ -58,48 +55,41 @@
   <!-- Contact form container -->
   <div class="form-container p-xl-5 p-2 rounded-3">
     
-    <!-- Form title and short description -->
     <div class="text-center text-white mb-4 overflow-hidden">
-      <h2 class="fw-bold" [@slideDown]="overviewVisible?'visible': 'void'"
-      appAnimateOnVisible (visible)="overviewVisible=true">Get in Touch</h2>
-      <p class="py-2" [@slideUp]="overviewVisible?'visible':'void'" 
-      appAnimateOnVisible (visible)="overviewVisible=true">
+      <h2 class="fw-bold"
+       appAnimateOnScroll="slideDown"   >Get in Touch</h2>
+
+      <p class="py-2"
+        appAnimateOnScroll="slideUp">
         It is a long established fact that a reader will be distracted by the readable content...
       </p>
     </div>
 
-    <!-- Contact form with input fields and textarea -->
-    <form [@zoomIn]="overviewVisible?'visible':'void'"
-    appAnimateOnVisible (visible)="overviewVisible=true" 
-    class="row g-3">
-      <!-- Name input -->
-      <div class="col-md-6">
+    <!-- Contact form -->
+    <form 
+          class="row g-3">
+      <div class="col-md-6" appAnimateOnScroll="slideUp">
         <input type="text" class="form-control bg-black text-white border-dark" placeholder="Enter Name" />
       </div>
 
-      <!-- Email input -->
-      <div class="col-md-6">
+      <div class="col-md-6" appAnimateOnScroll="slideUp">
         <input type="email" class="form-control bg-black text-white border-dark" placeholder="Enter Email Address" />
       </div>
 
-      <!-- Subject input -->
-      <div class="col-md-6">
+      <div class="col-md-6" appAnimateOnScroll="slideUp">
         <input type="text" class="form-control bg-black text-white border-dark" placeholder="Write Subject" />
       </div>
 
-      <!-- Website link input -->
-      <div class="col-md-6">
+      <div class="col-md-6" appAnimateOnScroll="slideUp">
         <input type="url" class="form-control bg-black text-white border-dark" placeholder="Enter Your Website Link" />
       </div>
 
-      <!-- Message textarea -->
-      <div class="col-12">
+      <div class="col-12" appAnimateOnScroll="slideUp">
         <textarea rows="6" class="form-control bg-black text-white border-dark" placeholder="Write Message..."></textarea>
       </div>
 
-      <!-- Submit button -->
       <div class="col-12">
-        <button class="button-mix-color py-2 px-4 text-white">Send Message</button>
+        <button appAnimateOnScroll="zoomIn" class="button-mix-color py-2 px-4 text-white">Send Message</button>
       </div>
     </form>
 

@@ -1,56 +1,106 @@
-<div class="container-fluid  d-flex justify-content-center py-3">
-    <div class="sign  text-center my-5 p-3 rounded-4">
-        <h4 class=" py-3 text-center">
-            Sign in to  
-            <div routerLink="home-page"  class="logo d-inline">
-         <i class="fa-solid fa-clapperboard"></i>
+<div class="container-fluid d-flex justify-content-center py-3">
+  <!-- Centered sign-in form container -->
+  <div class="sign text-center my-5 p-3 rounded-4 overflow-hidden">
+    
+    <!-- Heading with animation and logo linking to home -->
+    <h4 appAnimateOnScroll="slideDown" class="py-3 text-center">
+      Sign in to
+      <div routerLink="home-page" class="logo d-inline">
+        <i class="fa-solid fa-clapperboard"></i>
         <span class="px-1">Media</span>
-    </div>
- 
-        </h4>
-        <div *ngIf="signInError!=''" class="alert alert-danger  m-auto my-3 p-0">
-            {{signInError}}
-        </div>
-        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class=" m-auto text-center my-4">
-            <div class="input-container  w-100 text-center position-relative">
-                <input id="email" type="email" class="w-100 p-3 rounded-3" 
-                autocomplete="email"
-                formControlName="email" >
-                <label class="input-label position-absolute px-2 text-black" for="email">Email</label>
-                <div class="alert alert-danger p-0 text-start my-2" 
-                 *ngIf="signInForm.get('email')?.invalid && signInForm.get('email')?.touched">
-                  <p *ngIf="signInForm.get('email')?.errors?.['required']" class="ms-4">Email is required</p>
-                  <p *ngIf="signInForm.get('email')?.errors?.['email']" class="ms-4">Invalid email </p>
-                </div> <!-- alert -->
-              </div> <!-- input-container -->
-              <div class="input-container pt-3 rounded-3 w-100 text-center position-relative">
-                <input id="Password" [type]="showPassword ? 'text' : 'password'"
-                formControlName="password"
-                class="w-100 p-3 rounded-3" 
-                autocomplete="new-password">
-                <label for="Password" class="input-label position-absolute text-black px-2">Password</label>
-                <i class="fas fa-eye position-absolute"
-                *ngIf="!showPassword"
-                 (click)="togglePasswordVisibility()"></i>
-                <i class="fas fa-eye-slash position-absolute"
-                *ngIf="showPassword"
-                (click)="togglePasswordVisibility()"></i>
-                <div class="alert alert-danger p-0 text-start my-2 "
-                *ngIf="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">
-                    <p *ngIf="signInForm.get('password')?.errors?.['required']" class="ms-4">Password is required</p>
-                    <p *ngIf="signInForm.get('password')?.errors?.['minlength']" class="ms-4">Password must be minimum letters is 6</p>
-                </div> <!-- alert -->
-            </div><!-- input-container -->
-            <div>
-                <button class="w-75 py-2 rounded-2 fw-bolder button-mix-color text-white" type="submit"
-                [disabled]="signInForm.invalid"
-            [ngClass]="{'bg-disabled': signInForm.invalid}">Sign In</button>
-            <p class="pt-2 mb-1">Don`t have an account? </p>
-            <a class="text-decoration-underline p-2" (click)="goToSignUp()"> Register now</a>
-            </div>
-        </form>
-    </div> <!-- signin -->
-</div> <!-- container -->
+      </div>
+    </h4>
 
+    <!-- Error message displayed if signInError is not empty -->
+    @if(signInError!=''){
+      <div class="alert alert-danger m-auto my-3 p-0">
+        {{signInError}}
+      </div>
+    }
 
+    <!-- Sign-in form with reactive form binding -->
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="m-auto text-center my-4">
 
+      <!-- Email input container with animation -->
+      <div class="input-container w-100 text-center position-relative">
+        <input
+          appAnimateOnScroll="slideUp"
+          id="email"
+          type="email"
+          class="w-100 p-3 rounded-3"
+          autocomplete="email"
+          formControlName="email"
+        >
+        <label class="input-label position-absolute px-2 text-black" for="email">Email</label>
+
+        <!-- Validation errors for email -->
+        @if(signInForm.get('email')?.invalid && signInForm.get('email')?.touched){
+          <div class="alert alert-danger p-0 text-start my-2">
+            @if(signInForm.get('email')?.errors?.['required']){
+              <p class="ms-4">Email is required</p>
+            }
+            @if(signInForm.get('email')?.errors?.['email']){
+              <p class="ms-4">Invalid email</p>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Password input container with animation -->
+      <div class="input-container pt-3 rounded-3 w-100 text-center position-relative">
+        <input
+          appAnimateOnScroll="slideUp"
+          id="Password"
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          class="w-100 p-3 rounded-3"
+          autocomplete="new-password"
+        >
+        <label for="Password" class="input-label position-absolute text-black px-2">Password</label>
+
+        <!-- Toggle password visibility icons -->
+        @if(!showPassword){
+          <i class="fas fa-eye position-absolute" (click)="togglePasswordVisibility()"></i>
+        }
+        @if(showPassword){
+          <i class="fas fa-eye-slash position-absolute" (click)="togglePasswordVisibility()"></i>
+        }
+
+        <!-- Validation errors for password -->
+        @if(signInForm.get('password')?.invalid && signInForm.get('password')?.touched){
+          <div class="alert alert-danger p-0 text-start my-2">
+            @if(signInForm.get('password')?.errors?.['required']){
+              <p class="ms-4">Password is required</p>
+            }
+            @if(signInForm.get('password')?.errors?.['minlength']){
+              <p class="ms-4">Password must be minimum letters is 6</p>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Submit button with animation and disabled state when form is invalid -->
+      <div>
+        <button
+          appAnimateOnScroll="zoomIn"
+          class="w-75 py-2 rounded-2 fw-bolder button-mix-color text-white"
+          type="submit"
+          [disabled]="signInForm.invalid"
+          [ngClass]="{'bg-disabled': signInForm.invalid}"
+        >
+          Sign In
+        </button>
+
+        <!-- Link to sign-up page -->
+        <p appAnimateOnScroll="slideUp" class="pt-2 mb-1">Don’t have an account?</p>
+        <a
+          appAnimateOnScroll="slideUp"
+          class="text-decoration-underline p-2"
+          (click)="goToSignUp()"
+        >
+          Register now
+        </a>
+      </div>
+    </form>
+  </div> <!-- End sign-in container -->
+</div> <!-- End main container -->

@@ -10,7 +10,6 @@ import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.dire
     animations: [slideDown, slideUp, zoomIn]
 })
 export class SeeLatestMoviesComponent {
-  overViewVisible = false; // Flag to track if the overview section is visible
   constructor(private router: Router){}
   goToLatestMovies(): void {
     // Navigate to the route with parameters: mediaType = 'movie', category = 'now_playing'
