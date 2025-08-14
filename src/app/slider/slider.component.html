@@ -1,6 +1,7 @@
-<div class="d-flex justify-content-between pt-5">
-  <h3><i class="fa-solid fa-play"></i> {{ title }}</h3>
-  <button (click)="goToMediaCollection(mediaType,category)" class="text-white p-2">View all</button>
+<div class="d-flex justify-content-between pt-5 overflow-hidden">
+  <h3 appAnimateOnScroll="slideDown"><i class="fa-solid fa-play"></i> {{ title }}</h3>
+  <button (click)="goToMediaCollection(mediaType,category)" 
+   class="text-white p-2">View all</button>
 </div>
 
 <!-- swiper container with ViewChild ref -->

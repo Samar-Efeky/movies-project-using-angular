@@ -55,3 +55,12 @@ export const slideUp = trigger('slideUp', [
     animate('1000ms ease')
   ])
 ]);
+export const slideDownUp = trigger('slideDownUp', [
+  transition(':enter', [
+    style({ transform: 'translateY(100%)' }),
+    animate('300ms ease-in', style({ transform: 'translateY(0)' }))
+  ]),
+  transition(':leave', [
+    animate('300ms ease-out', style({ transform: 'translateY(100%)' }))
+  ])
+]);

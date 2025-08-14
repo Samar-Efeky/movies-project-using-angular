@@ -14,15 +14,18 @@ import { Subscription } from 'rxjs';
 import { MediaService } from '../services/media.service';
 import { Router } from '@angular/router';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
+import { slideDown, slideUp, zoomIn } from '../animations/animations';
+import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 
 // Declare Swiper from CDN
 declare var Swiper: any;
 
 @Component({
   selector: 'app-slider',
-  imports: [SeeMorePipe, TimeAgoPipe],
+  imports: [SeeMorePipe, TimeAgoPipe, AnimateOnVisibleDirective],
   templateUrl: './slider.component.html',
-  styleUrl: './slider.component.css'
+  styleUrl: './slider.component.css',
+  animations:[slideDown, slideUp, zoomIn]
 })
 export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() category: string = 'popular';

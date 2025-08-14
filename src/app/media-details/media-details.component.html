@@ -80,8 +80,8 @@
                 </p>
                 <!-- Cast and crew if overview is fully shown -->
                 @if (showFullOverview) {
-                  <h4 class="pt-3">Cast</h4>
-                  <div appAnimateOnScroll="zoomIn" class="d-flex justify-content-center gap-3 flex-wrap">
+                  <h4 appAnimateOnScroll="slideDown" class="pt-3">Cast</h4>
+                  <div class="d-flex justify-content-center gap-3 flex-wrap">
                     <!-- Loop over cast members -->
                     @for(castPerson of cast; track castPerson.id; let i = $index){
                       @if (castPerson.profile_path) {
@@ -99,8 +99,8 @@
                     </div>
                   }
                   @if (showFullOverview) {
-                    <h4 class="pt-3">Crew</h4>
-                    <div appAnimateOnScroll="zoomIn" class="d-flex justify-content-center gap-3 flex-wrap">
+                    <h4 class="pt-3" appAnimateOnScroll="slideDown">Crew</h4>
+                    <div  class="d-flex justify-content-center gap-3 flex-wrap">
                       <!-- Loop over crew members -->
                       @for(crewPerson of crew; track crewPerson.id; let i = $index){
                         @if (crewPerson.profile_path) {

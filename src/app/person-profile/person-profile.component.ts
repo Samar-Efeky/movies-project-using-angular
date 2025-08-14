@@ -11,14 +11,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription, take } from 'rxjs';
 import { MediaDetailsService } from '../services/media-details.service';
 import { MainHeaderPageComponent } from '../main-header-page/main-header-page.component';
-import { DatePipe, CommonModule } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { SeeMorePipe } from '../pipes/see-more.pipe';
 import { TimeAgoPipe } from '../pipes/time-ago.pipe';
 import { AnimateOnVisibleDirective } from '../directives/animate-on-visible.directive';
 import { slideDown, slideUp, zoomIn } from '../animations/animations';
 import { ProfileService } from '../services/profile-service';
 import { UserService } from '../services/user-service';
-
 // Declare Swiper from CDN
 declare var Swiper: any;
 
@@ -36,7 +35,6 @@ declare var Swiper: any;
   animations: [slideUp, zoomIn, slideDown]
 })
 export class PersonProfileComponent implements OnInit, AfterViewInit, OnDestroy {
-
   /** UI visibility flags */
   overviewVisible = false;
   showFullBiography = false;

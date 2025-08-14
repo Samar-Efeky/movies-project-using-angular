@@ -2,12 +2,15 @@
   "name": "movies-project",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
+  "ng": "ng",
+  "start": "node scripts/set-env.js && ng serve",
+  "start:prod": "node scripts/set-env.js --prod && ng serve --configuration production",
+  "build": "node scripts/set-env.js && ng build",
+  "build:prod": "node scripts/set-env.js --prod && ng build --configuration production",
+  "test": "node scripts/set-env.js && ng test",
+  "lint": "ng lint",
+  "e2e": "ng e2e"
+},
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.1.4",
@@ -33,6 +36,8 @@
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.4",
     "@types/jasmine": "~5.1.0",
+    "dotenv": "^17.2.1",
+    "dotenv-expand": "^12.0.2",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

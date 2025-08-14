@@ -38,7 +38,7 @@ export class AnimateOnVisibleDirective implements OnInit, OnDestroy {
           this.observer.disconnect();
         }
       });
-    }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    }, { threshold: 0.1}); // Trigger when 10% of the element is visible
 
     // Start observing the host element
     this.observer.observe(this.el.nativeElement);

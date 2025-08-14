@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
   private headers = new HttpHeaders({
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2NmYTg5ZTdmNzNmOTI2Mzg4NmU4MjM4YzllZmYwMCIsIm5iZiI6MTcyNzA1MTc1My43MjE3MjcsInN1YiI6IjY2ZThkODllYjY2NzQ2ZGQ3OTBhOTAzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3De39_Q83wJNsQmhQVQzoMAh1WkAT6QxVizq24Mvlso',
+    'Authorization': `Bearer ${environment.tmdbApiToken}`,
     'accept': 'application/json'
   });
 
