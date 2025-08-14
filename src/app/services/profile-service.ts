@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { collectionData, Firestore } from '@angular/fire/firestore';
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,4 +27,15 @@ export class ProfileService {
     const itemRef = doc(this.db, `users/${uid}/history/${docId}`);
     return deleteDoc(itemRef);
   }
+  clearHistory(uid: string) {
+  const historyRef = collection(this.db, `users/${uid}/history`);
+
+  return getDocs(historyRef).then(snapshot => {
+    const deletePromises = snapshot.docs.map(docSnap => 
+      deleteDoc(doc(this.db, `users/${uid}/history/${docSnap.id}`))
+    );
+
+    return Promise.all(deletePromises); 
+  });
+}
 }

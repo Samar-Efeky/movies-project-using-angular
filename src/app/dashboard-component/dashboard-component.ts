@@ -4,6 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartData, ChartOptions } from 'chart.js';
 import { MediaService } from '../services/media.service';
 import { forkJoin, Subscription } from 'rxjs';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-dashboard-component',
   imports: [CommonModule, BaseChartDirective],
@@ -93,6 +94,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+   
     // Fetch movies data
     const moviesSub = forkJoin([
       this.mediaService.getMediaCollection('movie', 'popular', '1'),

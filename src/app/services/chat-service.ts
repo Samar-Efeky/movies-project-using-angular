@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ChatService {
-  private apiKey = environment.geminiApiKey;
+  private apiKey = environment.GEMINI_API_KEY;
   // ✅ النموذج الصح من Google AI Studio
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 

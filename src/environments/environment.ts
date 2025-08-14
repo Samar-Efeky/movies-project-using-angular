@@ -9,6 +9,6 @@ export const environment = {
   "messagingSenderId": "133933542668",
   "appId": "1:133933542668:web:77ec37854254e7ba7d6d29"
 },
-  geminiApiKey: "",
-  tmdbApiToken: ""
+  GEMINI_API_KEY: "AIzaSyAVM4x2bEDKji96-kkjpZm_mBh1yF2aJYM",
+  TMDB_API_TOKEN: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2NmYTg5ZTdmNzNmOTI2Mzg4NmU4MjM4YzllZmYwMCIsIm5iZiI6MTcyNjUzNTgzOS4wMDMsInN1YiI6IjY2ZThkODllYjY2NzQ2ZGQ3OTBhOTAzZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZpPoALt6AKBoavyePv1W9Qn4qXDDWv520wOlgG32OO8"
 };

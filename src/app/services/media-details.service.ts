@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class MediaDetailsService {
   private headers = new HttpHeaders({
-    'Authorization': `Bearer ${environment.tmdbApiToken}`,
+    'Authorization': `Bearer ${environment.TMDB_API_TOKEN}`,
       'accept': 'application/json'
     });
     constructor(private http: HttpClient) {}

@@ -37,33 +37,28 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
-          "configurations": {
-            "production": {"fileReplacements": [
+         "configurations": {
+  "production": {
+    "budgets": [
       {
-        "replace": "src/environments/environment.ts",
-        "with": "src/environments/environment.prod.ts"
+        "type": "initial",
+        "maximumWarning": "2mb",
+        "maximumError": "3mb"
+      },
+      {
+        "type": "anyComponentStyle",
+        "maximumWarning": "2kB",
+        "maximumError": "4kB"
       }
     ],
-              "budgets": [
-                {
-                   "type": "initial",
-                  "maximumWarning": "2mb",
-                    "maximumError": "3mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
+    "outputHashing": "all"
+  },
+  "development": {
+    "optimization": false,
+    "extractLicenses": false,
+    "sourceMap": true
+  }
+},
           "defaultConfiguration": "production"
         },
         "serve": {

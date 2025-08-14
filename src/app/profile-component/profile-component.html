@@ -33,11 +33,16 @@
     <!-- Main content: Recently viewed section -->
     <div class="col-xl-9 col-lg-8 col-md-9 col-sm-8">
 
-      <!-- Section title with user name -->
+     <div class="d-flex justify-content-between">
+        <!-- Section title with user name -->
       <h3 class="pb-2" appAnimateOnScroll="slideDown">
         <i class="fa-solid fa-circle-play fa-1x"></i> 
         Recently Viewed by {{profile?.name | seeMore:1}}
       </h3>
+      <button class="px-2 py-1 text-white btn btn-dark" (click)="clearAllHistory()">
+         Clear All History
+      </button>
+     </div>
 
       <!-- Async pipe to get history data -->
       @if (history$ | async; as history) {

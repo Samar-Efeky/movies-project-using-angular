@@ -83,6 +83,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       console.log('Item removed from history');
     });
   }
+  clearAllHistory() {
+    this._ProfileService.clearHistory(this.uid)
+      .then(() => {
+        console.log('All history removed');
+      })
+    .catch(err => console.error('Error removing all history:', err));
+
+}
 
   goToMediaDetails(mediaType: string, mediaId: string): void {
     // Navigate to details page depending on media type
