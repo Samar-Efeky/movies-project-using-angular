@@ -1,3 +1,4 @@
+// src/app/services/chat.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -6,9 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ChatService {
-  private apiKey = environment.GEMINI_API_KEY;
-  // ✅ النموذج الصح من Google AI Studio
-  private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  private base = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +19,6 @@ export class ChatService {
         }
       ]
     };
-    return this.http.post(`${this.endpoint}?key=${this.apiKey}`, body);
+    return this.http.post(`${this.base}/gemini/generate`, body);
   }
 }
