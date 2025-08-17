@@ -76,12 +76,6 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
 
   return `${id}-${name}-${image}-${index}`;
 }
-markAsVisible(index: number): void {
-  if (!this.visibleItems[index]) {
-    this.visibleItems[index] = true;
-  }
-}
-
   // Slice data to show only current page
   updatePagination() {
     const start = (this.currentPage - 1) * this.itemsPerPage;

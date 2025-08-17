@@ -8,7 +8,7 @@ export class MediaService {
   getMediaCollection(media: string, category: string, pageNumber = '1'): Observable<any> {
     return this.http.get<any>(`/api/tmdb/collection?media=${media}&category=${category}&page=${pageNumber}`);
   }
-  getTrending(media: string, category: string, pageNumber = '1'): Observable<any> {
+  getTrending(media = 'trending', category = 'all', pageNumber = '1'): Observable<any> {
     // call the same endpoint with category e.g. 'trending' if needed or create separate endpoint
     return this.http.get<any>(`/api/tmdb/collection?media=${media}&category=${category}&page=${pageNumber}`);
   }
