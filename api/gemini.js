@@ -1,32 +1,26 @@
 // api/gemini.js
-export default async function handler(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(204).end();
-  }
-
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
-  const { prompt } = req.body || {};
-  if (!prompt) return res.status(400).json({ error: 'Missing prompt' });
-
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) return res.status(500).json({ error: 'Server misconfigured: missing GEMINI_API_KEY' });
-
-  const endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-
+export async function POST(request) {
   try {
-    const r = await fetch(`${endpoint}?key=${encodeURIComponent(key)}`, {
+    const body = await request.json();
+    const prompt = body.prompt;
+    if (!prompt) return new Response(JSON.stringify({ error: 'Missing prompt' }), { status: 400 });
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return new Response(JSON.stringify({ error: 'Server missing GEMINI_API_KEY' }), { status: 500 });
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+    const resp = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+      body: JSON.stringify({ contents: [ { parts: [{ text: prompt }] } ] })
     });
-    const data = await r.json();
-    return res.status(r.ok ? 200 : 502).json(data);
+
+    const data = await resp.json();
+    return new Response(JSON.stringify(data), {
+      status: resp.status,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' } // في الإنتاج ضعي origin محدد
+    });
   } catch (err) {
-    console.error('Gemini proxy error:', err);
-    return res.status(500).json({ error: err.message });
+    return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: { 'content-type': 'application/json' }});
   }
 }
