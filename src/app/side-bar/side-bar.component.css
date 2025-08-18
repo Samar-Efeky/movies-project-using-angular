@@ -41,7 +41,7 @@
 .dashboard-button{
   display: none;
 }
-@media screen and (max-width:550px){
+@media screen and (max-width:570px){
  .dashboard-button{
   display: block;
 }

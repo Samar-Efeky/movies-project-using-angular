@@ -64,7 +64,7 @@ i{
         padding: 5%;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and (max-width:450px) {
     .profile-container{
          grid-template-columns: repeat(2, 1fr);
     }

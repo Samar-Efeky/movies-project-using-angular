@@ -12,9 +12,9 @@ export class MediaService {
     );
   }
 
-  getTrending(category = 'all', pageNumber = '1', time = 'day'): Observable<any> {
+   getTrending(category: string = 'all', time: string = 'day', pageNumber: string = '1'): Observable<any> {
     return this.http.get<any>(
-      `/api/tmdb/trending?category=${category}&page=${pageNumber}&time=${time}`
+      `/api/tmdb/trending?category=${category}&time=${time}&page=${pageNumber}`
     );
   }
 

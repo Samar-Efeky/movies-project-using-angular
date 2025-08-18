@@ -64,7 +64,7 @@ export class MediaCollectionComponent implements OnInit, OnDestroy {
   // Fetch media based on type and category
   getMedia(mediaType: string, category: string, page: string) {
     if (mediaType === 'trending') {
-      return this._MediaService.getTrending(mediaType, category, page);
+      return this._MediaService.getTrending(category, 'day', page);
     } else {
       return this._MediaService.getMediaCollection(mediaType, category, page);
     }
