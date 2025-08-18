@@ -6,9 +6,10 @@ import { FooterComponent } from "./footer/footer.component";
 
 import { slideInOut } from './animations/animations';
 import { ChatComponent } from './chat-component/chat-component';
+import { LoadingComponent } from './loading-component/loading-component';
 @Component({
     selector: 'app-root',
-    imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent,ChatComponent],
+    imports: [NavbarComponent, SideBarComponent, RouterOutlet, FooterComponent,ChatComponent,LoadingComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     animations: [slideInOut]

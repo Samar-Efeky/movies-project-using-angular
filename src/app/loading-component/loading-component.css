@@ -1,0 +1,50 @@
+.loading{
+  z-index: 1111111111111111111111111;
+  background-color: var(--black-color);
+}
+.loading h2{
+  font-size: 4rem;
+  font-weight: 900;
+  font-family:'Times New Roman', Times, serif;
+   color: transparent;
+  -webkit-text-stroke: 0.5px var(--black-color);
+
+  background: -o-linear-gradient(left, var(--main-color) 50%, transparent 50%);
+  background: linear-gradient(to right, var(--main-color) 50%, transparent 50%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-animation: change 2s infinite alternate ease-in-out;
+          animation: change 2s infinite alternate ease-in-out;
+}
+@-webkit-keyframes change {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+@keyframes change {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+@media screen and (max-width:1500px){
+    .loading h2{
+        font-size: 3.5rem;
+    }
+}
+@media screen and (max-width:1290px){
+    .loading h2{
+        font-size: 3rem;
+    }
+}
+@media screen and (max-width:800px){
+  .loading h2{
+    font-size: 2rem;
+  }
+}  
