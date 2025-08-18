@@ -7,9 +7,19 @@ import { LoadingService } from '../services/loading-service';
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
 
-  loadingService.show(); // turn loading on before request
+  // ✅ skip loader for Gemini API requests and TMDB search
+  const skipLoader =
+    req.url.includes('/api/gemini') ||
+    req.url.includes('/api/tmdb/search');
+
+  if (skipLoader) {
+    return next(req); // don't trigger loading
+  }
+
+  // Default: show loader
+  loadingService.show();
 
   return next(req).pipe(
-    finalize(() => loadingService.hide()) // turn loading off when finished
+    finalize(() => loadingService.hide())
   );
 };
